@@ -1,0 +1,13 @@
+{
+	"name": "com.em.foundation",
+	"displayName": "EM Foundation Package",
+	"version": "0.0.1",
+    "unity": "2020.1",
+    "unityRelease": "3f1",
+	"dependencies": {
+	},
+    "author": {
+        "name": "Maxim Epishev",
+        "email": "epishev.m@mail.ru"
+      }
+}
