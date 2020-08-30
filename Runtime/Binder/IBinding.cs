@@ -18,19 +18,15 @@ namespace EM.Foundation
 			get;
 		}
 
-		IBinding ToSelf();
-
 		IBinding To<T>();
 
 		IBinding To(object value);
 
+		IBinding ToSelf();
+
 		IBinding ToName<T>();
 
 		IBinding ToName(object name);
-
-		IBinding Named<T>();
-
-		IBinding Named(object name);
 
 		bool RemoveValue(object value);
 

@@ -1,6 +1,8 @@
 {
     "name": "EM.Foundation.Tests",
-    "references": [],
+    "references": [
+        "EM.Foundation"
+    ],
     "includePlatforms": [
         "Editor"
     ],
