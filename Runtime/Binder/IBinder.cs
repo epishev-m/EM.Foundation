@@ -7,9 +7,9 @@ namespace EM.Foundation
 
 		IBinding Bind(object key, object name = null);
 
-		void Unbind<T>(object name = null);
+		bool Unbind<T>(object name = null);
 
-		void Unbind(object key, object name = null);
+		bool Unbind(object key, object name = null);
 
 		IBinding GetBinding<T>(object name = null);
 
