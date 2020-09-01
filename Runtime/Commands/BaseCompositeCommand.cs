@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EM.Foundation
 {
@@ -8,16 +9,22 @@ namespace EM.Foundation
 
 		public ICompositeCommand Add(ICommand command)
 		{
-			throw new NotImplementedException();
+			var unused = command ?? throw new ArgumentNullException(nameof(command));
+			_queueCommands.Enqueue(command);
+
+			return this;
 		}
 
-		public void Clear()
+		public override void Clear()
 		{
-			throw new NotImplementedException();
+			base.Clear();
+			_queueCommands.Clear();
 		}
 
 		#endregion
 		#region BaseCompositeCommand
+
+		private readonly Queue<ICommand> _queueCommands = new Queue<ICommand>(16);
 
 		#endregion
 	}
