@@ -67,7 +67,7 @@ namespace EM.Foundation
 
 		public Binder()
 		{
-			_bindings = new Dictionary<BindingKey, IBinding>();
+			_bindings = new Dictionary<BindingKey, IBinding>(128);
 		}
 
 		protected virtual IBinding GetRawBinding(object key, object name)
