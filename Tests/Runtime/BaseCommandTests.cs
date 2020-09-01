@@ -48,15 +48,54 @@ internal sealed class BaseCommandTests
 		Assert.IsTrue(actual);
 	}
 
-	private class Command : BaseCommand
+	[Test]
+	public void BaseCommand_Clear_DoneEventEqualNull()
+	{
+		// Arrange
+		var actual = true;
+
+		// Act
+		var command = new Command();
+		command.Done += () => actual = false;
+		command.Clear();
+		command.Execute();
+
+		//Assert
+		Assert.IsTrue(actual);
+	}
+
+	[Test]
+	public void BaseCommand_Clear_DataEqualNull()
+	{
+		// Arrange
+		var data = typeof(string);
+
+		// Act
+		var command = new Command
+		{
+			Data = data
+		};
+		command.Clear();
+		var actual = command.GetData();
+
+		//Assert
+		Assert.IsNull(actual);
+	}
+
+	private sealed class Command : BaseCommand
 	{
 		public override void Execute()
 		{
 			DoneInvoke();
 		}
+
+		public object GetData()
+		{
+			return Data;
+		}
 	}
 
-	private class CommandFail : BaseCommand
+	private sealed class CommandFail : BaseCommand
 	{
 		public override void Execute()
 		{

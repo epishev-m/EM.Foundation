@@ -18,9 +18,10 @@ namespace EM.Foundation
 
 		public abstract void Execute();
 
-		protected void Fail()
+		public virtual void Clear()
 		{
-			_isFailed = true;
+			Done = null;
+			Data = null;
 		}
 
 		#endregion
@@ -31,6 +32,11 @@ namespace EM.Foundation
 		protected void DoneInvoke()
 		{
 			Done?.Invoke();
+		}
+
+		protected void Fail()
+		{
+			_isFailed = true;
 		}
 
 		#endregion

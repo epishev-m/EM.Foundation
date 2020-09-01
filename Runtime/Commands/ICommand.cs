@@ -17,5 +17,7 @@ namespace EM.Foundation
 		}
 
 		void Execute();
+
+		void Clear();
 	}
 }
