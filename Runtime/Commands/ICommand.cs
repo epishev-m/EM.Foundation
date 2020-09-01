@@ -4,12 +4,17 @@ namespace EM.Foundation
 {
 	public interface ICommand
 	{
+		event Action Done;
+
 		object Data
 		{
 			set;
 		}
 
-		event Action Done;
+		bool IsFailed
+		{
+			get;
+		}
 
 		void Execute();
 	}
