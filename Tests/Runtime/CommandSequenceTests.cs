@@ -1,7 +1,7 @@
 ﻿using EM.Foundation;
 using NUnit.Framework;
 
-internal sealed class SequenceCompositeCommandTests
+internal sealed class CommandSequenceTests
 {
 	[Test]
 	public void BaseCommand_Execute_Success()
@@ -12,7 +12,7 @@ internal sealed class SequenceCompositeCommandTests
 		var command3 = new Command();
 
 		// Act
-		var sequence = new SequenceCompositeCommand();
+		var sequence = new CommandSequence();
 		sequence.Add(command1)
 			.Add(command2)
 			.Add(command3)

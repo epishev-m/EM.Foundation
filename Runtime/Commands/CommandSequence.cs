@@ -1,7 +1,7 @@
 ﻿
 namespace EM.Foundation
 {
-	public sealed class SequenceCompositeCommand : BaseCompositeCommand
+	public sealed class CommandSequence: BaseCompositeCommand
 	{
 		#region BaseCompositeCommand
 
@@ -26,7 +26,7 @@ namespace EM.Foundation
 		}
 
 		#endregion
-		#region SequenceCompositeCommand
+		#region CommandSequence
 
 		private bool _canExecute = true;
 
