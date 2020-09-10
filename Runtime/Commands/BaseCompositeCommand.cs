@@ -26,6 +26,8 @@ namespace EM.Foundation
 
 		private readonly Queue<ICommand> _queueCommands = new Queue<ICommand>(16);
 
+		protected int Count => _queueCommands.Count;
+
 		protected ICommand Dequeue()
 		{
 			var command = default(ICommand);
