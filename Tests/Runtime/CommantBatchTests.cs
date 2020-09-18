@@ -25,7 +25,7 @@ public sealed class CommantBatchTests
 		{
 			while (batch.IsDone == false)
 			{
-				await Task.Delay(TimeSpan.FromMilliseconds(10));
+				await Task.Delay(TimeSpan.FromMilliseconds(20));
 			}
 
 			return 1;
@@ -47,7 +47,7 @@ public sealed class CommantBatchTests
 		{
 			var task = Task.Run(async () =>
 			{
-				await Task.Delay(TimeSpan.FromMilliseconds(10 * _index));
+				await Task.Delay(TimeSpan.FromMilliseconds(50 * _index));
 				Counter++;
 				Count = Counter;
 				DoneInvoke();
