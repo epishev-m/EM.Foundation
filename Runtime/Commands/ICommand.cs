@@ -11,6 +11,11 @@ namespace EM.Foundation
 			set;
 		}
 
+		bool IsDone
+		{
+			get;
+		}
+
 		bool IsFailed
 		{
 			get;

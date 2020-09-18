@@ -14,6 +14,8 @@ namespace EM.Foundation
 			protected get;
 		}
 
+		public bool IsDone => _isDone;
+
 		public bool IsFailed => _isFailed;
 
 		public abstract void Execute();
@@ -27,10 +29,13 @@ namespace EM.Foundation
 		#endregion
 		#region CommandBase
 
+		private bool _isDone = false;
+
 		private bool _isFailed = false;
 
 		protected void DoneInvoke()
 		{
+			_isDone = true;
 			Done?.Invoke();
 		}
 
