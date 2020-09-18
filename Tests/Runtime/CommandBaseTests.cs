@@ -1,4 +1,4 @@
-using EM.Foundation;
+﻿using EM.Foundation;
 using NUnit.Framework;
 
 internal sealed class CommandBaseTests
@@ -44,13 +44,10 @@ internal sealed class CommandBaseTests
 	[Test]
 	public void CommandBase_ExecuteAndCheckFail_ResultFalse()
 	{
-		// Arrange
-		var actual = true;
-
 		// Act
 		var command = new Command();
 		command.Execute();
-		actual = command.IsFailed;
+		var actual = command.IsFailed;
 
 		//Assert
 		Assert.IsFalse(actual);
@@ -59,13 +56,10 @@ internal sealed class CommandBaseTests
 	[Test]
 	public void CommandBase_ExecuteAndCheckFail_ResultTrue()
 	{
-		// Arrange
-		var actual = false;
-
 		// Act
 		var commandFail = new CommandFail();
 		commandFail.Execute();
-		actual = commandFail.IsFailed;
+		var actual = commandFail.IsFailed;
 
 		//Assert
 		Assert.IsTrue(actual);

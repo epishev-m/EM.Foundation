@@ -16,11 +16,10 @@ internal sealed class BinderTests
 		try
 		{
 			var binder = new Binder();
-			binder.Bind(null);
+			var unused = binder.Bind(null);
 		}
 		catch (Exception e)
 		{
-
 			actual = e is ArgumentNullException;
 		}
 
@@ -65,11 +64,10 @@ internal sealed class BinderTests
 		try
 		{
 			var binder = new Binder();
-			binder.GetBinding(null);
+			var unused = binder.GetBinding(null);
 		}
 		catch (Exception e)
 		{
-
 			actual = e is ArgumentNullException;
 		}
 
@@ -402,11 +400,10 @@ internal sealed class BinderTests
 		try
 		{
 			var binder = new Binder();
-			binder.Unbind(null);
+			var unused = binder.Unbind(null);
 		}
 		catch (Exception e)
 		{
-
 			actual = e is ArgumentNullException;
 		}
 
@@ -482,7 +479,7 @@ internal sealed class BinderTests
 		// Act
 		var binder = new Binder();
 		var binding = binder.Bind(key).ToSelf();
-		binder.Unbind(key);
+		var unused = binder.Unbind(key);
 		var actual = binder.GetBinding(key);
 
 		//Assert
@@ -499,7 +496,7 @@ internal sealed class BinderTests
 		// Act
 		var binder = new Binder();
 		var binding = binder.Bind(key).ToName(name);
-		binder.Unbind(key, name);
+		var unused = binder.Unbind(key, name);
 		var actual = binder.GetBinding(key, name);
 
 		//Assert
@@ -516,7 +513,7 @@ internal sealed class BinderTests
 		// Act
 		var binder = new Binder();
 		var binding = binder.Bind(key).ToSelf();
-		binder.Unbind<string>();
+		var unused = binder.Unbind<string>();
 		var actual = binder.GetBinding(key);
 
 		//Assert
@@ -533,7 +530,7 @@ internal sealed class BinderTests
 		// Act
 		var binder = new Binder();
 		var binding = binder.Bind(key).ToName(name);
-		binder.Unbind<string>(name);
+		var unused = binder.Unbind<string>(name);
 		var actual = binder.GetBinding(key, name);
 
 		//Assert

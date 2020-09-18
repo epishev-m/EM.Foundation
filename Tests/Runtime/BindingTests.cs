@@ -300,7 +300,7 @@ internal sealed class BindingTests
 
 		try
 		{
-			binding.ToName(null);
+			var unused = binding.ToName(null);
 		}
 		catch (Exception e)
 		{
@@ -420,7 +420,7 @@ internal sealed class BindingTests
 
 		// Act
 		var binding = new Binding(key, null, null);
-		binding.To(value);
+		var unused = binding.To(value);
 		var actual = binding.RemoveValue(value);
 
 		//Assert
@@ -451,7 +451,7 @@ internal sealed class BindingTests
 
 		// Act
 		var binding = new Binding(key, null, null);
-		binding.To(value).ToSelf().To<string>();
+		var unused = binding.To(value).ToSelf().To<string>();
 		binding.RemoveAllValues();
 		var actual = binding.Values;
 

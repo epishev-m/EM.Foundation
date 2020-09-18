@@ -1,4 +1,4 @@
-﻿using EM.Foundation;
+using EM.Foundation;
 using NUnit.Framework;
 
 internal sealed class CommandSequenceTests
@@ -19,14 +19,14 @@ internal sealed class CommandSequenceTests
 			.Execute();
 
 		//Assert
-		Assert.AreEqual(command1.Count, 1);
-		Assert.AreEqual(command2.Count, 2);
-		Assert.AreEqual(command3.Count, 3);
+		Assert.AreEqual(1, command1.Count);
+		Assert.AreEqual(2, command2.Count);
+		Assert.AreEqual(3, command3.Count);
 	}
 
 	private sealed class Command : CommandBase
 	{
-		#region BaseCommand
+		#region CommandBase
 
 		public override void Execute()
 		{
