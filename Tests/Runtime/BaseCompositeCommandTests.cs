@@ -2,16 +2,16 @@
 using NUnit.Framework;
 using System;
 
-internal sealed class BaseCompositeCommandTests
+internal sealed class CommandCompositeBaseTests
 {
 	[Test]
-	public void BaseCompositeCommand_Add_Exception()
+	public void CommandCompositeBase_Add_Exception()
 	{
 		// Arrange
 		var actual = false;
 
 		// Act
-		var compositeCommand = new CompositeCommand();
+		var compositeCommand = new CommandComposite();
 
 		try
 		{
@@ -27,20 +27,20 @@ internal sealed class BaseCompositeCommandTests
 	}
 
 	[Test]
-	public void BaseCompositeCommand_Add_ReturnCompositeCommand()
+	public void CommandCompositeBase_Add_ReturnThis()
 	{
 		// Arrange
 		var command = new Command();
 
 		// Act
-		var compositeCommand = new CompositeCommand();
-		var actual = compositeCommand.Add(command);
+		var commandComposite = new CommandComposite();
+		var actual = commandComposite.Add(command);
 
 		//Assert
-		Assert.AreEqual(actual, compositeCommand);
+		Assert.AreEqual(actual, commandComposite);
 	}
 
-	private sealed class Command : BaseCommand
+	private sealed class Command : CommandBase
 	{
 		public override void Execute()
 		{
@@ -48,7 +48,7 @@ internal sealed class BaseCompositeCommandTests
 		}
 	}
 
-	private sealed class CompositeCommand : BaseCompositeCommand
+	private sealed class CommandComposite : CommandCompositeBase
 	{
 		public override void Execute()
 		{

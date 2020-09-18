@@ -24,7 +24,7 @@ internal sealed class CommandSequenceTests
 		Assert.AreEqual(command3.Count, 3);
 	}
 
-	private sealed class Command : BaseCommand
+	private sealed class Command : CommandBase
 	{
 		#region BaseCommand
 

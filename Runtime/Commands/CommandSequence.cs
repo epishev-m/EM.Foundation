@@ -1,7 +1,7 @@
 ﻿
 namespace EM.Foundation
 {
-	public sealed class CommandSequence: BaseCompositeCommand
+	public sealed class CommandSequence: CommandCompositeBase
 	{
 		#region BaseCompositeCommand
 

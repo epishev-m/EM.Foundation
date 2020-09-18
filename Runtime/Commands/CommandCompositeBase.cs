@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace EM.Foundation
 {
-	public abstract class BaseCompositeCommand : BaseCommand, ICompositeCommand
+	public abstract class CommandCompositeBase : CommandBase, ICommandComposite
 	{
-		#region ICompositeCommand
+		#region ICommandComposite
 
-		public ICompositeCommand Add(ICommand command)
+		public ICommandComposite Add(ICommand command)
 		{
 			var unused = command ?? throw new ArgumentNullException(nameof(command));
 			_queueCommands.Enqueue(command);
@@ -22,7 +22,7 @@ namespace EM.Foundation
 		}
 
 		#endregion
-		#region BaseCompositeCommand
+		#region CommandCompositeBase
 
 		private readonly Queue<ICommand> _queueCommands = new Queue<ICommand>(16);
 

@@ -2,7 +2,7 @@
 
 namespace EM.Foundation
 {
-	public abstract class BaseCommand : ICommand
+	public abstract class CommandBase : ICommand
 	{
 		#region ICommand
 
@@ -25,7 +25,7 @@ namespace EM.Foundation
 		}
 
 		#endregion
-		#region BaseCommand
+		#region CommandBase
 
 		private bool _isFailed = false;
 

@@ -1,10 +1,10 @@
 ﻿using EM.Foundation;
 using NUnit.Framework;
 
-internal sealed class BaseCommandTests
+internal sealed class CommandBaseTests
 {
 	[Test]
-	public void BaseCommand_ExecuteAndSubscribeEvent_ResultTrue()
+	public void CommandBase_ExecuteAndSubscribeEvent_ResultTrue()
 	{
 		// Arrange
 		var actual = false;
@@ -19,7 +19,7 @@ internal sealed class BaseCommandTests
 	}
 
 	[Test]
-	public void BaseCommand_ExecuteAndCheckFail_ResultFalse()
+	public void CommandBase_ExecuteAndCheckFail_ResultFalse()
 	{
 		// Arrange
 		var actual = true;
@@ -34,7 +34,7 @@ internal sealed class BaseCommandTests
 	}
 
 	[Test]
-	public void BaseCommand_ExecuteAndCheckFail_ResultTrue()
+	public void CommandBase_ExecuteAndCheckFail_ResultTrue()
 	{
 		// Arrange
 		var actual = false;
@@ -49,7 +49,7 @@ internal sealed class BaseCommandTests
 	}
 
 	[Test]
-	public void BaseCommand_Clear_DoneEventEqualNull()
+	public void CommandBase_Clear_DoneEventEqualNull()
 	{
 		// Arrange
 		var actual = true;
@@ -65,7 +65,7 @@ internal sealed class BaseCommandTests
 	}
 
 	[Test]
-	public void BaseCommand_Clear_DataEqualNull()
+	public void CommandBase_Clear_DataEqualNull()
 	{
 		// Arrange
 		var data = typeof(string);
@@ -82,7 +82,7 @@ internal sealed class BaseCommandTests
 		Assert.IsNull(actual);
 	}
 
-	private sealed class Command : BaseCommand
+	private sealed class Command : CommandBase
 	{
 		public override void Execute()
 		{
@@ -95,7 +95,7 @@ internal sealed class BaseCommandTests
 		}
 	}
 
-	private sealed class CommandFail : BaseCommand
+	private sealed class CommandFail : CommandBase
 	{
 		public override void Execute()
 		{
