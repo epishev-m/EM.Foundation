@@ -1,4 +1,4 @@
-using EM.Foundation;
+﻿using EM.Foundation;
 using NUnit.Framework;
 
 internal sealed class CommandSequenceTests
@@ -7,6 +7,7 @@ internal sealed class CommandSequenceTests
 	public void BaseCommand_Execute_Success()
 	{
 		// Arrange
+		Command.Counter = 0;
 		var command1 = new Command();
 		var command2 = new Command();
 		var command3 = new Command();
