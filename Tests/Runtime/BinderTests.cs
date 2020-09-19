@@ -18,9 +18,9 @@ internal sealed class BinderTests
 			var binder = new Binder();
 			var unused = binder.Bind(null);
 		}
-		catch (Exception e)
+		catch (ArgumentNullException)
 		{
-			actual = e is ArgumentNullException;
+			actual = true;
 		}
 
 		//Assert
@@ -66,9 +66,9 @@ internal sealed class BinderTests
 			var binder = new Binder();
 			var unused = binder.GetBinding(null);
 		}
-		catch (Exception e)
+		catch (ArgumentNullException)
 		{
-			actual = e is ArgumentNullException;
+			actual = true;
 		}
 
 		//Assert
@@ -210,7 +210,7 @@ internal sealed class BinderTests
 		Assert.IsNotNull(newActual);
 		Assert.IsNull(oldActual);
 	}
-	
+
 	[Test]
 	public void Binder_GetBindingAfterDoubleBind_ReturnTheSameBinding()
 	{
@@ -402,9 +402,9 @@ internal sealed class BinderTests
 			var binder = new Binder();
 			var unused = binder.Unbind(null);
 		}
-		catch (Exception e)
+		catch (ArgumentNullException)
 		{
-			actual = e is ArgumentNullException;
+			actual = true;
 		}
 
 		//Assert

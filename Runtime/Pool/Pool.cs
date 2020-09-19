@@ -43,6 +43,7 @@ namespace CG.Foundation
 
 		public Pool()
 		{
+			_instanceProvider = null;
 		}
 
 		public Pool(IInstanceProvider instanceProvider)

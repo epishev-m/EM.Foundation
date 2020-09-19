@@ -1,5 +1,5 @@
+﻿using EM.Foundation;
 using NUnit.Framework;
-using EM.Foundation;
 using System;
 using System.Linq;
 
@@ -17,10 +17,9 @@ internal sealed class BindingTests
 		{
 			var binding = new Binding(null, null, null);
 		}
-		catch(Exception e)
+		catch (ArgumentNullException)
 		{
-			
-			actual = e is ArgumentNullException;
+			actual = true;
 		}
 
 		//Assert
@@ -306,9 +305,9 @@ internal sealed class BindingTests
 		{
 			var unused = binding.ToName(null);
 		}
-		catch (Exception e)
+		catch (ArgumentNullException)
 		{
-			actual = e is ArgumentNullException;
+			actual = true;
 		}
 
 		//Assert
