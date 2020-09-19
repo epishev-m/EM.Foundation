@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using EM.Foundation;
 using System;
+using System.Linq;
 
 internal sealed class BindingTests
 {
@@ -110,7 +111,8 @@ internal sealed class BindingTests
 
 		// Act
 		var binding = new Binding(key, null, null);
-		var actual = binding.To(value).Values[0];
+		var valuesArray = binding.To(value).Values.ToArray();
+		var actual = valuesArray.ToArray()[0];
 
 		//Assert
 		Assert.AreEqual(key, actual);
@@ -125,10 +127,10 @@ internal sealed class BindingTests
 
 		// Act
 		var binding1 = new Binding(key, null, null);
-		var actual1 = binding1.To(value).Values.Length;
+		var actual1 = binding1.To(value).Values.Count();
 
 		var binding2 = new Binding(key, null, null);
-		var actual2 = binding2.To(value).To(value).Values.Length;
+		var actual2 = binding2.To(value).To(value).Values.Count();
 
 		//Assert
 		Assert.AreEqual(1, actual1);
@@ -178,7 +180,8 @@ internal sealed class BindingTests
 
 		// Act
 		var binding = new Binding(key, null, null);
-		var actual = binding.To<string>().Values[0];
+		var vakuesArray = binding.To<string>().Values.ToArray();
+		var actual = vakuesArray[0];
 
 		//Assert
 		Assert.AreEqual(key, actual);
@@ -192,10 +195,10 @@ internal sealed class BindingTests
 
 		// Act
 		var binding1 = new Binding(key, null, null);
-		var actual1 = binding1.To<string>().Values.Length;
+		var actual1 = binding1.To<string>().Values.Count();
 
 		var binding2 = new Binding(key, null, null);
-		var actual2 = binding2.To<string>().To<string>().Values.Length;
+		var actual2 = binding2.To<string>().To<string>().Values.Count();
 
 		//Assert
 		Assert.AreEqual(1, actual1);
@@ -244,7 +247,8 @@ internal sealed class BindingTests
 
 		// Act
 		var binding = new Binding(key, null, null);
-		var actual = binding.ToSelf().Values[0];
+		var valuesArray = binding.ToSelf().Values.ToArray();
+		var actual = valuesArray[0];
 
 		//Assert
 		Assert.AreEqual(key, actual);
@@ -258,10 +262,10 @@ internal sealed class BindingTests
 
 		// Act
 		var binding1 = new Binding(key, null, null);
-		var actual1 = binding1.ToSelf().Values.Length;
+		var actual1 = binding1.ToSelf().Values.Count();
 
 		var binding2 = new Binding(key, null, null);
-		var actual2 = binding2.ToSelf().ToSelf().Values.Length;
+		var actual2 = binding2.ToSelf().ToSelf().Values.Count();
 
 		//Assert
 		Assert.AreEqual(1, actual1);

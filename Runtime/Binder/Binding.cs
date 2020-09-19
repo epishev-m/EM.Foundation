@@ -18,7 +18,7 @@ namespace EM.Foundation
 			private set;
 		}
 
-		public object[] Values => _values.Count <= 0 ? null : _values.ToArray();
+		public IEnumerable<object> Values => _values.Count <= 0 ? null : _values;
 
 		public IBinding To<T>()
 		{

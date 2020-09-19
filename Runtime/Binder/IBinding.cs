@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+
 namespace EM.Foundation
 {
 	public interface IBinding
@@ -13,7 +14,7 @@ namespace EM.Foundation
 			get;
 		}
 
-		object[] Values
+		IEnumerable<object> Values
 		{
 			get;
 		}
