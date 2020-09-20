@@ -1,6 +1,5 @@
-﻿using NUnit.Framework;
-using EM.Foundation;
-using System;
+﻿using EM.Foundation;
+using NUnit.Framework;
 
 public sealed class SignalTests
 {
