@@ -3,7 +3,7 @@ namespace CG.Foundation
 {
 	public interface IPool<T> where T : class
 	{
-		int CountInstance
+		int Count
 		{
 			get;
 		}

@@ -394,9 +394,10 @@ internal sealed class BinderTests
 	[Test]
 	public void Binder_Unbind_Exception()
 	{
-		// Act
+		// Arrange
 		var actual = false;
 
+		// Act
 		try
 		{
 			var binder = new Binder();

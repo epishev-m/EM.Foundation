@@ -7,7 +7,7 @@ namespace CG.Foundation
 	{
 		#region IPool
 
-		public int CountInstance => _instances.Count;
+		public int Count => _instances.Count;
 
 		public T GetObject()
 		{
