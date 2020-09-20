@@ -5,54 +5,6 @@ using System;
 public sealed class SignalTests
 {
 	[Test]
-	public void Signal_AddListener_Exception()
-	{
-		// Arrange
-		var argsArray = new object[1];
-		var action = default(Action<ISignal, object[]>);
-		var actual = false;
-
-		// Act
-		var signal = new Signal();
-
-		try
-		{
-			signal.AddListener(action);
-		}
-		catch (ArgumentNullException)
-		{
-			actual = true;
-		}
-
-		//Assert
-		Assert.IsTrue(actual);
-	}
-
-	[Test]
-	public void Signal_AddListenerOnce_Exception()
-	{
-		// Arrange
-		var argsArray = new object[1];
-		var action = default(Action<ISignal, object[]>);
-		var actual = false;
-
-		// Act
-		var signal = new Signal();
-
-		try
-		{
-			signal.AddListenerOnce(action);
-		}
-		catch (ArgumentNullException)
-		{
-			actual = true;
-		}
-
-		//Assert
-		Assert.IsTrue(actual);
-	}
-
-	[Test]
 	public void Signal_AddListenerAndDispatch_Success()
 	{
 		// Arrange
