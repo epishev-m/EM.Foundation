@@ -1,5 +1,5 @@
 ﻿using System;
-using ActionEx = System.Action<EM.Foundation.ISignal, object[]>;
+using ActionSignal = System.Action<EM.Foundation.ISignal, object[]>;
 
 namespace EM.Foundation
 {
@@ -12,22 +12,22 @@ namespace EM.Foundation
 			_events?.Invoke(this, args);
 		}
 
-		public void AddListener(ActionEx action)
+		public void AddListener(ActionSignal action)
 		{
-			_events = (ActionEx)Delegate.Combine(_events, action);
+			_events = (ActionSignal)Delegate.Combine(_events, action);
 		}
 
-		public void AddListenerOnce(ActionEx action)
+		public void AddListenerOnce(ActionSignal action)
 		{
-			ActionEx removeAction = null;
+			ActionSignal removeAction = null;
 			removeAction += RemoveAction;
 
-			_events = (ActionEx)Delegate.Combine(_events, removeAction, action);
+			_events = (ActionSignal)Delegate.Combine(_events, removeAction, action);
 
 			void RemoveAction(ISignal target, object[] args)
 			{
-				_events = (ActionEx)Delegate.Remove(_events, action);
-				_events = (ActionEx)Delegate.Remove(_events, removeAction);
+				_events = (ActionSignal)Delegate.Remove(_events, action);
+				_events = (ActionSignal)Delegate.Remove(_events, removeAction);
 			}
 		}
 
@@ -36,15 +36,15 @@ namespace EM.Foundation
 			_events = null;
 		}
 
-		public void RemoveListener(ActionEx action)
+		public void RemoveListener(ActionSignal action)
 		{
-			_events = (ActionEx)Delegate.Remove(_events, action);
+			_events = (ActionSignal)Delegate.Remove(_events, action);
 		}
 
 		#endregion
 		#region SignalBase
 
-		protected event ActionEx _events;
+		protected event ActionSignal _events;
 
 		#endregion
 	}
