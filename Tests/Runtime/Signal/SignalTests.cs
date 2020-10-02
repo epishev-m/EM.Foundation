@@ -1,7 +1,7 @@
 ﻿using EM.Foundation;
 using NUnit.Framework;
 
-public sealed class SignalTests
+internal sealed class SignalTests
 {
 	[Test]
 	public void Signal_AddListenerAndDispatch_Success()
