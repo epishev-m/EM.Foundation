@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 
-namespace CG.Foundation
+namespace EM.Foundation
 {
 	public class Pool<T> : IPool<T> where T : class
 	{
@@ -15,7 +15,8 @@ namespace CG.Foundation
 			{
 				if (_instanceProvider != null)
 				{
-					item = _instanceProvider.GetInstance<T>();
+					var instance = _instanceProvider.GetInstance();
+					item = instance is T ? instance as T : throw new Exception();
 				}
 			}
 
@@ -48,7 +49,8 @@ namespace CG.Foundation
 
 		public Pool(IInstanceProvider instanceProvider)
 		{
-			_instanceProvider = instanceProvider ?? throw new ArgumentNullException(nameof(instanceProvider));
+			_instanceProvider = instanceProvider ??
+				throw new ArgumentNullException(nameof(instanceProvider));
 		}
 
 		#endregion

@@ -1,5 +1,5 @@
 ﻿
-namespace CG.Foundation
+namespace EM.Foundation
 {
 	public interface IPoolable
 	{

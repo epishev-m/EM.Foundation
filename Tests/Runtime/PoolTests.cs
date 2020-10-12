@@ -1,9 +1,11 @@
-﻿using CG.Foundation;
+﻿using EM.Foundation;
 using NUnit.Framework;
 using System;
 
 public sealed class PoolTests
 {
+	#region Pool
+
 	[Test]
 	public void Pool_GetObject_Null()
 	{
@@ -14,7 +16,7 @@ public sealed class PoolTests
 		var pool = new Pool<TestObject>();
 		var actual = pool.GetObject();
 
-		//Assert
+		// Assert
 		Assert.AreEqual(expected, actual);
 	}
 
@@ -147,8 +149,11 @@ public sealed class PoolTests
 		Assert.AreEqual(expected, actual);
 	}
 
+	#endregion
+	#region PoolAndInstanceProvider
+
 	[Test]
-	public void PoolAndInstanceProvider_Constructor_NotNull()
+	public void PoolAndInstanceProvider_GetObject_NotNull()
 	{
 		// Arrange
 		var instanceProvider = new TestInstanceProvider();
@@ -159,6 +164,28 @@ public sealed class PoolTests
 
 		//Assert
 		Assert.IsNotNull(actual);
+	}
+
+	[Test]
+	public void PoolAndInstanceProvider_GetObject_Exception()
+	{
+		// Arrange
+		var instanceProvider = new FailInstanceProvider();
+		var pool = new Pool<TestObject>(instanceProvider);
+		var actual = false;
+
+		// Act
+		try
+		{
+			var instance = pool.GetObject();
+		}
+		catch (Exception)
+		{
+			actual = true;
+		}
+
+		//Assert
+		Assert.IsTrue(actual);
 	}
 
 	[Test]
@@ -201,6 +228,9 @@ public sealed class PoolTests
 		Assert.IsTrue(actual);
 	}
 
+	#endregion
+	#region Nested
+
 	private sealed class TestObject : IPoolable
 	{
 		private bool _isRestored = true;
@@ -220,14 +250,19 @@ public sealed class PoolTests
 
 	private sealed class TestInstanceProvider : IInstanceProvider
 	{
-		public T GetInstance<T>(object name = null) where T : class
+		public object GetInstance()
 		{
-			return GetInstance(typeof(T), name) as T;
-		}
-
-		public object GetInstance(Type key, object name = null)
-		{
-			return Activator.CreateInstance(key);
+			return Activator.CreateInstance(typeof(TestObject));
 		}
 	}
+
+	private sealed class FailInstanceProvider : IInstanceProvider
+	{
+		public object GetInstance()
+		{
+			return Activator.CreateInstance(typeof(string));
+		}
+	}
+
+	#endregion
 }

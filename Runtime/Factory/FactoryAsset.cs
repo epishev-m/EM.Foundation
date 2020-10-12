@@ -6,7 +6,7 @@ namespace EM.Foundation
 	{
 		#region IFactory
 
-		public abstract bool Create(out object instance);
+		public abstract bool TryCreate(out object instance);
 
 		#endregion IFactory
 	}
