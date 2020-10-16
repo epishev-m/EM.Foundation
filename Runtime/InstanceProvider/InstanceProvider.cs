@@ -1,8 +1,10 @@
-﻿using System;
-
+﻿
 namespace EM.Foundation
 {
-	public sealed class InstanceProvider : IInstanceProvider
+	using System;
+	
+	public sealed class InstanceProvider :
+		IInstanceProvider
 	{
 		#region IInstanceProvider
 
@@ -16,7 +18,8 @@ namespace EM.Foundation
 
 		private readonly object _instance;
 
-		public InstanceProvider(object instance)
+		public InstanceProvider(
+			object instance)
 		{
 			_instance = instance ?? throw new ArgumentNullException(nameof(instance));
 		}

@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace EM.Foundation
 {
+	using System.Collections.Generic;
+	
 	public interface IBinding
 	{
 		object Key
@@ -21,15 +22,18 @@ namespace EM.Foundation
 
 		IBinding To<T>();
 
-		IBinding To(object value);
+		IBinding To(
+			object value);
 
 		IBinding ToSelf();
 
 		IBinding ToName<T>();
 
-		IBinding ToName(object name);
+		IBinding ToName(
+			object name);
 
-		bool RemoveValue(object value);
+		bool RemoveValue(
+			object value);
 
 		void RemoveAllValues();
 	}

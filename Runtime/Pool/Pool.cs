@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Concurrent;
-
+﻿
 namespace EM.Foundation
 {
-	public class Pool<T> : IPool<T> where T : class
+	using System;
+	using System.Collections.Concurrent;
+
+	public class Pool<T> :
+		IPool<T>
+		where T : class
 	{
 		#region IPool
 
@@ -23,7 +26,8 @@ namespace EM.Foundation
 			return item;
 		}
 
-		public void PutObject(T obj)
+		public void PutObject(
+			T obj)
 		{
 			var item = obj ?? throw new ArgumentNullException(nameof(obj));
 
@@ -47,7 +51,8 @@ namespace EM.Foundation
 			_instanceProvider = null;
 		}
 
-		public Pool(IInstanceProvider instanceProvider)
+		public Pool(
+			IInstanceProvider instanceProvider)
 		{
 			_instanceProvider = instanceProvider ??
 				throw new ArgumentNullException(nameof(instanceProvider));

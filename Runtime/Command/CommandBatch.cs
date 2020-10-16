@@ -1,7 +1,8 @@
 ﻿
 namespace EM.Foundation
 {
-	public sealed class CommandBatch : CommandCompositeBase
+	public sealed class CommandBatch :
+		CommandCompositeBase
 	{
 		#region BaseCompositeCommand
 

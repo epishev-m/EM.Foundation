@@ -1,7 +1,8 @@
 ﻿
 namespace EM.Foundation
 {
-	public interface IPool<T> where T : class
+	public interface IPool<T>
+		where T : class
 	{
 		int Count
 		{
@@ -10,6 +11,7 @@ namespace EM.Foundation
 
 		T GetObject();
 
-		void PutObject(T item);
+		void PutObject(
+			T item);
 	}
 }

@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace EM.Foundation
 {
-	public abstract class CommandCompositeBase : CommandBase, ICommandComposite
+	using System;
+	using System.Collections.Generic;
+
+	public abstract class CommandCompositeBase :
+		CommandBase,
+		ICommandComposite
 	{
 		#region ICommandComposite
 
-		public ICommandComposite Add(ICommand command)
+		public ICommandComposite Add(
+			ICommand command)
 		{
 			var unused = command ?? throw new ArgumentNullException(nameof(command));
 			_queueCommands.Enqueue(command);

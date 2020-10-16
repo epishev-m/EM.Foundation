@@ -1,8 +1,10 @@
 ﻿
 namespace EM.Foundation
 {
-	public interface ICommandComposite : ICommand
+	public interface ICommandComposite :
+		ICommand
 	{
-		ICommandComposite Add(ICommand command);
+		ICommandComposite Add(
+			ICommand command);
 	}
 }

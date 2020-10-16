@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace EM.Foundation
 {
+	using System;
+	using System.Collections.Generic;
+	
 	public delegate void Resolver(IBinding binding);
 
-	public class Binding : IBinding
+	public class Binding :
+		IBinding
 	{
 		#region IBinding
 
@@ -20,7 +22,8 @@ namespace EM.Foundation
 			return To(typeof(T));
 		}
 
-		public IBinding To(object value)
+		public IBinding To(
+			object value)
 		{
 			var tempValue = value ?? throw new ArgumentNullException(nameof(value));
 			_values.AddLast(tempValue);
@@ -42,7 +45,8 @@ namespace EM.Foundation
 			return ToName(typeof(T));
 		}
 
-		public IBinding ToName(object name)
+		public IBinding ToName(
+			object name)
 		{
 			_name = name ?? throw new ArgumentNullException(nameof(name));
 			_resolver?.Invoke(this);
@@ -50,7 +54,8 @@ namespace EM.Foundation
 			return this;
 		}
 
-		public bool RemoveValue(object value)
+		public bool RemoveValue(
+			object value)
 		{
 			return _values.Remove(value);
 		}
@@ -71,7 +76,10 @@ namespace EM.Foundation
 
 		private object _name;
 
-		public Binding(object key, object name, Resolver resolver)
+		public Binding(
+			object key,
+			object name,
+			Resolver resolver)
 		{
 			_key = key ?? throw new ArgumentNullException(nameof(key));
 			_name = name;

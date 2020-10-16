@@ -1,8 +1,10 @@
-﻿using System;
-
+﻿
 namespace EM.Foundation
 {
-	public abstract class CommandBase : ICommand
+	using System;
+	
+	public abstract class CommandBase :
+		ICommand
 	{
 		#region ICommand
 

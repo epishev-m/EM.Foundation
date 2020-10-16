@@ -1,23 +1,28 @@
-﻿using System;
-using ActionSignal = System.Action<EM.Foundation.ISignal, object[]>;
-
+﻿
 namespace EM.Foundation
 {
-	public class Signal : ISignal
+	using System;
+	using ActionSignal = System.Action<EM.Foundation.ISignal, object[]>;
+	
+	public class Signal :
+		ISignal
 	{
 		#region ISignal
 
-		public void Dispatch(object[] args)
+		public void Dispatch(
+			object[] args)
 		{
 			_events?.Invoke(this, args);
 		}
 
-		public void AddListener(ActionSignal action)
+		public void AddListener(
+			ActionSignal action)
 		{
 			_events = (ActionSignal)Delegate.Combine(_events, action);
 		}
 
-		public void AddListenerOnce(ActionSignal action)
+		public void AddListenerOnce(
+			ActionSignal action)
 		{
 			ActionSignal removeAction = null;
 			removeAction += RemoveAction;
@@ -36,7 +41,8 @@ namespace EM.Foundation
 			_events = null;
 		}
 
-		public void RemoveListener(ActionSignal action)
+		public void RemoveListener(
+			ActionSignal action)
 		{
 			_events = (ActionSignal)Delegate.Remove(_events, action);
 		}

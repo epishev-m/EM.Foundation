@@ -1,8 +1,11 @@
-﻿using UnityEngine;
-
+﻿
 namespace EM.Foundation
 {
-	public abstract class FactoryAsset : ScriptableObject, IFactory
+	using UnityEngine;
+	
+	public abstract class FactoryAsset :
+		ScriptableObject,
+		IFactory
 	{
 		#region IFactory
 

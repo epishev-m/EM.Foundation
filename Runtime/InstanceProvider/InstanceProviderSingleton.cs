@@ -1,8 +1,10 @@
-﻿using System;
-
+﻿
 namespace EM.Foundation
 {
-	public sealed class InstanceProviderSingleton : IInstanceProvider
+	using System;
+	
+	public sealed class InstanceProviderSingleton :
+		IInstanceProvider
 	{
 		#region IInstanceProvider
 
@@ -23,7 +25,8 @@ namespace EM.Foundation
 
 		private object _instance;
 
-		public InstanceProviderSingleton(IInstanceProvider instanceProvider)
+		public InstanceProviderSingleton(
+			IInstanceProvider instanceProvider)
 		{
 			_instanceProvider = instanceProvider ??
 				throw new ArgumentNullException(nameof(instanceProvider));
