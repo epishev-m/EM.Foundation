@@ -25,7 +25,9 @@ namespace EM.Foundation
 		public IBinding To(
 			object value)
 		{
-			var tempValue = value ?? throw new ArgumentNullException(nameof(value));
+			Requires.IsNotNull(value, nameof(value));
+
+			var tempValue = value;
 			_values.AddLast(tempValue);
 			_resolver?.Invoke(this);
 
@@ -48,7 +50,9 @@ namespace EM.Foundation
 		public IBinding ToName(
 			object name)
 		{
-			_name = name ?? throw new ArgumentNullException(nameof(name));
+			Requires.IsNotNull(name, nameof(name));
+
+			_name = name;
 			_resolver?.Invoke(this);
 
 			return this;
@@ -81,7 +85,9 @@ namespace EM.Foundation
 			object name,
 			Resolver resolver)
 		{
-			_key = key ?? throw new ArgumentNullException(nameof(key));
+			Requires.IsNotNull(key, nameof(key));
+
+			_key = key;
 			_name = name;
 			_resolver = resolver;
 		}

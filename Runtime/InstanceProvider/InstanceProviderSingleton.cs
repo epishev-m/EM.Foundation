@@ -28,8 +28,9 @@ namespace EM.Foundation
 		public InstanceProviderSingleton(
 			IInstanceProvider instanceProvider)
 		{
-			_instanceProvider = instanceProvider ??
-				throw new ArgumentNullException(nameof(instanceProvider));
+			Requires.IsNotNull(instanceProvider, nameof(instanceProvider));
+
+			_instanceProvider = instanceProvider;
 		}
 
 		#endregion

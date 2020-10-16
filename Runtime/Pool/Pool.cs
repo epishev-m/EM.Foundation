@@ -29,14 +29,14 @@ namespace EM.Foundation
 		public void PutObject(
 			T obj)
 		{
-			var item = obj ?? throw new ArgumentNullException(nameof(obj));
+			Requires.IsNotNull(obj, nameof(obj));
 
-			if (item is IPoolable poolItem && !poolItem.IsRestored)
+			if (obj is IPoolable poolItem && !poolItem.IsRestored)
 			{
 				poolItem.Restore();
 			}
 
-			_instances.Add(item);
+			_instances.Add(obj);
 		}
 
 		#endregion
@@ -54,8 +54,9 @@ namespace EM.Foundation
 		public Pool(
 			IInstanceProvider instanceProvider)
 		{
-			_instanceProvider = instanceProvider ??
-				throw new ArgumentNullException(nameof(instanceProvider));
+			Requires.IsNotNull(instanceProvider, nameof(instanceProvider));
+
+			_instanceProvider = instanceProvider;
 		}
 
 		#endregion

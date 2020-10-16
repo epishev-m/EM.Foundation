@@ -1,7 +1,6 @@
 ﻿
 namespace EM.Foundation
 {
-	using System;
 	using System.Collections.Generic;
 	using BindingKey = System.ValueTuple<object, object>;
 
@@ -20,8 +19,10 @@ namespace EM.Foundation
 			object key,
 			object name = null)
 		{
-			var unused = key ?? throw new ArgumentNullException(nameof(key));
-			var binding = GetBinding(key, name) ?? GetRawBinding(key, name);
+			Requires.IsNotNull(key, nameof(key));
+
+			var binding = GetBinding(key, name) ??
+				GetRawBinding(key, name);
 
 			return binding;
 		}
@@ -36,7 +37,8 @@ namespace EM.Foundation
 			object key,
 			object name = null)
 		{
-			var unused = key ?? throw new ArgumentNullException(nameof(key));
+			Requires.IsNotNull(key, nameof(key));
+
 			var result = false;
 			var bindingKey = new BindingKey(key, name);
 
@@ -59,7 +61,8 @@ namespace EM.Foundation
 			object key,
 			object name = null)
 		{
-			var unused = key ?? throw new ArgumentNullException(nameof(key));
+			Requires.IsNotNull(key, nameof(key));
+
 			IBinding result = default;
 			var bindingKey = new BindingKey(key, name);
 

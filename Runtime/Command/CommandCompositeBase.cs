@@ -13,7 +13,9 @@ namespace EM.Foundation
 		public ICommandComposite Add(
 			ICommand command)
 		{
-			var unused = command ?? throw new ArgumentNullException(nameof(command));
+			Requires.IsNotNull(command, nameof(command));
+
+			var unused = command;
 			_queueCommands.Enqueue(command);
 
 			return this;

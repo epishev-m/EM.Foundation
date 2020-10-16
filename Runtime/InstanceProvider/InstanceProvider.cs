@@ -21,7 +21,9 @@ namespace EM.Foundation
 		public InstanceProvider(
 			object instance)
 		{
-			_instance = instance ?? throw new ArgumentNullException(nameof(instance));
+			Requires.IsNotNull(instance, nameof(instance));
+
+			_instance = instance;
 		}
 
 		#endregion
