@@ -11,11 +11,7 @@ namespace EM.Foundation
 
 		public object Key => _key;
 
-		public object Name
-		{
-			get;
-			private set;
-		}
+		public object Name => _name;
 
 		public IEnumerable<object> Values => _values.Count <= 0 ? null : _values;
 
@@ -48,7 +44,7 @@ namespace EM.Foundation
 
 		public IBinding ToName(object name)
 		{
-			Name = name ?? throw new ArgumentNullException(nameof(name));
+			_name = name ?? throw new ArgumentNullException(nameof(name));
 			_resolver?.Invoke(this);
 
 			return this;
@@ -73,10 +69,12 @@ namespace EM.Foundation
 
 		private readonly Resolver _resolver;
 
+		private object _name;
+
 		public Binding(object key, object name, Resolver resolver)
 		{
 			_key = key ?? throw new ArgumentNullException(nameof(key));
-			Name = name;
+			_name = name;
 			_resolver = resolver;
 		}
 
