@@ -42,9 +42,9 @@ namespace EM.Foundation
 			var result = false;
 			var bindingKey = new BindingKey(key, name);
 
-			if (_bindings.ContainsKey(bindingKey))
+			if (bindings.ContainsKey(bindingKey))
 			{
-				_bindings.Remove(bindingKey);
+				bindings.Remove(bindingKey);
 				result = true;
 			}
 
@@ -66,9 +66,9 @@ namespace EM.Foundation
 			IBinding result = default;
 			var bindingKey = new BindingKey(key, name);
 
-			if (_bindings.ContainsKey(bindingKey))
+			if (bindings.ContainsKey(bindingKey))
 			{
-				result = _bindings[bindingKey];
+				result = bindings[bindingKey];
 			}
 
 			return result;
@@ -77,11 +77,11 @@ namespace EM.Foundation
 		#endregion
 		#region Binder
 
-		protected readonly Dictionary<BindingKey, IBinding> _bindings;
+		protected readonly Dictionary<BindingKey, IBinding> bindings;
 
 		public Binder()
 		{
-			_bindings = new Dictionary<BindingKey, IBinding>(128);
+			bindings = new Dictionary<BindingKey, IBinding>(128);
 		}
 
 		protected virtual IBinding GetRawBinding(
@@ -98,17 +98,17 @@ namespace EM.Foundation
 			{
 				var bindingKey = new BindingKey(binding.Key, null);
 
-				if (_bindings.ContainsKey(bindingKey))
+				if (bindings.ContainsKey(bindingKey))
 				{
-					_bindings.Remove(bindingKey);
+					bindings.Remove(bindingKey);
 				}
 			}
 
 			var actualBindingKey = new BindingKey(binding.Key, binding.Name);
 
-			if (!_bindings.ContainsKey(actualBindingKey))
+			if (!bindings.ContainsKey(actualBindingKey))
 			{
-				_bindings.Add(actualBindingKey, binding);
+				bindings.Add(actualBindingKey, binding);
 			}
 		}
 

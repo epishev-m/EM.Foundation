@@ -1,7 +1,8 @@
-﻿using System;
-
+﻿
 namespace EM.Foundation
 {
+	using System;
+	
 	public interface ICommand
 	{
 		event Action Done;

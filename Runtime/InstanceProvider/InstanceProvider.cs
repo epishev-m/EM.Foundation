@@ -1,8 +1,6 @@
 ﻿
 namespace EM.Foundation
 {
-	using System;
-	
 	public sealed class InstanceProvider :
 		IInstanceProvider
 	{
@@ -10,20 +8,20 @@ namespace EM.Foundation
 
 		public object GetInstance()
 		{
-			return _instance;
+			return instance;
 		}
 
 		#endregion
 		#region InstanceProvider
 
-		private readonly object _instance;
+		private readonly object instance;
 
 		public InstanceProvider(
 			object instance)
 		{
 			Requires.IsNotNull(instance, nameof(instance));
 
-			_instance = instance;
+			this.instance = instance;
 		}
 
 		#endregion

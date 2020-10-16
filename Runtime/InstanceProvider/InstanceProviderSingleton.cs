@@ -1,8 +1,6 @@
 ﻿
 namespace EM.Foundation
 {
-	using System;
-	
 	public sealed class InstanceProviderSingleton :
 		IInstanceProvider
 	{
@@ -10,27 +8,27 @@ namespace EM.Foundation
 
 		public object GetInstance()
 		{
-			if (_instance == null)
+			if (instance == null)
 			{
-				_instance = _instanceProvider.GetInstance();
+				instance = instanceProvider.GetInstance();
 			}
 
-			return _instance;
+			return instance;
 		}
 
 		#endregion
 		#region InstanceProviderSingleton
 
-		private readonly IInstanceProvider _instanceProvider;
+		private readonly IInstanceProvider instanceProvider;
 
-		private object _instance;
+		private object instance;
 
 		public InstanceProviderSingleton(
 			IInstanceProvider instanceProvider)
 		{
 			Requires.IsNotNull(instanceProvider, nameof(instanceProvider));
 
-			_instanceProvider = instanceProvider;
+			this.instanceProvider = instanceProvider;
 		}
 
 		#endregion

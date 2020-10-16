@@ -1,7 +1,6 @@
 ﻿
 namespace EM.Foundation
 {
-	using System;
 	using System.Collections.Generic;
 
 	public abstract class CommandCompositeBase :
@@ -16,7 +15,7 @@ namespace EM.Foundation
 			Requires.IsNotNull(command, nameof(command));
 
 			var unused = command;
-			_queueCommands.Enqueue(command);
+			queueCommands.Enqueue(command);
 
 			return this;
 		}
@@ -24,23 +23,23 @@ namespace EM.Foundation
 		public override void Clear()
 		{
 			base.Clear();
-			_queueCommands.Clear();
+			queueCommands.Clear();
 		}
 
 		#endregion
 		#region CommandCompositeBase
 
-		private readonly Queue<ICommand> _queueCommands = new Queue<ICommand>(16);
+		private readonly Queue<ICommand> queueCommands = new Queue<ICommand>(16);
 
-		protected int Count => _queueCommands.Count;
+		protected int Count => queueCommands.Count;
 
 		protected ICommand Dequeue()
 		{
 			var command = default(ICommand);
 
-			if (_queueCommands.Count > 0)
+			if (queueCommands.Count > 0)
 			{
-				command = _queueCommands.Dequeue();
+				command = queueCommands.Dequeue();
 			}
 
 			return command;

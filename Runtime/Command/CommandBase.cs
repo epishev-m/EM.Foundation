@@ -16,9 +16,9 @@ namespace EM.Foundation
 			protected get;
 		}
 
-		public bool IsDone => _isDone;
+		public bool IsDone => isDone;
 
-		public bool IsFailed => _isFailed;
+		public bool IsFailed => isFailed;
 
 		public abstract void Execute();
 
@@ -31,19 +31,19 @@ namespace EM.Foundation
 		#endregion
 		#region CommandBase
 
-		private bool _isDone = false;
+		private bool isDone = false;
 
-		private bool _isFailed = false;
+		private bool isFailed = false;
 
 		protected void DoneInvoke()
 		{
-			_isDone = true;
+			isDone = true;
 			Done?.Invoke();
 		}
 
 		protected void Fail()
 		{
-			_isFailed = true;
+			isFailed = true;
 		}
 
 		#endregion

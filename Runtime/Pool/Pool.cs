@@ -10,15 +10,15 @@ namespace EM.Foundation
 	{
 		#region IPool
 
-		public int Count => _instances.Count;
+		public int Count => instances.Count;
 
 		public T GetObject()
 		{
-			if (!_instances.TryTake(out var item))
+			if (!instances.TryTake(out var item))
 			{
-				if (_instanceProvider != null)
+				if (instanceProvider != null)
 				{
-					var instance = _instanceProvider.GetInstance();
+					var instance = instanceProvider.GetInstance();
 					item = instance is T ? instance as T : throw new Exception();
 				}
 			}
@@ -36,19 +36,19 @@ namespace EM.Foundation
 				poolItem.Restore();
 			}
 
-			_instances.Add(obj);
+			instances.Add(obj);
 		}
 
 		#endregion
 		#region Pool
 
-		protected readonly ConcurrentBag<T> _instances = new ConcurrentBag<T>();
+		protected readonly ConcurrentBag<T> instances = new ConcurrentBag<T>();
 
-		protected readonly IInstanceProvider _instanceProvider;
+		protected readonly IInstanceProvider instanceProvider;
 
 		public Pool()
 		{
-			_instanceProvider = null;
+			instanceProvider = null;
 		}
 
 		public Pool(
@@ -56,7 +56,7 @@ namespace EM.Foundation
 		{
 			Requires.IsNotNull(instanceProvider, nameof(instanceProvider));
 
-			_instanceProvider = instanceProvider;
+			this.instanceProvider = instanceProvider;
 		}
 
 		#endregion

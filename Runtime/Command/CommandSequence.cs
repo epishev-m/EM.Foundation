@@ -8,19 +8,19 @@ namespace EM.Foundation
 
 		public override void Execute()
 		{
-			if (_canExecute)
+			if (canExecute)
 			{
-				_canExecute = false;
-				_currentCommand = Dequeue();
+				canExecute = false;
+				currentCommand = Dequeue();
 
-				if (_currentCommand != null)
+				if (currentCommand != null)
 				{
-					_currentCommand.Done += OnDone;
-					_currentCommand.Execute();
+					currentCommand.Done += OnDone;
+					currentCommand.Execute();
 				}
 				else
 				{
-					_canExecute = true;
+					canExecute = true;
 					OnDone();
 				}
 			}
@@ -29,17 +29,17 @@ namespace EM.Foundation
 		#endregion
 		#region CommandSequence
 
-		private bool _canExecute = true;
+		private bool canExecute = true;
 
-		private ICommand _currentCommand = default;
+		private ICommand currentCommand = default;
 
 		private void OnDone()
 		{
-			if (_currentCommand != null)
+			if (currentCommand != null)
 			{
-				_currentCommand.Done -= OnDone;
-				_currentCommand = null;
-				_canExecute = true;
+				currentCommand.Done -= OnDone;
+				currentCommand = null;
+				canExecute = true;
 				Execute();
 			}
 			else

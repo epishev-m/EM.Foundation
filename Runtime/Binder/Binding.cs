@@ -1,7 +1,6 @@
 ﻿
 namespace EM.Foundation
 {
-	using System;
 	using System.Collections.Generic;
 	
 	public delegate void Resolver(IBinding binding);
@@ -11,11 +10,11 @@ namespace EM.Foundation
 	{
 		#region IBinding
 
-		public object Key => _key;
+		public object Key => key;
 
-		public object Name => _name;
+		public object Name => name;
 
-		public IEnumerable<object> Values => _values.Count <= 0 ? null : _values;
+		public IEnumerable<object> Values => values.Count <= 0 ? null : values;
 
 		public IBinding To<T>()
 		{
@@ -28,16 +27,16 @@ namespace EM.Foundation
 			Requires.IsNotNull(value, nameof(value));
 
 			var tempValue = value;
-			_values.AddLast(tempValue);
-			_resolver?.Invoke(this);
+			values.AddLast(tempValue);
+			resolver?.Invoke(this);
 
 			return this;
 		}
 
 		public IBinding ToSelf()
 		{
-			_values.AddLast(_key);
-			_resolver?.Invoke(this);
+			values.AddLast(key);
+			resolver?.Invoke(this);
 
 			return this;
 		}
@@ -52,8 +51,8 @@ namespace EM.Foundation
 		{
 			Requires.IsNotNull(name, nameof(name));
 
-			_name = name;
-			_resolver?.Invoke(this);
+			this.name = name;
+			resolver?.Invoke(this);
 
 			return this;
 		}
@@ -61,24 +60,24 @@ namespace EM.Foundation
 		public bool RemoveValue(
 			object value)
 		{
-			return _values.Remove(value);
+			return values.Remove(value);
 		}
 
 		public void RemoveAllValues()
 		{
-			_values.Clear();
+			values.Clear();
 		}
 
 		#endregion
 		#region Binding
 
-		private readonly LinkedList<object> _values = new LinkedList<object>();
+		private readonly LinkedList<object> values = new LinkedList<object>();
 
-		private readonly object _key;
+		private readonly object key;
 
-		private readonly Resolver _resolver;
+		private readonly Resolver resolver;
 
-		private object _name;
+		private object name;
 
 		public Binding(
 			object key,
@@ -87,9 +86,9 @@ namespace EM.Foundation
 		{
 			Requires.IsNotNull(key, nameof(key));
 
-			_key = key;
-			_name = name;
-			_resolver = resolver;
+			this.key = key;
+			this.name = name;
+			this.resolver = resolver;
 		}
 
 		#endregion

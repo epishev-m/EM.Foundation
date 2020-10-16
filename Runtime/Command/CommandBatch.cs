@@ -8,10 +8,10 @@ namespace EM.Foundation
 
 		public override void Execute()
 		{
-			if (_canExecute)
+			if (canExecute)
 			{
-				_canExecute = false;
-				_counter = Count;
+				canExecute = false;
+				counter = Count;
 
 				while (true)
 				{
@@ -32,17 +32,17 @@ namespace EM.Foundation
 		#endregion
 		#region CommandBatch
 
-		private bool _canExecute = true;
+		private bool canExecute = true;
 
-		private int _counter;
+		private int counter;
 
 		private void OnDone()
 		{
-			_counter--;
+			counter--;
 
-			if (_counter <= 0)
+			if (counter <= 0)
 			{
-				_canExecute = true;
+				canExecute = true;
 				DoneInvoke();
 			}
 		}
