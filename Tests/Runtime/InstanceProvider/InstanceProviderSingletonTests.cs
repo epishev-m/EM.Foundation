@@ -57,17 +57,17 @@ internal sealed class InstanceProviderSingletonTests
 
 		public object GetInstance()
 		{
-			return _test;
+			return test;
 		}
 
 		#endregion
 		#region TestProvider
 
-		private readonly Test _test;
+		private readonly Test test;
 
 		public TestProvider(Test test)
 		{
-			_test = test ?? throw new ArgumentNullException(nameof(test));
+			this.test = test ?? throw new ArgumentNullException(nameof(test));
 		}
 
 		#endregion
