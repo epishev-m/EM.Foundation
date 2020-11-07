@@ -9,6 +9,8 @@ namespace EM.Foundation
 	{
 		#region ICommandComposite
 
+		public IEnumerable<ICommand> Commands => queueCommands;
+
 		public ICommandComposite Add(
 			ICommand command)
 		{
@@ -19,6 +21,9 @@ namespace EM.Foundation
 
 			return this;
 		}
+
+		#endregion
+		#region CommandBase
 
 		public override void Clear()
 		{
