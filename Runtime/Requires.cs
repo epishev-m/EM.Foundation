@@ -43,6 +43,18 @@ namespace EM.Foundation
 			}
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void IsType<T>(
+			object instance,
+			string paramName)
+		{
+			if ((instance is T) == false)
+			{
+				ThrowArgumentException(paramName,
+					StringResources.SuppliedTypeIsNotAGivenType(instance.GetType(), typeof(T)));
+			}
+		}
+
 		private static void ThrowArgumentNullException(
 			string paramName)
 		{
