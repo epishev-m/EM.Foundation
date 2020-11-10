@@ -3,7 +3,7 @@ namespace EM.Foundation
 {
 	using System;
 	
-	public sealed class SignalEx :
+	public class SignalEx :
 		Signal
 	{
 		public void Dispatch()

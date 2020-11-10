@@ -51,13 +51,17 @@ namespace EM.Foundation
 			return result;
 		}
 
-		public IBinding GetBinding<T>(
-			object name = null)
+		#endregion
+		#region Binder
+
+		protected readonly Dictionary<BindingKey, IBinding> bindings;
+
+		public Binder()
 		{
-			return GetBinding(typeof(T), name);
+			bindings = new Dictionary<BindingKey, IBinding>(128);
 		}
 
-		public IBinding GetBinding(
+		protected virtual IBinding GetBinding(
 			object key,
 			object name = null)
 		{
@@ -72,16 +76,6 @@ namespace EM.Foundation
 			}
 
 			return result;
-		}
-
-		#endregion
-		#region Binder
-
-		protected readonly Dictionary<BindingKey, IBinding> bindings;
-
-		public Binder()
-		{
-			bindings = new Dictionary<BindingKey, IBinding>(128);
 		}
 
 		protected virtual IBinding GetRawBinding(

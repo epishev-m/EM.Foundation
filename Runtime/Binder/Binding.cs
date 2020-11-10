@@ -26,8 +26,7 @@ namespace EM.Foundation
 		{
 			Requires.IsNotNull(value, nameof(value));
 
-			var tempValue = value;
-			values.AddLast(tempValue);
+			values.AddLast(value);
 			resolver?.Invoke(this);
 
 			return this;

@@ -16,12 +16,5 @@ namespace EM.Foundation
 		bool Unbind(
 			object key,
 			object name = null);
-
-		IBinding GetBinding<T>(
-			object name = null);
-
-		IBinding GetBinding(
-			object key,
-			object name = null);
 	}
 }
