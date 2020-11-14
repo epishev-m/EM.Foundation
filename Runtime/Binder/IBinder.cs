@@ -1,6 +1,8 @@
 ﻿
 namespace EM.Foundation
 {
+using System;
+
 	public interface IBinder
 	{
 		IBinding Bind<T>(
@@ -16,5 +18,10 @@ namespace EM.Foundation
 		bool Unbind(
 			object key,
 			object name = null);
+
+		void Unbind(
+			Predicate<IBinding> match);
+
+		void UnbindAll();
 	}
 }

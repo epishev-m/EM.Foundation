@@ -1,6 +1,7 @@
 ﻿
 namespace EM.Foundation
 {
+	using System;
 	using System.Collections.Generic;
 	using BindingKey = System.ValueTuple<object, object>;
 
@@ -49,6 +50,30 @@ namespace EM.Foundation
 			}
 
 			return result;
+		}
+
+		public void Unbind(
+			Predicate<IBinding> match)
+		{
+			var resultList = new List<KeyValuePair<(object, object), IBinding>>();
+
+			foreach (var keyValue in bindings)
+			{
+				if (match(keyValue.Value))
+				{
+					resultList.Add(keyValue);
+				}
+			}
+
+			foreach (var pair in resultList)
+			{
+				Unbind(pair.Key.Item1, pair.Key.Item2);
+			}
+		}
+
+		public void UnbindAll()
+		{
+			bindings.Clear();
 		}
 
 		#endregion
