@@ -65,7 +65,7 @@ internal sealed class BinderTests
 		try
 		{
 			var binder = new Binder();
-			var unused = binder.Unbind(null);
+			var unused = binder.Unbind(null, null);
 		}
 		catch (ArgumentNullException)
 		{
@@ -98,11 +98,13 @@ internal sealed class BinderTests
 
 		// Act
 		var binder = new Binder();
-		var binding = binder.Bind(key).ToSelf();
-		var actual = binder.Unbind(key);
+		var expected = binder.Bind(key).ToSelf();
+		var actualResult = binder.Unbind(key);
+		var actual = binder.Bind(key);
 
 		//Assert
-		Assert.IsTrue(actual);
+		Assert.AreNotEqual(expected, actual);
+		Assert.IsTrue(actualResult);
 	}
 
 	[Test]
@@ -127,11 +129,45 @@ internal sealed class BinderTests
 
 		// Act
 		var binder = new Binder();
-		var binding = binder.Bind(key).ToSelf();
-		var actual = binder.Unbind<string>();
+		var expected = binder.Bind(key).ToSelf();
+		var actualResult = binder.Unbind<string>();
+		var actual = binder.Bind(key);
 
 		//Assert
-		Assert.IsTrue(actual);
+		Assert.AreNotEqual(expected, actual);
+		Assert.IsTrue(actualResult);
+	}
+
+	[Test]
+	public void Binder_UnbindPredicate()
+	{
+		// Arrange
+		var key = typeof(string);
+
+		// Act
+		var binder = new Binder();
+		var expected = binder.Bind(key).ToSelf();
+		binder.Unbind(b => b.Key.Equals(key));
+		var actual = binder.Bind(key);
+
+		//Assert
+		Assert.AreNotEqual(expected, actual);
+	}
+
+	[Test]
+	public void Binder_UnbindAll()
+	{
+		// Arrange
+		var key = typeof(string);
+
+		// Act
+		var binder = new Binder();
+		var expected = binder.Bind(key).ToSelf();
+		binder.UnbindAll();
+		var actual = binder.Bind(key);
+
+		//Assert
+		Assert.AreNotEqual(expected, actual);
 	}
 
 	#endregion
