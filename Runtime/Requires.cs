@@ -8,6 +8,20 @@ namespace EM.Foundation
 	public static class Requires
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void IsValidOperation(
+			bool condition,
+			object instance,
+			string methodName)
+		{
+			if (condition == false)
+			{
+				ThrowInvalidOperationException(
+					StringResources.MethodCallInvalidForObjectCurrentState(
+						instance.GetType(), methodName));
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void IsNotNull(
 			object instance,
 			string paramName)
@@ -79,6 +93,12 @@ namespace EM.Foundation
 			string message)
 		{
 			throw new ArgumentException(paramName, message);
+		}
+
+		private static void ThrowInvalidOperationException(
+			string message)
+		{
+			throw new InvalidOperationException(message);
 		}
 	}
 }
