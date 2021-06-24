@@ -3,10 +3,10 @@ using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
 
-public sealed class CommantBatchTests
+public sealed class CommandBatchTests
 {
 	[Test]
-	public void CommantBatch_Execute_Success()
+	public void CommandBatch_Execute_Success()
 	{
 		// Arrange
 		Command.Counter = 0;
@@ -39,15 +39,20 @@ public sealed class CommantBatchTests
 		Assert.AreEqual(3, command3.Count);
 	}
 
-	private sealed class Command : CommandBase
+	private sealed class Command :
+		CommandBase
 	{
+		public static int Counter;
+
+		private readonly int index;
+
 		#region CommandBase
 
 		public override void Execute()
 		{
-			var task = Task.Run(async () =>
+			var unused = Task.Run(async () =>
 			{
-				await Task.Delay(TimeSpan.FromMilliseconds(50 * _index));
+				await Task.Delay(TimeSpan.FromMilliseconds(50 * index));
 				Counter++;
 				Count = Counter;
 				DoneInvoke();
@@ -57,10 +62,6 @@ public sealed class CommantBatchTests
 		#endregion
 		#region Command
 
-		public static int Counter = 0;
-
-		private readonly int _index;
-
 		public int Count
 		{
 			get;
@@ -69,7 +70,7 @@ public sealed class CommantBatchTests
 
 		public Command(int index)
 		{
-			_index = index;
+			this.index = index;
 		}
 
 		#endregion

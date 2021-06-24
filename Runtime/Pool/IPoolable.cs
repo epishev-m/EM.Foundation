@@ -1,13 +1,14 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	public interface IPoolable
-	{
-		bool IsRestored
-		{
-			get;
-		}
 
-		void Restore();
+public interface IPoolable
+{
+	bool IsRestored
+	{
+		get;
 	}
+
+	void Restore();
+}
+
 }

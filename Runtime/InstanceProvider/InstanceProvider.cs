@@ -1,29 +1,30 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	public sealed class InstanceProvider :
-		IInstanceProvider
+
+public sealed class InstanceProvider :
+	IInstanceProvider
+{
+	private readonly object instance;
+
+	#region IInstanceProvider
+
+	public object GetInstance()
 	{
-		#region IInstanceProvider
-
-		public object GetInstance()
-		{
-			return instance;
-		}
-
-		#endregion
-		#region InstanceProvider
-
-		private readonly object instance;
-
-		public InstanceProvider(
-			object instance)
-		{
-			Requires.IsNotNull(instance, nameof(instance));
-
-			this.instance = instance;
-		}
-
-		#endregion
+		return instance;
 	}
+
+	#endregion
+	#region InstanceProvider
+
+	public InstanceProvider(
+		object instance)
+	{
+		Requires.NotNull(instance, nameof(instance));
+
+		this.instance = instance;
+	}
+
+	#endregion
+}
+
 }

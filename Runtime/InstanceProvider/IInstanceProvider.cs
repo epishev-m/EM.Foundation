@@ -1,8 +1,9 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	public interface IInstanceProvider
-	{
-		object GetInstance();
-	}
+
+public interface IInstanceProvider
+{
+	object GetInstance();
+}
+
 }

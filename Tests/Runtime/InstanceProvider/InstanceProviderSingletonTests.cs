@@ -11,12 +11,11 @@ internal sealed class InstanceProviderSingletonTests
 	{
 		// Arrange
 		var actual = false;
-		var providerParam = default(IInstanceProvider);
 
 		// Act
 		try
 		{
-			var provider = new InstanceProviderSingleton(providerParam);
+			var unused = new InstanceProviderSingleton(null);
 		}
 		catch (ArgumentNullException)
 		{
@@ -47,12 +46,15 @@ internal sealed class InstanceProviderSingletonTests
 	#endregion
 	#region Nested
 
-	internal sealed class Test
+	private sealed class Test
 	{
 	}
 
-	internal sealed class TestProvider : IInstanceProvider
+	private sealed class TestProvider :
+		IInstanceProvider
 	{
+		private readonly Test test;
+		
 		#region IProvider
 
 		public object GetInstance()
@@ -63,9 +65,8 @@ internal sealed class InstanceProviderSingletonTests
 		#endregion
 		#region TestProvider
 
-		private readonly Test test;
-
-		public TestProvider(Test test)
+		public TestProvider(
+			Test test)
 		{
 			this.test = test ?? throw new ArgumentNullException(nameof(test));
 		}

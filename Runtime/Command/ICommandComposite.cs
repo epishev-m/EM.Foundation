@@ -1,17 +1,17 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	using System.Collections.Generic;
-	
-	public interface ICommandComposite :
-		ICommand
-	{
-		IEnumerable<ICommand> Commands
-		{
-			get;
-		}
+using System.Collections.Generic;
 
-		ICommandComposite Add(
-			ICommand command);
+public interface ICommandComposite :
+	ICommand
+{
+	IEnumerable<ICommand> Commands
+	{
+		get;
 	}
+
+	ICommandComposite Add(
+		ICommand command);
+}
+
 }

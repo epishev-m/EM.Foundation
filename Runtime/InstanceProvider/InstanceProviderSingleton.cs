@@ -1,36 +1,32 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	public sealed class InstanceProviderSingleton :
-		IInstanceProvider
+
+public sealed class InstanceProviderSingleton :
+	IInstanceProvider
+{
+	private readonly IInstanceProvider instanceProvider;
+
+	private object instance;
+
+	#region IInstanceProvider
+
+	public object GetInstance()
 	{
-		#region IInstanceProvider
-
-		public object GetInstance()
-		{
-			if (instance == null)
-			{
-				instance = instanceProvider.GetInstance();
-			}
-
-			return instance;
-		}
-
-		#endregion
-		#region InstanceProviderSingleton
-
-		private readonly IInstanceProvider instanceProvider;
-
-		private object instance;
-
-		public InstanceProviderSingleton(
-			IInstanceProvider instanceProvider)
-		{
-			Requires.IsNotNull(instanceProvider, nameof(instanceProvider));
-
-			this.instanceProvider = instanceProvider;
-		}
-
-		#endregion
+		return instance ??= instanceProvider.GetInstance();
 	}
+
+	#endregion
+	#region InstanceProviderSingleton
+
+	public InstanceProviderSingleton(
+		IInstanceProvider instanceProvider)
+	{
+		Requires.NotNull(instanceProvider, nameof(instanceProvider));
+
+		this.instanceProvider = instanceProvider;
+	}
+
+	#endregion
+}
+
 }

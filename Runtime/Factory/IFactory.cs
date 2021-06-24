@@ -1,9 +1,9 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	public interface IFactory
-	{
-		bool TryCreate(
-			out object instance);
-	}
+public interface IFactory
+{
+	bool TryCreate(
+		out object instance);
+}
+
 }

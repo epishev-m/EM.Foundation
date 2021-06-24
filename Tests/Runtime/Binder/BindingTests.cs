@@ -15,7 +15,7 @@ internal sealed class BindingTests
 
 		try
 		{
-			var binding = new Binding(null, null, null);
+			var unused = new Binding(null, null, null);
 		}
 		catch (ArgumentNullException)
 		{
@@ -30,7 +30,7 @@ internal sealed class BindingTests
 	public void Binding_GetKey_ReturnKey()
 	{
 		// Arrange
-		var key = "key";
+		const string key = "key";
 
 		// Act
 		var binding = new Binding(key, null, null);
@@ -44,11 +44,10 @@ internal sealed class BindingTests
 	public void Binding_GetName_ReturnName()
 	{
 		// Arrange
-		var name = "name";
-		var key = "key";
+		const string name = "name";
 
 		// Act
-		var binding = new Binding(key, name, null);
+		var binding = new Binding("key", name, null);
 		var actual = binding.Name;
 
 		//Assert
@@ -58,11 +57,8 @@ internal sealed class BindingTests
 	[Test]
 	public void Binding_GetName_ReturnNull()
 	{
-		// Arrange
-		var key = "key";
-
 		// Act
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 		var actual = binding.Name;
 
 		//Assert
@@ -72,11 +68,8 @@ internal sealed class BindingTests
 	[Test]
 	public void Binding_GetValues_ReturnNull()
 	{
-		// Arrange
-		var key = "key";
-
 		// Act
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 		var actual = binding.Values;
 
 		//Assert
@@ -90,9 +83,8 @@ internal sealed class BindingTests
 	public void Binding_To_ReturnBinding()
 	{
 		// Arrange
-		var key = "key";
 		var value = typeof(string);
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 
 		// Act
 		var actual = binding.To(value);
@@ -161,8 +153,7 @@ internal sealed class BindingTests
 	public void Binding_ToGeneric_ReturnBinding()
 	{
 		// Arrange
-		var key = "key";
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 
 		// Act
 		var actual = binding.To<string>();
@@ -179,8 +170,8 @@ internal sealed class BindingTests
 
 		// Act
 		var binding = new Binding(key, null, null);
-		var vakuesArray = binding.To<string>().Values.ToArray();
-		var actual = vakuesArray[0];
+		var valuesArray = binding.To<string>().Values.ToArray();
+		var actual = valuesArray[0];
 
 		//Assert
 		Assert.AreEqual(key, actual);
@@ -225,13 +216,10 @@ internal sealed class BindingTests
 	#region ToSelf
 
 	[Test]
-	public void Binding_ToSalf_ReturnBinding()
+	public void Binding_ToSelf_ReturnBinding()
 	{
-		// Arrange
-		var key = "key";
-
 		// Act
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 		var actual = binding.ToSelf();
 
 		//Assert
@@ -239,7 +227,7 @@ internal sealed class BindingTests
 	}
 
 	[Test]
-	public void Binding_ToSalfAndGetValues_ReturnKey()
+	public void Binding_ToSelfAndGetValues_ReturnKey()
 	{
 		// Arrange
 		var key = typeof(string);
@@ -295,8 +283,7 @@ internal sealed class BindingTests
 	public void Binding_ToName_Exception()
 	{
 		// Arrange
-		var key = "key";
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 
 		// Act
 		var actual = false;
@@ -318,12 +305,10 @@ internal sealed class BindingTests
 	public void Binding_ToName_ReturnBinding()
 	{
 		// Arrange
-		var key = "key";
-		var name = "name";
+		var binding = new Binding("key", null, null);
 
 		// Act
-		var binding = new Binding(key, null, null);
-		var actual = binding.ToName(name);
+		var actual = binding.ToName("name");
 
 		//Assert
 		Assert.AreEqual(binding, actual);
@@ -333,11 +318,10 @@ internal sealed class BindingTests
 	public void Binding_ToNameAndGetName_ReturnName()
 	{
 		// Arrange
-		var key = "key";
-		var name = "name";
+		const string name = "name";
+		var binding = new Binding("key", null, null);
 
 		// Act
-		var binding = new Binding(key, null, null);
 		var actual = binding.ToName(name).Name;
 
 		//Assert
@@ -368,11 +352,8 @@ internal sealed class BindingTests
 	[Test]
 	public void Binding_ToNameGeneric_ReturnBinding()
 	{
-		// Arrange
-		var key = "key";
-
 		// Act
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 		var actual = binding.ToName<string>();
 
 		//Assert
@@ -383,11 +364,10 @@ internal sealed class BindingTests
 	public void Binding_ToNameGenericAndGetName_ReturnName()
 	{
 		// Arrange
-		var key = "key";
 		var name = typeof(string);
 
 		// Act
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 		var actual = binding.ToName<string>().Name;
 
 		//Assert
@@ -418,11 +398,10 @@ internal sealed class BindingTests
 	public void Binding_RemoveValue_ReturnTrue()
 	{
 		// Arrange
-		var key = "key";
 		var value = typeof(string);
 
 		// Act
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 		var unused = binding.To(value);
 		var actual = binding.RemoveValue(value);
 
@@ -434,11 +413,10 @@ internal sealed class BindingTests
 	public void Binding_RemoveValue_ReturnFalse()
 	{
 		// Arrange
-		var key = "key";
 		var value = typeof(string);
 
 		// Act
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 		var actual = binding.RemoveValue(value);
 
 		//Assert
@@ -449,11 +427,10 @@ internal sealed class BindingTests
 	public void Binding_RemoveValueAndGetValues_ReturnNull()
 	{
 		// Arrange
-		var key = "key";
 		var value = typeof(string);
 
 		// Act
-		var binding = new Binding(key, null, null);
+		var binding = new Binding("key", null, null);
 		var unused = binding.To(value).ToSelf().To<string>();
 		binding.RemoveAllValues();
 		var actual = binding.Values;

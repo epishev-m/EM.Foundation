@@ -25,8 +25,11 @@ internal sealed class CommandSequenceTests
 		Assert.AreEqual(3, command3.Count);
 	}
 
-	private sealed class Command : CommandBase
+	private sealed class Command :
+		CommandBase
 	{
+		public static int Counter;
+
 		#region CommandBase
 
 		public override void Execute()
@@ -38,8 +41,6 @@ internal sealed class CommandSequenceTests
 
 		#endregion
 		#region Command
-
-		public static int Counter = 0;
 
 		public int Count
 		{

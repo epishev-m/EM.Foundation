@@ -1,40 +1,39 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	using System;
+using System;
 
-	public sealed class InstanceProviderFactory :
-		IInstanceProvider
+public sealed class InstanceProviderFactory :
+	IInstanceProvider
+{
+	private readonly IInstanceProvider instanceProvider;
+
+	#region IInstanceProvider
+
+	public object GetInstance()
 	{
-		#region IInstanceProvider
+		var instance = instanceProvider.GetInstance();
+		var factory = instance as IFactory ?? throw new Exception();
 
-		public object GetInstance()
+		if (factory.TryCreate(out var result) == false)
 		{
-			var instance = instanceProvider.GetInstance();
-			var factory = instance as IFactory ?? throw new Exception();
-
-			if (factory.TryCreate(out var result) == false)
-			{
-				throw new Exception("Failed to create object.");
-			}
-
-			return result;
+			throw new Exception("Failed to create object.");
 		}
 
-		#endregion
-		#region InstanceProviderFactory
-
-
-		private readonly IInstanceProvider instanceProvider;
-
-		public InstanceProviderFactory(
-			IInstanceProvider instanceProvider)
-		{
-			Requires.IsNotNull(instanceProvider, nameof(instanceProvider));
-
-			this.instanceProvider = instanceProvider;
-		}
-
-		#endregion
+		return result;
 	}
+
+	#endregion
+	#region InstanceProviderFactory
+
+	public InstanceProviderFactory(
+		IInstanceProvider instanceProvider)
+	{
+		Requires.NotNull(instanceProvider, nameof(instanceProvider));
+
+		this.instanceProvider = instanceProvider;
+	}
+
+	#endregion
+}
+
 }

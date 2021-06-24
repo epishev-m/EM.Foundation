@@ -8,7 +8,6 @@ internal sealed class SignalExTests
 	{
 		// Arrange
 		var actual = 0;
-		var expected = 1;
 
 		// Act
 		var signal = new SignalEx();
@@ -18,7 +17,7 @@ internal sealed class SignalExTests
 		void ActionRuntime() => actual++;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(1, actual);
 	}
 
 	[Test]
@@ -26,7 +25,6 @@ internal sealed class SignalExTests
 	{
 		// Arrange
 		var actual = 0;
-		var expected = 1;
 
 		// Act
 		var signal = new SignalEx();
@@ -36,14 +34,13 @@ internal sealed class SignalExTests
 		void ActionRuntime() => actual++;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(1, actual);
 	}
 
 	[Test]
 	public void SignalEx_AddListenerAnd2Dispatch_Success()
 	{
 		// Arrange
-		var expected = 2;
 		var actual = 0;
 
 		// Act
@@ -55,14 +52,13 @@ internal sealed class SignalExTests
 		void ActionRuntime() => actual++;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(2, actual);
 	}
 
 	[Test]
 	public void SignalEx_AddListenerOnceAnd2Dispatch_Success()
 	{
 		// Arrange
-		var expected = 1;
 		var actual = 0;
 
 		// Act
@@ -74,14 +70,13 @@ internal sealed class SignalExTests
 		void ActionRuntime() => actual++;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(1, actual);
 	}
 
 	[Test]
 	public void SignalEx_RemoveAllListeners_Success()
 	{
 		// Arrange
-		var expected = 0;
 		var actual = 0;
 
 		// Act
@@ -94,6 +89,6 @@ internal sealed class SignalExTests
 		void ActionRuntime() => actual++;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(0, actual);
 	}
 }

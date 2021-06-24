@@ -110,9 +110,6 @@ internal sealed class BinderTests
 	[Test]
 	public void Binder_UnbindGeneric_ReturnFalse()
 	{
-		// Arrange
-		var key = typeof(string);
-
 		// Act
 		var binder = new Binder();
 		var actual = binder.Unbind<string>();

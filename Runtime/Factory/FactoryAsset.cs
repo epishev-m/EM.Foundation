@@ -1,16 +1,16 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	using UnityEngine;
-	
-	public abstract class FactoryAsset :
-		ScriptableObject,
-		IFactory
-	{
-		#region IFactory
+using UnityEngine;
 
-		public abstract bool TryCreate(out object instance);
+public abstract class FactoryAsset :
+	ScriptableObject,
+	IFactory
+{
+	#region IFactory
 
-		#endregion IFactory
-	}
+	public abstract bool TryCreate(out object instance);
+
+	#endregion IFactory
+}
+
 }

@@ -1,64 +1,68 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	using System;
-	using System.Collections.Concurrent;
+using System;
+using System.Collections.Concurrent;
 
-	public class Pool<T> :
-		IPool<T>
-		where T : class
+public class Pool<T> :
+	IPool<T>
+	where T : class
+{
+	private readonly ConcurrentBag<T> instances = new ConcurrentBag<T>();
+
+	private readonly IInstanceProvider instanceProvider;
+
+	#region IPool
+
+	public int Count => instances.Count;
+
+	public T GetObject()
 	{
-		#region IPool
-
-		public int Count => instances.Count;
-
-		public T GetObject()
+		if (instances.TryTake(out var item))
 		{
-			if (!instances.TryTake(out var item))
-			{
-				if (instanceProvider != null)
-				{
-					var instance = instanceProvider.GetInstance();
-					item = instance is T ? instance as T : throw new Exception();
-				}
-			}
-
 			return item;
 		}
 
-		public void PutObject(
-			T obj)
+		if (instanceProvider == null)
 		{
-			Requires.IsNotNull(obj, nameof(obj));
-
-			if (obj is IPoolable poolItem && !poolItem.IsRestored)
-			{
-				poolItem.Restore();
-			}
-
-			instances.Add(obj);
+			return item;
 		}
 
-		#endregion
-		#region Pool
+		var instance = instanceProvider.GetInstance() as T;
+		item = instance ?? throw new Exception();
 
-		protected readonly ConcurrentBag<T> instances = new ConcurrentBag<T>();
-
-		protected readonly IInstanceProvider instanceProvider;
-
-		public Pool()
-		{
-			instanceProvider = null;
-		}
-
-		public Pool(
-			IInstanceProvider instanceProvider)
-		{
-			Requires.IsNotNull(instanceProvider, nameof(instanceProvider));
-
-			this.instanceProvider = instanceProvider;
-		}
-
-		#endregion
+		return item;
 	}
+
+	public void PutObject(
+		T obj)
+	{
+		Requires.NotNull(obj, nameof(obj));
+
+		if (obj is IPoolable {IsRestored: false} poolItem)
+		{
+			poolItem.Restore();
+		}
+
+		instances.Add(obj);
+	}
+
+	#endregion
+	#region Pool
+
+	public Pool()
+	{
+		instanceProvider = null;
+	}
+
+	public Pool(
+		IInstanceProvider instanceProvider)
+	{
+		Requires.NotNull(instanceProvider, nameof(instanceProvider));
+
+		this.instanceProvider = instanceProvider;
+	}
+
+	#endregion
+}
+
 }

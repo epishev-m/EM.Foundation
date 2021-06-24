@@ -99,7 +99,8 @@ internal sealed class CommandBaseTests
 		Assert.IsNull(actual);
 	}
 
-	private sealed class Command : CommandBase
+	private sealed class Command :
+		CommandBase
 	{
 		public override void Execute()
 		{
@@ -112,7 +113,8 @@ internal sealed class CommandBaseTests
 		}
 	}
 
-	private sealed class CommandFail : CommandBase
+	private sealed class CommandFail :
+		CommandBase
 	{
 		public override void Execute()
 		{

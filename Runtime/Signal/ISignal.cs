@@ -1,22 +1,22 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	using System;
-	
-	public interface ISignal
-	{
-		void Dispatch(
-			object[] args);
+using System;
 
-		void AddListener(
-			Action<ISignal, object[]> action);
+public interface ISignal
+{
+	void Dispatch(
+		object[] args);
 
-		void AddListenerOnce(
-			Action<ISignal, object[]> action);
+	void AddListener(
+		Action<ISignal, object[]> action);
 
-		void RemoveListener(
-			Action<ISignal, object[]> action);
+	void AddListenerOnce(
+		Action<ISignal, object[]> action);
 
-		void RemoveAllListeners();
-	}
+	void RemoveListener(
+		Action<ISignal, object[]> action);
+
+	void RemoveAllListeners();
+}
+
 }

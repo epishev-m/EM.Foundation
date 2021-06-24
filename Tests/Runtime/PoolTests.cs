@@ -9,15 +9,12 @@ public sealed class PoolTests
 	[Test]
 	public void Pool_GetObject_Null()
 	{
-		// Arrange
-		var expected = default(TestObject);
-
 		// Act
 		var pool = new Pool<TestObject>();
 		var actual = pool.GetObject();
 
 		// Assert
-		Assert.AreEqual(expected, actual);
+		Assert.IsNull(actual);
 	}
 
 	[Test]
@@ -38,22 +35,18 @@ public sealed class PoolTests
 	[Test]
 	public void Pool_Count_NumberZero()
 	{
-		// Arrange
-		var expected = 0;
-
 		// Act
 		var pool = new Pool<TestObject>();
 		var actual = pool.Count;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(0, actual);
 	}
 
 	[Test]
 	public void Pool_Count_NumberOne()
 	{
 		// Arrange
-		var expected = 1;
 		var testObject = new TestObject();
 
 		// Act
@@ -62,14 +55,13 @@ public sealed class PoolTests
 		var actual = pool.Count;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(1, actual);
 	}
 
 	[Test]
 	public void Pool_PutAndGetAndCount_NumberZero()
 	{
 		// Arrange
-		var expected = 0;
 		var testObject = new TestObject();
 
 		// Act
@@ -79,7 +71,7 @@ public sealed class PoolTests
 		var actual = pool.Count;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(0, actual);
 	}
 
 	[Test]
@@ -87,14 +79,13 @@ public sealed class PoolTests
 	{
 		// Arrange
 		var actual = false;
-		var testObject = default(TestObject);
 
 		// Act
 		var pool = new Pool<TestObject>();
 
 		try
 		{
-			pool.PutObject(testObject);
+			pool.PutObject(null);
 		}
 		catch (ArgumentNullException)
 		{
@@ -109,7 +100,6 @@ public sealed class PoolTests
 	public void PoolAndPoolable_IsRestored_False()
 	{
 		// Arrange
-		var expected = false;
 		var testObject = new TestObject();
 
 		// Act
@@ -117,18 +107,17 @@ public sealed class PoolTests
 		pool.PutObject(testObject);
 		var tempObject = pool.GetObject();
 		tempObject.Use();
-		var poolable = tempObject as IPoolable;
-		var actual = poolable.IsRestored;
+		var obj = (IPoolable)tempObject;
+		var actual = obj.IsRestored;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.IsFalse(actual);
 	}
 
 	[Test]
 	public void PoolAndPoolable_IsRestored_True()
 	{
 		// Arrange
-		var expected = true;
 		var testObject = new TestObject();
 
 		// Act
@@ -136,17 +125,17 @@ public sealed class PoolTests
 		pool.PutObject(testObject);
 		var tempObject = pool.GetObject();
 		tempObject.Use();
-		var poolable = tempObject as IPoolable;
-		var actual = poolable.IsRestored;
+		var obj = (IPoolable)tempObject;
+		var actual = obj.IsRestored;
 
 		Assert.IsFalse(actual);
 
 		pool.PutObject(tempObject);
-		poolable = testObject as IPoolable;
-		actual = poolable.IsRestored;
+		obj = testObject;
+		actual = obj.IsRestored;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.IsTrue(actual);
 	}
 
 	#endregion
@@ -177,7 +166,7 @@ public sealed class PoolTests
 		// Act
 		try
 		{
-			var instance = pool.GetObject();
+			var unused = pool.GetObject();
 		}
 		catch (Exception)
 		{
@@ -212,12 +201,11 @@ public sealed class PoolTests
 	{
 		// Arrange
 		var actual = false;
-		var instanceProvider = default(TestInstanceProvider);
 
 		// Act
 		try
 		{
-			var pool = new Pool<TestObject>(instanceProvider);
+			var unused = new Pool<TestObject>(null);
 		}
 		catch (ArgumentNullException)
 		{
@@ -231,24 +219,26 @@ public sealed class PoolTests
 	#endregion
 	#region Nested
 
-	private sealed class TestObject : IPoolable
+	private sealed class TestObject :
+		IPoolable
 	{
-		private bool _isRestored = true;
+		private bool isRestored = true;
 
-		bool IPoolable.IsRestored => _isRestored;
+		bool IPoolable.IsRestored => isRestored;
 
 		public void Use()
 		{
-			_isRestored = false;
+			isRestored = false;
 		}
 
 		void IPoolable.Restore()
 		{
-			_isRestored = true;
+			isRestored = true;
 		}
 	}
 
-	private sealed class TestInstanceProvider : IInstanceProvider
+	private sealed class TestInstanceProvider :
+		IInstanceProvider
 	{
 		public object GetInstance()
 		{
@@ -256,7 +246,8 @@ public sealed class PoolTests
 		}
 	}
 
-	private sealed class FailInstanceProvider : IInstanceProvider
+	private sealed class FailInstanceProvider :
+		IInstanceProvider
 	{
 		public object GetInstance()
 		{

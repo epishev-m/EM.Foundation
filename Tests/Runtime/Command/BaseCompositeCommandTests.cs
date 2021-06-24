@@ -40,7 +40,8 @@ internal sealed class CommandCompositeBaseTests
 		Assert.AreEqual(actual, commandComposite);
 	}
 
-	private sealed class Command : CommandBase
+	private sealed class Command :
+		CommandBase
 	{
 		public override void Execute()
 		{
@@ -48,7 +49,8 @@ internal sealed class CommandCompositeBaseTests
 		}
 	}
 
-	private sealed class CommandComposite : CommandCompositeBase
+	private sealed class CommandComposite :
+		CommandCompositeBase
 	{
 		public override void Execute()
 		{

@@ -1,36 +1,40 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	using System;
-	
-	public class SignalEx :
-		Signal
+using System;
+
+public class SignalEx :
+	Signal
+{
+	#region SignalEx
+
+	public void Dispatch()
 	{
-		public void Dispatch()
-		{
-			Dispatch(null);
-		}
-
-		public void AddListener(
-			Action action)
-		{
-			Requires.IsNotNull(action, nameof(action));
-
-			AddListener(Action);
-
-			void Action(ISignal target, object[] args) => 
-				action?.Invoke();
-		}
-
-		public void AddListenerOnce(
-			Action action)
-		{
-			Requires.IsNotNull(action, nameof(action));
-
-			AddListenerOnce(Action);
-
-			void Action(ISignal target, object[] args) =>
-				action?.Invoke();
-		}
+		Dispatch(null);
 	}
+
+	public void AddListener(
+		Action action)
+	{
+		Requires.NotNull(action, nameof(action));
+
+		AddListener(Action);
+
+		void Action(ISignal target, object[] args) =>
+			action?.Invoke();
+	}
+
+	public void AddListenerOnce(
+		Action action)
+	{
+		Requires.NotNull(action, nameof(action));
+
+		AddListenerOnce(Action);
+
+		void Action(ISignal target, object[] args) =>
+			action?.Invoke();
+	}
+
+	#endregion
+}
+
 }

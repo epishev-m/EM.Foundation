@@ -56,7 +56,6 @@ internal sealed class SignalTests
 	{
 		// Arrange
 		var argsArray = new object[1];
-		var expected = 2;
 		var actual = 0;
 
 		// Act
@@ -68,7 +67,7 @@ internal sealed class SignalTests
 		void ActionRuntime(ISignal target, object[] args) => actual++;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(2, actual);
 	}
 
 	[Test]
@@ -76,7 +75,6 @@ internal sealed class SignalTests
 	{
 		// Arrange
 		var argsArray = new object[1];
-		var expected = 1;
 		var actual = 0;
 
 		// Act
@@ -88,7 +86,7 @@ internal sealed class SignalTests
 		void ActionRuntime(ISignal target, object[] args) => actual++;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(1, actual);
 	}
 
 	[Test]
@@ -96,7 +94,6 @@ internal sealed class SignalTests
 	{
 		// Arrange
 		var argsArray = new object[1];
-		var expected = 0;
 		var actual = 0;
 
 		// Act
@@ -109,7 +106,7 @@ internal sealed class SignalTests
 		void ActionRuntime(ISignal target, object[] args) => actual++;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(0, actual);
 	}
 
 	[Test]
@@ -117,7 +114,6 @@ internal sealed class SignalTests
 	{
 		// Arrange
 		var argsArray = new object[1];
-		var expected = 2;
 		var actual = 0;
 
 		// Act
@@ -134,6 +130,6 @@ internal sealed class SignalTests
 		void ActionRuntimeOne(ISignal target, object[] args) => actual++;
 
 		//Assert
-		Assert.AreEqual(expected, actual);
+		Assert.AreEqual(2, actual);
 	}
 }

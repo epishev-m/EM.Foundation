@@ -11,12 +11,11 @@ internal sealed class InstanceProviderTests
 	{
 		// Arrange
 		var actual = false;
-		var providerParam = default(Test);
 
 		// Act
 		try
 		{
-			var provider = new InstanceProvider(providerParam);
+			var unused = new InstanceProvider(null);
 		}
 		catch (ArgumentNullException)
 		{
@@ -44,7 +43,7 @@ internal sealed class InstanceProviderTests
 	#endregion
 	#region Nested
 
-	internal sealed class Test
+	private sealed class Test
 	{
 	}
 

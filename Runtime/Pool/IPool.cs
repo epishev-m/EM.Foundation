@@ -1,17 +1,18 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	public interface IPool<T>
-		where T : class
+
+public interface IPool<T>
+	where T : class
+{
+	int Count
 	{
-		int Count
-		{
-			get;
-		}
-
-		T GetObject();
-
-		void PutObject(
-			T item);
+		get;
 	}
+
+	T GetObject();
+
+	void PutObject(
+		T item);
+}
+
 }

@@ -1,53 +1,57 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
-	public sealed class CommandSequence :
-		CommandCompositeBase
+
+public sealed class CommandSequence :
+	CommandCompositeBase
+{
+	private bool canExecute = true;
+
+	private ICommand currentCommand;
+
+
+	#region BaseCompositeCommand
+
+	public override void Execute()
 	{
-		#region BaseCompositeCommand
-
-		public override void Execute()
+		if (canExecute == false)
 		{
-			if (canExecute)
-			{
-				canExecute = false;
-				currentCommand = Dequeue();
-
-				if (currentCommand != null)
-				{
-					currentCommand.Done += OnDone;
-					currentCommand.Execute();
-				}
-				else
-				{
-					canExecute = true;
-					OnDone();
-				}
-			}
+			return;
 		}
 
-		#endregion
-		#region CommandSequence
+		canExecute = false;
+		currentCommand = Dequeue();
 
-		private bool canExecute = true;
-
-		private ICommand currentCommand = default;
-
-		private void OnDone()
+		if (currentCommand != null)
 		{
-			if (currentCommand != null)
-			{
-				currentCommand.Done -= OnDone;
-				currentCommand = null;
-				canExecute = true;
-				Execute();
-			}
-			else
-			{
-				DoneInvoke();
-			}
+			currentCommand.Done += OnDone;
+			currentCommand.Execute();
 		}
-
-		#endregion
+		else
+		{
+			canExecute = true;
+			OnDone();
+		}
 	}
+
+	#endregion
+	#region CommandSequence
+
+	private void OnDone()
+	{
+		if (currentCommand != null)
+		{
+			currentCommand.Done -= OnDone;
+			currentCommand = null;
+			canExecute = true;
+			Execute();
+		}
+		else
+		{
+			DoneInvoke();
+		}
+	}
+
+	#endregion
+}
+
 }
