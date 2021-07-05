@@ -44,17 +44,6 @@ public static class Requires
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void Null(
-		object instance,
-		string paramName)
-	{
-		if (instance != null)
-		{
-			ThrowArgumentException(paramName);
-		}
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Null(
 		UnityEngine.Object instance,
 		string paramName)
 	{
@@ -106,13 +95,6 @@ public static class Requires
 		string paramName)
 	{
 		throw new ArgumentNullException(paramName);
-	}
-
-	private static void ThrowArgumentNullException(
-		string paramName,
-		string message)
-	{
-		throw new ArgumentNullException(paramName, message);
 	}
 
 	private static void ThrowArgumentException(

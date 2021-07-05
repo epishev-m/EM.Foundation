@@ -8,7 +8,6 @@ public sealed class CommandSequence :
 
 	private ICommand currentCommand;
 
-
 	#region BaseCompositeCommand
 
 	public override void Execute()

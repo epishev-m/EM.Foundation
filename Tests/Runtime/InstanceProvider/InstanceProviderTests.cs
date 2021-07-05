@@ -7,7 +7,7 @@ internal sealed class InstanceProviderTests
 	#region InstanceProvider
 
 	[Test]
-	public void InstanceProvider_Constructor_Exeption()
+	public void InstanceProvider_Constructor_Exception()
 	{
 		// Arrange
 		var actual = false;

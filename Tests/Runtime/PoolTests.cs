@@ -97,7 +97,7 @@ public sealed class PoolTests
 	}
 
 	[Test]
-	public void PoolAndPoolable_IsRestored_False()
+	public void PoolAndRestore_IsRestored_False()
 	{
 		// Arrange
 		var testObject = new TestObject();
@@ -115,7 +115,7 @@ public sealed class PoolTests
 	}
 
 	[Test]
-	public void PoolAndPoolable_IsRestored_True()
+	public void PoolAndRestore_IsRestored_True()
 	{
 		// Arrange
 		var testObject = new TestObject();

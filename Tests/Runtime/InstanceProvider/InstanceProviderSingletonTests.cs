@@ -7,7 +7,7 @@ internal sealed class InstanceProviderSingletonTests
 	#region InstanceProviderSingleton
 
 	[Test]
-	public void InstanceProviderSingleton_Constructor_Exeption()
+	public void InstanceProviderSingleton_Constructor_Exception()
 	{
 		// Arrange
 		var actual = false;
