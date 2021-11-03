@@ -21,6 +21,17 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void ValidOperation(
+		bool condition,
+		string message)
+	{
+		if (condition == false)
+		{
+			ThrowInvalidOperationException(message);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void NotNull(
 		object instance,
 		string paramName)
