@@ -8,36 +8,32 @@ using BindingKey = System.ValueTuple<object, object>;
 public class Binder :
 	IBinder
 {
-	private readonly Dictionary<BindingKey, IBinding> bindings;
+	protected readonly Dictionary<BindingKey, IBinding> bindings;
 
 	#region IBinder
 
-	public IBinding Bind<T>(
-		object name = null)
+	public IBinding Bind<T>(object name = null)
 	{
 		return Bind(typeof(T), name);
 	}
 
-	public IBinding Bind(
-		object key,
+	public IBinding Bind(object key,
 		object name = null)
 	{
 		Requires.NotNull(key, nameof(key));
 
 		var binding = GetBinding(key, name) ??
-			GetRawBinding(key, name);
+					GetRawBinding(key, name);
 
 		return binding;
 	}
 
-	public bool Unbind<T>(
-		object name = null)
+	public bool Unbind<T>(object name = null)
 	{
 		return Unbind(typeof(T), name);
 	}
 
-	public bool Unbind(
-		object key,
+	public bool Unbind(object key,
 		object name = null)
 	{
 		Requires.NotNull(key, nameof(key));
@@ -54,8 +50,7 @@ public class Binder :
 		return true;
 	}
 
-	public void Unbind(
-		Predicate<IBinding> match)
+	public void Unbind(Predicate<IBinding> match)
 	{
 		var resultList = bindings.Where(keyValue => match(keyValue.Value)).ToArray();
 
@@ -71,6 +66,7 @@ public class Binder :
 	}
 
 	#endregion
+
 	#region Binder
 
 	public Binder()
@@ -78,8 +74,7 @@ public class Binder :
 		bindings = new Dictionary<BindingKey, IBinding>(128);
 	}
 
-	protected IBinding GetBinding(
-		object key,
+	protected IBinding GetBinding(object key,
 		object name = null)
 	{
 		Requires.NotNull(key, nameof(key));
@@ -95,15 +90,13 @@ public class Binder :
 		return result;
 	}
 
-	protected virtual IBinding GetRawBinding(
-		object key,
+	protected virtual IBinding GetRawBinding(object key,
 		object name)
 	{
 		return new Binding(key, name, BindingResolver);
 	}
 
-	protected virtual void BindingResolver(
-		IBinding binding)
+	protected virtual void BindingResolver(IBinding binding)
 	{
 		if (binding.Name != null)
 		{

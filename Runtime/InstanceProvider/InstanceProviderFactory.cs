@@ -12,7 +12,10 @@ public sealed class InstanceProviderFactory :
 	public object GetInstance()
 	{
 		var instance = instanceProvider.GetInstance();
-		var factory = instance as IFactory ?? throw new Exception();
+
+		Requires.Type<IFactory>(instance, nameof(instance));
+
+		var factory = (IFactory) instance;
 
 		if (factory.TryCreate(out var result) == false)
 		{
@@ -25,8 +28,7 @@ public sealed class InstanceProviderFactory :
 	#endregion
 	#region InstanceProviderFactory
 
-	public InstanceProviderFactory(
-		IInstanceProvider instanceProvider)
+	public InstanceProviderFactory(IInstanceProvider instanceProvider)
 	{
 		Requires.NotNull(instanceProvider, nameof(instanceProvider));
 

@@ -14,10 +14,10 @@ public sealed class InstanceProvider :
 	}
 
 	#endregion
+
 	#region InstanceProvider
 
-	public InstanceProvider(
-		object instance)
+	public InstanceProvider(object instance)
 	{
 		Requires.NotNull(instance, nameof(instance));
 

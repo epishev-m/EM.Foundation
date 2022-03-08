@@ -32,6 +32,17 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void ValidArgument(
+		bool condition,
+		string message)
+	{
+		if (condition == false)
+		{
+			ThrowArgumentException(message);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void NotNull(
 		object instance,
 		string paramName)

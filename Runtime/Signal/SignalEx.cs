@@ -7,9 +7,9 @@ public class SignalEx :
 {
 	#region SignalEx
 
-	public void Dispatch()
+	public bool Dispatch()
 	{
-		Dispatch(null);
+		return Dispatch(null);
 	}
 
 	public void AddListener(

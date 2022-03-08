@@ -10,22 +10,22 @@ public class Signal :
 
 	#region ISignal
 
-	public void Dispatch(
-		object[] args)
+	public bool Dispatch(object[] args)
 	{
+		var rsult = Events != null;
 		Events?.Invoke(this, args);
+
+		return rsult;
 	}
 
-	public void AddListener(
-		ActionSignal action)
+	public void AddListener(ActionSignal action)
 	{
 		Requires.NotNull(action, nameof(action));
 
 		Events = (ActionSignal)Delegate.Combine(Events, action);
 	}
 
-	public void AddListenerOnce(
-		ActionSignal action)
+	public void AddListenerOnce(ActionSignal action)
 	{
 		Requires.NotNull(action, nameof(action));
 
@@ -46,8 +46,7 @@ public class Signal :
 		Events = null;
 	}
 
-	public void RemoveListener(
-		ActionSignal action)
+	public void RemoveListener(ActionSignal action)
 	{
 		Requires.NotNull(action, nameof(action));
 

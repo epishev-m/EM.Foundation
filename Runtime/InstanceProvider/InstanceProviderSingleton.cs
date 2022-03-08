@@ -16,10 +16,10 @@ public sealed class InstanceProviderSingleton :
 	}
 
 	#endregion
+
 	#region InstanceProviderSingleton
 
-	public InstanceProviderSingleton(
-		IInstanceProvider instanceProvider)
+	public InstanceProviderSingleton(IInstanceProvider instanceProvider)
 	{
 		Requires.NotNull(instanceProvider, nameof(instanceProvider));
 
