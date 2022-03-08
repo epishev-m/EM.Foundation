@@ -2,7 +2,9 @@
     "name": "EM.Foundation",
     "rootNamespace": "",
     "references": [
-        "Unity.Nuget.NewtonsoftJson.EditorTests"
+        "Unity.Nuget.NewtonsoftJson.EditorTests",
+        "Unity.Addressables",
+        "Unity.ResourceManager"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
