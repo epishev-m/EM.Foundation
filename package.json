@@ -1,13 +1,15 @@
 {
-	"name": "com.em.foundation",
-	"displayName": "EM Foundation",
-	"version": "0.0.1",
-    "unity": "2020.1",
-    "unityRelease": "3f1",
-	"dependencies": {
-	},
-    "author": {
-        "name": "Maxim Epishev",
-        "email": "epishev.m@mail.ru"
-    }
+  "name": "com.em.foundation",
+  "displayName": "EM Foundation",
+  "version": "0.0.1",
+  "unity": "2020.1",
+  "unityRelease": "3f1",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": ""
+  },
+  "author": {
+    "name": "Maxim Epishev",
+    "email": "epishev.m@mail.ru"
+  },
+  "type": "library"
 }

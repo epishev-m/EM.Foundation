@@ -1,6 +1,9 @@
 {
     "name": "EM.Foundation",
-    "references": [],
+    "rootNamespace": "",
+    "references": [
+        "Unity.Nuget.NewtonsoftJson.EditorTests"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
