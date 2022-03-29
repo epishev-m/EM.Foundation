@@ -1,6 +1,9 @@
 {
     "name": "EM.Foundation.Editor",
-    "references": [],
+    "rootNamespace": "",
+    "references": [
+        "GUID:94c2e9f1badce174dbc436ca38ab847c"
+    ],
     "includePlatforms": [
         "Editor"
     ],
