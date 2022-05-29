@@ -77,6 +77,7 @@ internal sealed class BindingTests
 	}
 
 	#endregion
+
 	#region To
 
 	[Test]
@@ -147,6 +148,7 @@ internal sealed class BindingTests
 	}
 
 	#endregion
+
 	#region ToGeneric
 
 	[Test]
@@ -213,6 +215,7 @@ internal sealed class BindingTests
 	}
 
 	#endregion
+
 	#region ToSelf
 
 	[Test]
@@ -277,6 +280,7 @@ internal sealed class BindingTests
 	}
 
 	#endregion
+
 	#region ToName
 
 	[Test]
@@ -347,6 +351,7 @@ internal sealed class BindingTests
 	}
 
 	#endregion
+
 	#region ToNameGeneric
 
 	[Test]
@@ -392,6 +397,7 @@ internal sealed class BindingTests
 	}
 
 	#endregion
+
 	#region Remove
 
 	[Test]

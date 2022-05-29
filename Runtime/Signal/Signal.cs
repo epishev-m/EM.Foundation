@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using System;
 using ActionSignal = System.Action<ISignal, object[]>;
 
@@ -12,17 +13,17 @@ public class Signal :
 
 	public bool Dispatch(object[] args)
 	{
-		var rsult = Events != null;
+		var result = Events != null;
 		Events?.Invoke(this, args);
 
-		return rsult;
+		return result;
 	}
 
 	public void AddListener(ActionSignal action)
 	{
 		Requires.NotNull(action, nameof(action));
 
-		Events = (ActionSignal)Delegate.Combine(Events, action);
+		Events = (ActionSignal) Delegate.Combine(Events, action);
 	}
 
 	public void AddListenerOnce(ActionSignal action)
@@ -32,12 +33,13 @@ public class Signal :
 		ActionSignal removeAction = null;
 		removeAction += RemoveAction;
 
-		Events = (ActionSignal)Delegate.Combine(Events, removeAction, action);
+		Events = (ActionSignal) Delegate.Combine(Events, removeAction, action);
 
-		void RemoveAction(ISignal target, object[] args)
+		void RemoveAction(ISignal target,
+			object[] args)
 		{
-			Events = (ActionSignal)Delegate.Remove(Events, action);
-			Events = (ActionSignal)Delegate.Remove(Events, removeAction);
+			Events = (ActionSignal) Delegate.Remove(Events, action);
+			Events = (ActionSignal) Delegate.Remove(Events, removeAction);
 		}
 	}
 
@@ -50,7 +52,7 @@ public class Signal :
 	{
 		Requires.NotNull(action, nameof(action));
 
-		Events = (ActionSignal)Delegate.Remove(Events, action);
+		Events = (ActionSignal) Delegate.Remove(Events, action);
 	}
 
 	#endregion

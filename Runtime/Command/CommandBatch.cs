@@ -36,6 +36,7 @@ public sealed class CommandBatch :
 	}
 
 	#endregion
+
 	#region CommandBatch
 
 	private void OnDone()

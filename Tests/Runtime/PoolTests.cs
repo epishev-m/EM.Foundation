@@ -107,7 +107,7 @@ public sealed class PoolTests
 		pool.PutObject(testObject);
 		var tempObject = pool.GetObject();
 		tempObject.Use();
-		var obj = (IPoolable)tempObject;
+		var obj = (IPoolable) tempObject;
 		var actual = obj.IsRestored;
 
 		//Assert
@@ -125,7 +125,7 @@ public sealed class PoolTests
 		pool.PutObject(testObject);
 		var tempObject = pool.GetObject();
 		tempObject.Use();
-		var obj = (IPoolable)tempObject;
+		var obj = (IPoolable) tempObject;
 		var actual = obj.IsRestored;
 
 		Assert.IsFalse(actual);
@@ -139,6 +139,7 @@ public sealed class PoolTests
 	}
 
 	#endregion
+
 	#region PoolAndInstanceProvider
 
 	[Test]
@@ -217,6 +218,7 @@ public sealed class PoolTests
 	}
 
 	#endregion
+
 	#region Nested
 
 	private sealed class TestObject :

@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using System;
 
 public class SignalEx :
@@ -12,25 +13,25 @@ public class SignalEx :
 		return Dispatch(null);
 	}
 
-	public void AddListener(
-		Action action)
+	public void AddListener(Action action)
 	{
 		Requires.NotNull(action, nameof(action));
 
 		AddListener(Action);
 
-		void Action(ISignal target, object[] args) =>
+		void Action(ISignal target,
+			object[] args) =>
 			action?.Invoke();
 	}
 
-	public void AddListenerOnce(
-		Action action)
+	public void AddListenerOnce(Action action)
 	{
 		Requires.NotNull(action, nameof(action));
 
 		AddListenerOnce(Action);
 
-		void Action(ISignal target, object[] args) =>
+		void Action(ISignal target,
+			object[] args) =>
 			action?.Invoke();
 	}
 

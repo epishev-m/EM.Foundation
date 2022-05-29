@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using System;
 
 public sealed class InstanceProviderFactory :
@@ -26,6 +27,7 @@ public sealed class InstanceProviderFactory :
 	}
 
 	#endregion
+
 	#region InstanceProviderFactory
 
 	public InstanceProviderFactory(IInstanceProvider instanceProvider)

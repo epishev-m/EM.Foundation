@@ -1,6 +1,7 @@
 ﻿
 namespace EM.Foundation
 {
+
 using System;
 
 [Serializable]
@@ -24,7 +25,8 @@ public sealed class ConfigLink<T> :
 	ConfigLink
 {
 	public ConfigLink(
-		string name) :
+		string name)
+		:
 		base(typeof(T), name)
 	{
 	}

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
+
+using System;
 
 [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class,
 	AllowMultiple = true,

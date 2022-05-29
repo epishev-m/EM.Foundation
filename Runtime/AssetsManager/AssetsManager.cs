@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -14,9 +15,10 @@ public sealed class AssetsManager :
 	public async Task<GameObject> InstantiateAsync(string path,
 		Transform parent = null)
 	{
-		var handle = parent == null 
+		var handle = parent == null
 			? Addressables.InstantiateAsync(path)
 			: Addressables.InstantiateAsync(path, parent);
+
 		var gameObject = await handle.Task;
 
 		if (handle.Status != AsyncOperationStatus.Succeeded)

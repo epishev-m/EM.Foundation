@@ -30,6 +30,7 @@ public sealed class ReactiveProperty<T>
 		Requires.NotNull(handler, nameof(handler));
 
 		OnChanged += handler;
+		OnChanged?.Invoke();
 	}
 
 	public void UnSubscribe(Action handler)
@@ -38,7 +39,7 @@ public sealed class ReactiveProperty<T>
 
 		OnChanged -= handler;
 	}
-	
+
 	#endregion
 }
 

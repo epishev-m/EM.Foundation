@@ -41,6 +41,7 @@ internal sealed class InstanceProviderTests
 	}
 
 	#endregion
+
 	#region Nested
 
 	private sealed class Test

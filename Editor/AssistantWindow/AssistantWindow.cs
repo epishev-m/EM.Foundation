@@ -39,7 +39,7 @@ public abstract class AssistantWindowBase :
 	#region AssistantWindowBase
 
 	protected abstract IEnumerable<IAssistantWindowComponent> GetWindowComponents();
-	
+
 	private void CreateComponents()
 	{
 		components.ForEach(c => c.RemoveListener(Repaint));
@@ -55,6 +55,7 @@ public abstract class AssistantWindowBase :
 	private void OnGUIButtons()
 	{
 		EditorGUILayout.BeginHorizontal("GroupBox");
+
 		{
 			if (GUILayout.Button("Show All"))
 			{
@@ -66,6 +67,7 @@ public abstract class AssistantWindowBase :
 				components.ForEach(c => c.Hide());
 			}
 		}
+
 		EditorGUILayout.EndHorizontal();
 	}
 

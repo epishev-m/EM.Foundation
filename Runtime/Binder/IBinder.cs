@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using System;
 
 public interface IBinder

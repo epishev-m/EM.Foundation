@@ -1,6 +1,7 @@
 ﻿
 namespace EM.Foundation
 {
+
 using System;
 using Newtonsoft.Json;
 
@@ -18,7 +19,7 @@ public class ConfigLinkJsonConverter :
 		object value,
 		JsonSerializer serializer)
 	{
-		writer.WriteValue(((ConfigLink)value).Name);
+		writer.WriteValue(((ConfigLink) value).Name);
 	}
 
 	public override object ReadJson(
@@ -32,7 +33,7 @@ public class ConfigLinkJsonConverter :
 			return null;
 		}
 
-		var name = (string)reader.Value;
+		var name = (string) reader.Value;
 		var resultObj = Activator.CreateInstance(objectType, name);
 
 		return resultObj;

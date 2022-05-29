@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using System;
 
 public abstract class CommandBase :
@@ -36,6 +37,7 @@ public abstract class CommandBase :
 	}
 
 	#endregion
+
 	#region CommandBase
 
 	protected void DoneInvoke()

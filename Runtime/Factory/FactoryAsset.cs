@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using UnityEngine;
 
 public abstract class FactoryAsset :

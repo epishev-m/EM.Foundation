@@ -1,5 +1,4 @@
-﻿
-namespace EM.Foundation.Editor
+﻿namespace EM.Foundation.Editor
 {
 
 public sealed class CodeGeneratorSimpleNamespace :
@@ -8,7 +7,7 @@ public sealed class CodeGeneratorSimpleNamespace :
 	private const string template = "\nnamespace {0}\n{{{1}}}\n";
 
 	private readonly string name;
-	
+
 	private readonly ICodeGenerator codeGenerator;
 
 	#region ICodeGenerator
@@ -22,10 +21,10 @@ public sealed class CodeGeneratorSimpleNamespace :
 	}
 
 	#endregion
+
 	#region CodeGeneratorSimpleNamespace
 
-	public CodeGeneratorSimpleNamespace(
-		string name,
+	public CodeGeneratorSimpleNamespace(string name,
 		ICodeGenerator codeGenerator)
 	{
 		this.name = name;

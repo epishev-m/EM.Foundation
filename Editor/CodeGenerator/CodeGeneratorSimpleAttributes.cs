@@ -1,6 +1,6 @@
-﻿
-namespace EM.Foundation.Editor
+﻿namespace EM.Foundation.Editor
 {
+
 using System.Collections.Generic;
 using System.Text;
 
@@ -31,10 +31,10 @@ public sealed class CodeGeneratorSimpleAttributes :
 	}
 
 	#endregion
+
 	#region CodeGeneratorSimpleAttributes
 
-	public CodeGeneratorSimpleAttributes(
-		IEnumerable<string> attributs,
+	public CodeGeneratorSimpleAttributes(IEnumerable<string> attributs,
 		ICodeGenerator codeGenerator)
 	{
 		this.attributs = attributs;

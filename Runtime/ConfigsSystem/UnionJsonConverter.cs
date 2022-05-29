@@ -1,6 +1,6 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
+
 using System;
 using System.Linq;
 using Newtonsoft.Json;
@@ -25,7 +25,7 @@ public sealed class UnionConverter :
 	{
 		var jObject = JObject.Load(reader);
 		var attrs = Attribute.GetCustomAttributes(objectType);
-        
+
 		foreach (var attribute in attrs)
 		{
 			if (attribute is not UnionAttribute unionAttribute)
@@ -44,6 +44,7 @@ public sealed class UnionConverter :
 				}
 
 				found = false;
+
 				break;
 			}
 
@@ -53,7 +54,7 @@ public sealed class UnionConverter :
 			}
 
 			var target = Activator.CreateInstance(unionAttribute.Type);
-			serializer.Populate(jObject.CreateReader(),target);
+			serializer.Populate(jObject.CreateReader(), target);
 
 			return target;
 		}

@@ -44,6 +44,7 @@ internal sealed class InstanceProviderSingletonTests
 	}
 
 	#endregion
+
 	#region Nested
 
 	private sealed class Test
@@ -54,7 +55,7 @@ internal sealed class InstanceProviderSingletonTests
 		IInstanceProvider
 	{
 		private readonly Test test;
-		
+
 		#region IProvider
 
 		public object GetInstance()
@@ -63,6 +64,7 @@ internal sealed class InstanceProviderSingletonTests
 		}
 
 		#endregion
+
 		#region TestProvider
 
 		public TestProvider(

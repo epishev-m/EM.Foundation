@@ -1,5 +1,4 @@
-﻿
-namespace EM.Foundation.Editor
+﻿namespace EM.Foundation.Editor
 {
 
 public class CodeGeneratorSimpleClass :
@@ -25,8 +24,7 @@ public class CodeGeneratorSimpleClass :
 
 	#region ClassTemplate
 
-	public CodeGeneratorSimpleClass(
-		string name,
+	public CodeGeneratorSimpleClass(string name,
 		ICodeGenerator codeGenerator)
 	{
 		this.name = name;

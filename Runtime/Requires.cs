@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -7,22 +8,19 @@ using System.Runtime.CompilerServices;
 public static class Requires
 {
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void ValidOperation(
-		bool condition,
+	public static void ValidOperation(bool condition,
 		object instance,
 		string methodName)
 	{
 		if (condition == false)
 		{
 			ThrowInvalidOperationException(
-				StringResources.MethodCallInvalidForObjectCurrentState(
-					instance.GetType(), methodName));
+				StringResources.MethodCallInvalidForObjectCurrentState(instance.GetType(), methodName));
 		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void ValidOperation(
-		bool condition,
+	public static void ValidOperation(bool condition,
 		string message)
 	{
 		if (condition == false)
@@ -32,8 +30,7 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void ValidArgument(
-		bool condition,
+	public static void ValidArgument(bool condition,
 		string message)
 	{
 		if (condition == false)
@@ -43,8 +40,7 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void NotNull(
-		object instance,
+	public static void NotNull(object instance,
 		string paramName)
 	{
 		if (instance == null)
@@ -54,8 +50,7 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void NotNull(
-		UnityEngine.Object instance,
+	public static void NotNull(UnityEngine.Object instance,
 		string paramName)
 	{
 		if (instance == null)
@@ -65,8 +60,7 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Null(
-		UnityEngine.Object instance,
+	public static void Null(UnityEngine.Object instance,
 		string paramName)
 	{
 		if (instance != null)
@@ -76,8 +70,7 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void ReferenceType(
-		Type type,
+	public static void ReferenceType(Type type,
 		string paramName)
 	{
 		var typeInfo = type.GetTypeInfo();
@@ -90,8 +83,7 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Type<T>(
-		object instance,
+	public static void Type<T>(object instance,
 		string paramName)
 	{
 		if (instance is T == false)
@@ -102,8 +94,7 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Type<T>(
-		UnityEngine.Object instance,
+	public static void Type<T>(UnityEngine.Object instance,
 		string paramName)
 	{
 		if (instance is T == false)
@@ -113,27 +104,23 @@ public static class Requires
 		}
 	}
 
-	private static void ThrowArgumentNullException(
-		string paramName)
+	private static void ThrowArgumentNullException(string paramName)
 	{
 		throw new ArgumentNullException(paramName);
 	}
 
-	private static void ThrowArgumentException(
-		string paramName)
+	private static void ThrowArgumentException(string paramName)
 	{
 		throw new ArgumentException(paramName);
 	}
 
-	private static void ThrowArgumentException(
-		string paramName,
+	private static void ThrowArgumentException(string paramName,
 		string message)
 	{
 		throw new ArgumentException(paramName, message);
 	}
 
-	private static void ThrowInvalidOperationException(
-		string message)
+	private static void ThrowInvalidOperationException(string message)
 	{
 		throw new InvalidOperationException(message);
 	}

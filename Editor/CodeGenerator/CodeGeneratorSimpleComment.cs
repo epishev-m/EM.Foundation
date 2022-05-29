@@ -1,7 +1,7 @@
-﻿using System.Text;
-
-namespace EM.Foundation.Editor
+﻿namespace EM.Foundation.Editor
 {
+
+using System.Text;
 
 public class CodeGeneratorSimpleComment :
 	ICodeGenerator
@@ -9,7 +9,7 @@ public class CodeGeneratorSimpleComment :
 	private const string template = "/* {0} */\n";
 
 	private readonly string comment;
-	
+
 	private readonly ICodeGenerator codeGenerator;
 
 	#region ICodeGenerator
@@ -26,10 +26,10 @@ public class CodeGeneratorSimpleComment :
 	}
 
 	#endregion
+
 	#region CodeGeneratorSimpleComment
 
-	public CodeGeneratorSimpleComment(
-		string comment,
+	public CodeGeneratorSimpleComment(string comment,
 		ICodeGenerator codeGenerator)
 	{
 		this.comment = comment;

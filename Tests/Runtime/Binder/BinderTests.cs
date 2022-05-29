@@ -53,6 +53,7 @@ internal sealed class BinderTests
 	}
 
 	#endregion
+
 	#region Unbind
 
 	[Test]

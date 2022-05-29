@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using System;
 using System.Collections.Concurrent;
 
@@ -47,6 +48,7 @@ public class Pool<T> :
 	}
 
 	#endregion
+
 	#region Pool
 
 	public Pool()

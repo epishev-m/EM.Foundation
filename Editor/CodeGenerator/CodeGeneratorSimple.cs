@@ -1,6 +1,6 @@
-﻿
-namespace EM.Foundation.Editor
+﻿namespace EM.Foundation.Editor
 {
+
 using System;
 using System.IO;
 using UnityEditor;
@@ -35,6 +35,7 @@ public sealed class CodeGeneratorSimple :
 		catch (Exception e)
 		{
 			Debug.LogException(e);
+
 			throw;
 		}
 
@@ -44,10 +45,10 @@ public sealed class CodeGeneratorSimple :
 	}
 
 	#endregion
+
 	#region CodeGeneratorSimple
 
-	public CodeGeneratorSimple(
-		string name,
+	public CodeGeneratorSimple(string name,
 		string path,
 		ICodeGenerator codeGenerator)
 	{

@@ -33,6 +33,7 @@ public sealed class CommandSequence :
 	}
 
 	#endregion
+
 	#region CommandSequence
 
 	private void OnDone()

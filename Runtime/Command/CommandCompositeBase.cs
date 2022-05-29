@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using System.Collections.Generic;
 
 public abstract class CommandCompositeBase :
@@ -27,6 +28,7 @@ public abstract class CommandCompositeBase :
 	}
 
 	#endregion
+
 	#region CommandBase
 
 	public override void Clear()
@@ -36,6 +38,7 @@ public abstract class CommandCompositeBase :
 	}
 
 	#endregion
+
 	#region CommandCompositeBase
 
 	protected ICommand Dequeue()

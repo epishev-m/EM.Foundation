@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation.Editor
 {
+
 using System.Collections.Generic;
 using System.Text;
 
@@ -34,8 +35,7 @@ public sealed class CodeGeneratorSimpleUsing :
 
 	#region CodeGeneratorSimpleUsing
 
-	public CodeGeneratorSimpleUsing(
-		IEnumerable<string> names,
+	public CodeGeneratorSimpleUsing(IEnumerable<string> names,
 		ICodeGenerator codeGenerator)
 	{
 		this.names = names;

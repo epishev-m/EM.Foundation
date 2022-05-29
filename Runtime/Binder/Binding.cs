@@ -1,5 +1,6 @@
 ﻿namespace EM.Foundation
 {
+
 using System.Collections.Generic;
 
 public delegate void Resolver(IBinding binding);
@@ -78,6 +79,7 @@ public class Binding :
 	}
 
 	#endregion
+
 	#region Binding
 
 	public Binding(
