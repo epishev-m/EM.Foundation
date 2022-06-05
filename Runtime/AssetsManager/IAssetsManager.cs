@@ -1,4 +1,6 @@
-﻿namespace EM.Foundation
+﻿using Cysharp.Threading.Tasks;
+
+namespace EM.Foundation
 {
 
 using System.Threading.Tasks;
@@ -6,10 +8,10 @@ using UnityEngine;
 
 public interface IAssetsManager
 {
-	Task<GameObject> InstantiateAsync(string path,
+	UniTask<GameObject> InstantiateAsync(string path,
 		Transform parent = null);
 
-	Task<T> InstantiateAsync<T>(string path,
+	UniTask<T> InstantiateAsync<T>(string path,
 		Transform parent = null)
 		where T : Component;
 

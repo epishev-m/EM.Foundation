@@ -4,7 +4,8 @@
     "references": [
         "Unity.Nuget.NewtonsoftJson.EditorTests",
         "Unity.Addressables",
-        "Unity.ResourceManager"
+        "Unity.ResourceManager",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

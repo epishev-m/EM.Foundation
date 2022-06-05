@@ -1,4 +1,6 @@
-﻿namespace EM.Foundation
+﻿using Cysharp.Threading.Tasks;
+
+namespace EM.Foundation
 {
 
 using System;
@@ -12,7 +14,7 @@ public sealed class AssetsManager :
 {
 	#region IAssetsManager
 
-	public async Task<GameObject> InstantiateAsync(string path,
+	public async UniTask<GameObject> InstantiateAsync(string path,
 		Transform parent = null)
 	{
 		var handle = parent == null
@@ -31,7 +33,7 @@ public sealed class AssetsManager :
 		return gameObject;
 	}
 
-	public async Task<T> InstantiateAsync<T>(string path,
+	public async UniTask<T> InstantiateAsync<T>(string path,
 		Transform parent = null)
 		where T : Component
 	{
