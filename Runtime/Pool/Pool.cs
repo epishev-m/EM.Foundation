@@ -34,8 +34,7 @@ public class Pool<T> :
 		return item;
 	}
 
-	public void PutObject(
-		T obj)
+	public void PutObject(T obj)
 	{
 		Requires.NotNull(obj, nameof(obj));
 
@@ -56,8 +55,7 @@ public class Pool<T> :
 		instanceProvider = null;
 	}
 
-	public Pool(
-		IInstanceProvider instanceProvider)
+	public Pool(IInstanceProvider instanceProvider)
 	{
 		Requires.NotNull(instanceProvider, nameof(instanceProvider));
 
