@@ -1,10 +1,11 @@
 ﻿namespace EM.Foundation
 {
+
 using System;
 
-public sealed class ReactiveProperty<T>
+public sealed class RxProperty<T>
 {
-	private T value;
+	private T _value;
 
 	private event Action OnChanged;
 
@@ -12,15 +13,15 @@ public sealed class ReactiveProperty<T>
 
 	public T Value
 	{
-		get => value;
+		get => _value;
 		set
 		{
-			if (Equals(value, this.value))
+			if (Equals(value, _value))
 			{
 				return;
 			}
 
-			this.value = value;
+			_value = value;
 			OnChanged?.Invoke();
 		}
 	}
