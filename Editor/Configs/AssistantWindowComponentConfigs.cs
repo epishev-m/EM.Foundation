@@ -7,15 +7,15 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Foundation;
 using Newtonsoft.Json;
 using UnityEditor;
+using UnityEditor.AddressableAssets;
 using UnityEngine;
 
-public sealed class AssistantWindowComponentConfigs<T> :
-	IAssistantWindowComponent
+public sealed class AssistantWindowComponentConfigs<T> : IAssistantWindowComponent
 	where T : class, new()
 {
-	private string inputPath;
+	private string _inputPath;
 
-	private string outputPath;
+	private string _outputPath;
 
 	#region IAssistantWindowComponent
 
@@ -23,22 +23,23 @@ public sealed class AssistantWindowComponentConfigs<T> :
 
 	public void Prepare()
 	{
-		inputPath = EditorPrefs.GetString(InputPathKey);
-		outputPath = EditorPrefs.GetString(OutputPathKey);
+		_inputPath = EditorPrefs.GetString(InputPathKey);
+		_outputPath = EditorPrefs.GetString(OutputPathKey);
 	}
 
 	public void OnGUI()
 	{
 		EditorGUILayout.LabelField("Input path:");
-		TextField(InputPathKey, () => inputPath, value => inputPath = value);
+		TextField(InputPathKey, () => _inputPath, value => _inputPath = value);
 		EditorGUILayout.LabelField("Output path:");
-		TextField(OutputPathKey, () => outputPath, value => outputPath = value);
+		TextField(OutputPathKey, () => _outputPath, value => _outputPath = value);
 		EditorGUILayout.Space();
 
 		if (GUILayout.Button("Configure"))
 		{
 			CreateConfig();
 			AssetDatabase.Refresh();
+			SetAddressableFlag();
 		}
 	}
 
@@ -46,9 +47,9 @@ public sealed class AssistantWindowComponentConfigs<T> :
 
 	#region AssistantWindowComponentConfigs
 
-	private string InputPathKey => $"AssistantWindow.{Name}.{nameof(inputPath)}";
+	private string InputPathKey => $"AssistantWindow.{Name}.{nameof(_inputPath)}";
 
-	private string OutputPathKey => $"AssistantWindow.{Name}.{nameof(outputPath)}";
+	private string OutputPathKey => $"AssistantWindow.{Name}.{nameof(_outputPath)}";
 
 	private static void TextField(string prefsKey,
 		Func<string> getter,
@@ -69,7 +70,7 @@ public sealed class AssistantWindowComponentConfigs<T> :
 	private void CreateConfig()
 	{
 		var library = new T();
-		var dir = new DirectoryInfo(inputPath);
+		var dir = new DirectoryInfo(_inputPath);
 		var files = dir.GetFiles("*.json");
 
 		JsonSerializerSettings jsonSettings = new()
@@ -88,8 +89,17 @@ public sealed class AssistantWindowComponentConfigs<T> :
 		}
 
 		var formatter = new BinaryFormatter();
-		using var fs = new FileStream(outputPath, FileMode.OpenOrCreate);
+		using var fs = new FileStream(_outputPath, FileMode.OpenOrCreate);
 		formatter.Serialize(fs, library);
+	}
+
+	private void SetAddressableFlag()
+	{
+		var guiID = AssetDatabase.AssetPathToGUID(_outputPath);
+		var settings = AddressableAssetSettingsDefaultObject.Settings;
+		var assetEntry = settings.CreateOrMoveEntry(guiID, settings.DefaultGroup);
+		var name = Path.GetFileNameWithoutExtension(_outputPath);
+		assetEntry.address = name;
 	}
 
 	#endregion

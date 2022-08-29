@@ -2,7 +2,8 @@
     "name": "EM.Foundation.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:94c2e9f1badce174dbc436ca38ab847c"
+        "EM.Foundation",
+        "Unity.Addressables.Editor"
     ],
     "includePlatforms": [
         "Editor"
