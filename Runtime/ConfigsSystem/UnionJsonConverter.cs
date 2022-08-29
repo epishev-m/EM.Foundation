@@ -11,14 +11,12 @@ public sealed class UnionConverter :
 {
 	public override bool CanWrite => false;
 
-	public override bool CanConvert(
-		Type objectType)
+	public override bool CanConvert(Type objectType)
 	{
 		return Attribute.GetCustomAttributes(objectType).Any(v => v is UnionAttribute);
 	}
 
-	public override object ReadJson(
-		JsonReader reader,
+	public override object ReadJson(JsonReader reader,
 		Type objectType,
 		object existingValue,
 		JsonSerializer serializer)
@@ -62,8 +60,7 @@ public sealed class UnionConverter :
 		throw new InvalidOperationException();
 	}
 
-	public override void WriteJson(
-		JsonWriter writer,
+	public override void WriteJson(JsonWriter writer,
 		object value,
 		JsonSerializer serializer)
 	{

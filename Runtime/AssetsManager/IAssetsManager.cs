@@ -10,9 +10,10 @@ public interface IAssetsManager
 {
 	UniTask<GameObject> InstantiateAsync(string path,
 		CancellationToken ct);
-	
+
 	UniTask<GameObject> InstantiateAsync(string path,
-		Transform parent, CancellationToken ct);
+		Transform parent,
+		CancellationToken ct);
 
 	UniTask<T> InstantiateAsync<T>(string path,
 		CancellationToken ct)

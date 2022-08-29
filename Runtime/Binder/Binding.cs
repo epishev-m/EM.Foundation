@@ -32,8 +32,7 @@ public class Binding :
 		return To(typeof(T));
 	}
 
-	public IBinding To(
-		object value)
+	public IBinding To(object value)
 	{
 		Requires.NotNull(value, nameof(value));
 

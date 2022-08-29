@@ -1,5 +1,4 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
 
 using System;
@@ -11,8 +10,7 @@ public abstract class ConfigLink
 
 	public readonly string Name;
 
-	protected ConfigLink(
-		Type entryType,
+	protected ConfigLink(Type entryType,
 		string name)
 	{
 		Type = entryType;
@@ -24,10 +22,8 @@ public abstract class ConfigLink
 public sealed class ConfigLink<T> :
 	ConfigLink
 {
-	public ConfigLink(
-		string name)
-		:
-		base(typeof(T), name)
+	public ConfigLink(string name)
+		: base(typeof(T), name)
 	{
 	}
 }

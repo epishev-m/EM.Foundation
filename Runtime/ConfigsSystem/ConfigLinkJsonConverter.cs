@@ -1,5 +1,4 @@
-﻿
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
 
 using System;
