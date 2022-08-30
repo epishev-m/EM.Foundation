@@ -13,6 +13,9 @@ public abstract class ConfigLink
 	protected ConfigLink(Type entryType,
 		string name)
 	{
+		Requires.NotNull(entryType, nameof(entryType));
+		Requires.ValidArgument(!string.IsNullOrWhiteSpace(name), "Name cannot be empty or null.");
+
 		Type = entryType;
 		Name = name;
 	}
