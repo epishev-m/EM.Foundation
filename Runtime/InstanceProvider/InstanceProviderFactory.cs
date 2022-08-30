@@ -6,13 +6,13 @@ using System;
 public sealed class InstanceProviderFactory :
 	IInstanceProvider
 {
-	private readonly IInstanceProvider instanceProvider;
+	private readonly IInstanceProvider _instanceProvider;
 
 	#region IInstanceProvider
 
 	public object GetInstance()
 	{
-		var instance = instanceProvider.GetInstance();
+		var instance = _instanceProvider.GetInstance();
 
 		Requires.Type<IFactory>(instance, nameof(instance));
 
@@ -34,7 +34,7 @@ public sealed class InstanceProviderFactory :
 	{
 		Requires.NotNull(instanceProvider, nameof(instanceProvider));
 
-		this.instanceProvider = instanceProvider;
+		_instanceProvider = instanceProvider;
 	}
 
 	#endregion

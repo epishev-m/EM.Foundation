@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using EM.Foundation;
 
 internal sealed class ReflectionInfoTests
@@ -47,6 +48,20 @@ internal sealed class ReflectionInfoTests
 		Assert.IsTrue(actual);
 	}
 
+	[Test]
+	public void ReflectionInfo_ConstructorParametersTypes()
+	{
+		// Arrange
+		var type = typeof(Test);
+
+		// Act
+		var reflectionInfo = new ReflectionInfo(type);
+		var actual = reflectionInfo.ConstructorParametersTypes.Count();
+
+		// Assert
+		Assert.AreEqual(2, actual);
+	}
+
 	#region Nested
 
 	[SuppressMessage("ReSharper", "UnusedParameter.Local")]
@@ -58,6 +73,15 @@ internal sealed class ReflectionInfoTests
 		}
 
 		public TestManyConstructors(int param1,
+			int param2)
+		{
+		}
+	}
+	
+	[SuppressMessage("ReSharper", "UnusedParameter.Local")]
+	private sealed class Test
+	{
+		public Test(int param1,
 			int param2)
 		{
 		}

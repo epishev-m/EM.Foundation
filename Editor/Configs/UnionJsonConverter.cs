@@ -1,4 +1,4 @@
-﻿namespace EM.Foundation
+﻿namespace EM.Foundation.Editor
 {
 
 using System;
@@ -6,8 +6,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public sealed class UnionConverter :
-	JsonConverter
+public sealed class UnionConverter : JsonConverter
 {
 	public override bool CanWrite => false;
 

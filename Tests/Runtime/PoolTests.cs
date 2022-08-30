@@ -224,18 +224,18 @@ public sealed class PoolTests
 	private sealed class TestObject :
 		IPoolable
 	{
-		private bool isRestored = true;
+		private bool _isRestored = true;
 
-		bool IPoolable.IsRestored => isRestored;
+		bool IPoolable.IsRestored => _isRestored;
 
 		public void Use()
 		{
-			isRestored = false;
+			_isRestored = false;
 		}
 
 		void IPoolable.Restore()
 		{
-			isRestored = true;
+			_isRestored = true;
 		}
 	}
 

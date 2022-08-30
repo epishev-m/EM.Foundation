@@ -4,31 +4,30 @@
 using System;
 using System.Collections.Concurrent;
 
-public class Pool<T> :
-	IPool<T>
+public class Pool<T> : IPool<T>
 	where T : class
 {
-	private readonly ConcurrentBag<T> instances = new ConcurrentBag<T>();
+	private readonly ConcurrentBag<T> _instances = new();
 
-	private readonly IInstanceProvider instanceProvider;
+	private readonly IInstanceProvider _instanceProvider;
 
 	#region IPool
 
-	public int Count => instances.Count;
+	public int Count => _instances.Count;
 
 	public T GetObject()
 	{
-		if (instances.TryTake(out var item))
+		if (_instances.TryTake(out var item))
 		{
 			return item;
 		}
 
-		if (instanceProvider == null)
+		if (_instanceProvider == null)
 		{
 			return item;
 		}
 
-		var instance = instanceProvider.GetInstance() as T;
+		var instance = _instanceProvider.GetInstance() as T;
 		item = instance ?? throw new Exception();
 
 		return item;
@@ -43,7 +42,7 @@ public class Pool<T> :
 			poolItem.Restore();
 		}
 
-		instances.Add(obj);
+		_instances.Add(obj);
 	}
 
 	#endregion
@@ -52,14 +51,14 @@ public class Pool<T> :
 
 	public Pool()
 	{
-		instanceProvider = null;
+		_instanceProvider = null;
 	}
 
 	public Pool(IInstanceProvider instanceProvider)
 	{
 		Requires.NotNull(instanceProvider, nameof(instanceProvider));
 
-		this.instanceProvider = instanceProvider;
+		_instanceProvider = instanceProvider;
 	}
 
 	#endregion

@@ -5,8 +5,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
-public abstract class StateMachine<TState> :
-	IStateMachine<TState>
+public abstract class StateMachine<TState> : IStateMachine<TState>
 {
 	private readonly IStateFactory<TState> _stateFactory;
 

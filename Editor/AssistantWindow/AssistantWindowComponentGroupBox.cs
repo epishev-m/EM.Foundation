@@ -8,25 +8,25 @@ using UnityEngine.Events;
 public sealed class AssistantWindowComponentGroupBox :
 	IAssistantWindowComponent
 {
-	private readonly IAssistantWindowComponent component;
+	private readonly IAssistantWindowComponent _component;
 
-	private readonly AnimBool showExtraFields = new(false);
+	private readonly AnimBool _showExtraFields = new(false);
 
 	#region IAssistantWindowComponent
 
-	public string Name => component.Name;
+	public string Name => _component.Name;
 
-	public void Prepare() => component.Prepare();
+	public void Prepare() => _component.Prepare();
 
 	public void OnGUI()
 	{
 		EditorGUILayout.BeginVertical("GroupBox");
-		showExtraFields.target = EditorGUILayout.Foldout(showExtraFields.target, Name, true);
+		_showExtraFields.target = EditorGUILayout.Foldout(_showExtraFields.target, Name, true);
 
-		if (EditorGUILayout.BeginFadeGroup(showExtraFields.faded))
+		if (EditorGUILayout.BeginFadeGroup(_showExtraFields.faded))
 		{
 			EditorGUI.indentLevel++;
-			component.OnGUI();
+			_component.OnGUI();
 			EditorGUI.indentLevel--;
 		}
 
@@ -42,27 +42,27 @@ public sealed class AssistantWindowComponentGroupBox :
 	{
 		Requires.NotNull(component, nameof(component));
 
-		this.component = component;
+		_component = component;
 	}
 
 	public void AddListener(UnityAction call)
 	{
-		showExtraFields.valueChanged.AddListener(call);
+		_showExtraFields.valueChanged.AddListener(call);
 	}
 
 	public void RemoveListener(UnityAction call)
 	{
-		showExtraFields.valueChanged.RemoveListener(call);
+		_showExtraFields.valueChanged.RemoveListener(call);
 	}
 
 	public void Show()
 	{
-		showExtraFields.target = true;
+		_showExtraFields.target = true;
 	}
 
 	public void Hide()
 	{
-		showExtraFields.target = false;
+		_showExtraFields.target = false;
 	}
 
 	#endregion

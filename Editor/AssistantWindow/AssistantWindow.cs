@@ -8,7 +8,7 @@ using UnityEngine;
 public abstract class AssistantWindowBase :
 	EditorWindow
 {
-	private readonly List<AssistantWindowComponentGroupBox> components = new();
+	private readonly List<AssistantWindowComponentGroupBox> _components = new();
 
 	#region EditorWindow
 
@@ -16,7 +16,7 @@ public abstract class AssistantWindowBase :
 	{
 		CreateComponents();
 
-		foreach (var component in components)
+		foreach (var component in _components)
 		{
 			component.Prepare();
 			component.AddListener(Repaint);
@@ -25,13 +25,13 @@ public abstract class AssistantWindowBase :
 
 	private void OnDisable()
 	{
-		components.ForEach(c => c.RemoveListener(Repaint));
+		_components.ForEach(c => c.RemoveListener(Repaint));
 	}
 
 	private void OnGUI()
 	{
 		OnGUIButtons();
-		components.ForEach(c => c.OnGUI());
+		_components.ForEach(c => c.OnGUI());
 	}
 
 	#endregion
@@ -42,13 +42,13 @@ public abstract class AssistantWindowBase :
 
 	private void CreateComponents()
 	{
-		components.ForEach(c => c.RemoveListener(Repaint));
-		components.Clear();
+		_components.ForEach(c => c.RemoveListener(Repaint));
+		_components.Clear();
 		var newComponents = GetWindowComponents();
 
 		foreach (var component in newComponents)
 		{
-			components.Add(new AssistantWindowComponentGroupBox(component));
+			_components.Add(new AssistantWindowComponentGroupBox(component));
 		}
 	}
 
@@ -59,12 +59,12 @@ public abstract class AssistantWindowBase :
 		{
 			if (GUILayout.Button("Show All"))
 			{
-				components.ForEach(c => c.Show());
+				_components.ForEach(c => c.Show());
 			}
 
 			if (GUILayout.Button("Hide All"))
 			{
-				components.ForEach(c => c.Hide());
+				_components.ForEach(c => c.Hide());
 			}
 		}
 
