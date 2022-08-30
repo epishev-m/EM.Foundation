@@ -2,7 +2,7 @@ using System;
 using EM.Foundation;
 using NUnit.Framework;
 
-public sealed class ConfigLinkTests
+internal sealed class ConfigLinkTests
 {
 	[Test]
 	public void ConfigLink_Constructor_ExceptionType()

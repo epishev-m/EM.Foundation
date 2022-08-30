@@ -12,6 +12,8 @@ public sealed class UnionAttribute : Attribute
 
 	public UnionAttribute(Type type)
 	{
+		Requires.NotNull(type, nameof(type));
+
 		Type = type;
 	}
 }
