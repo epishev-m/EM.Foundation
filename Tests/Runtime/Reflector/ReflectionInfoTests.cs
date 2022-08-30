@@ -49,6 +49,17 @@ internal sealed class ReflectionInfoTests
 	}
 
 	[Test]
+	public void ReflectionInfo_ConstructorInfo()
+	{
+		// Act
+		var reflectionInfo = new ReflectionInfo(typeof(Test));
+		var actual = reflectionInfo.ConstructorInfo;
+
+		// Assert
+		Assert.NotNull(actual);
+	}
+
+	[Test]
 	public void ReflectionInfo_ConstructorParametersTypes()
 	{
 		// Arrange
@@ -60,6 +71,28 @@ internal sealed class ReflectionInfoTests
 
 		// Assert
 		Assert.AreEqual(2, actual);
+	}
+
+	[Test]
+	public void ReflectionInfo_Attributes_Empty()
+	{
+		// Act
+		var reflectionInfo = new ReflectionInfo(typeof(TestNotAttr));
+		var actual = reflectionInfo.Attributes.Any();
+
+		// Assert
+		Assert.False(actual);
+	}
+
+	[Test]
+	public void ReflectionInfo_Attributes_NotNull()
+	{
+		// Act
+		var reflectionInfo = new ReflectionInfo(typeof(Test));
+		var actual = reflectionInfo.Attributes;
+
+		// Assert
+		Assert.NotNull(actual);
 	}
 
 	#region Nested
@@ -77,7 +110,7 @@ internal sealed class ReflectionInfoTests
 		{
 		}
 	}
-	
+
 	[SuppressMessage("ReSharper", "UnusedParameter.Local")]
 	private sealed class Test
 	{
@@ -85,6 +118,10 @@ internal sealed class ReflectionInfoTests
 			int param2)
 		{
 		}
+	}
+
+	private sealed class TestNotAttr
+	{
 	}
 
 	#endregion

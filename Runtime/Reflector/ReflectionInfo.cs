@@ -6,8 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-public sealed class ReflectionInfo :
-	IReflectionInfo
+public sealed class ReflectionInfo : IReflectionInfo
 {
 	private readonly Type _type;
 
