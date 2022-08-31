@@ -1,7 +1,7 @@
 ﻿namespace EM.Foundation
 {
 
-public sealed class InstanceProvider :
+public class InstanceProvider :
 	IInstanceProvider
 {
 	private readonly object instance;

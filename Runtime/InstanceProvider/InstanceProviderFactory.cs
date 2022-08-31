@@ -1,10 +1,7 @@
 ﻿namespace EM.Foundation
 {
 
-using System;
-
-public sealed class InstanceProviderFactory :
-	IInstanceProvider
+public sealed class InstanceProviderFactory : IInstanceProvider
 {
 	private readonly IInstanceProvider _instanceProvider;
 
@@ -13,17 +10,18 @@ public sealed class InstanceProviderFactory :
 	public object GetInstance()
 	{
 		var instance = _instanceProvider.GetInstance();
+		var factory = instance as IFactory;
 
-		Requires.Type<IFactory>(instance, nameof(instance));
+		Requires.ValidOperation(factory != null, this, nameof(GetInstance));
 
-		var factory = (IFactory) instance;
-
-		if (factory.TryCreate(out var result) == false)
+		if (factory != null && factory.TryCreate(out var result))
 		{
-			throw new Exception("Failed to create object.");
+			return result;
 		}
 
-		return result;
+		Requires.ValidOperation(false, this, nameof(GetInstance));
+
+		return null;
 	}
 
 	#endregion
