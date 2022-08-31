@@ -9,7 +9,7 @@ public sealed class RxProperty<T>
 
 	private event Action OnChanged;
 
-	#region ReactiveProperty
+	#region RxProperty
 
 	public T Value
 	{
