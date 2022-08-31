@@ -1,25 +1,66 @@
 ﻿using NUnit.Framework;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using EM.Foundation;
 
 internal sealed class ReflectorTests
 {
-	#region GetReflectionInfo
+	[Test]
+	public void Reflector_GetReflectionInfo_NotNull()
+	{
+		// Arrange
+		var reflector = new Reflector();
 
-	
+		// Act
+		var actual = reflector.GetReflectionInfo(typeof(Test));
 
-	#endregion
+		//Assert
+		Assert.NotNull(actual);
+	}
+
+	[Test]
+	public void Reflector_GetReflectionInfoT_NotNull()
+	{
+		// Arrange
+		var reflector = new Reflector();
+
+		// Act
+		var actual = reflector.GetReflectionInfo<Test>();
+
+		//Assert
+		Assert.NotNull(actual);
+	}
+
+	[Test]
+	public void Reflector_GetReflectionInfo_Pool()
+	{
+		// Arrange
+		var reflector = new Reflector();
+		var expected = reflector.GetReflectionInfo(typeof(Test));
+
+		// Act
+		var actual = reflector.GetReflectionInfo(typeof(Test));
+
+		//Assert
+		Assert.AreEqual(expected, actual);
+	}
+
+	[Test]
+	public void Reflector_GetReflectionInfoT_Pool()
+	{
+		// Arrange
+		var reflector = new Reflector();
+		var expected = reflector.GetReflectionInfo<Test>();
+
+		// Act
+		var actual = reflector.GetReflectionInfo<Test>();
+
+		//Assert
+		Assert.AreEqual(expected, actual);
+	}
 
 	#region Nested
 
-	[SuppressMessage("ReSharper", "UnusedParameter.Local")]
 	private sealed class Test
 	{
-		public Test(int param1,
-			int param2)
-		{
-		}
 	}
 
 	#endregion
