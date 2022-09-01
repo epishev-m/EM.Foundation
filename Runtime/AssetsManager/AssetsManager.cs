@@ -8,26 +8,25 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public sealed class AssetsManager :
-	IAssetsManager
+public sealed class AssetsManager : IAssetsManager
 {
 	#region IAssetsManager
 
-	public async UniTask<GameObject> InstantiateAsync(string path,
+	public async UniTask<GameObject> InstantiateAsync(string key,
 		CancellationToken ct)
 	{
-		return await InstantiateAsync(path, null, ct);
+		return await InstantiateAsync(key, null, ct);
 	}
 
-	public async UniTask<GameObject> InstantiateAsync(string path,
+	public async UniTask<GameObject> InstantiateAsync(string key,
 		Transform parent,
 		CancellationToken ct)
 	{
 		ct.ThrowIfCancellationRequested();
 
 		var handler = parent == null
-			? Addressables.InstantiateAsync(path)
-			: Addressables.InstantiateAsync(path, parent);
+			? Addressables.InstantiateAsync(key)
+			: Addressables.InstantiateAsync(key, parent);
 
 		var gameObject = await handler.Task;
 
@@ -36,24 +35,24 @@ public sealed class AssetsManager :
 			return default;
 		}
 
-		gameObject.name = path;
+		gameObject.name = key;
 
 		return gameObject;
 	}
 
-	public async UniTask<T> InstantiateAsync<T>(string path,
+	public async UniTask<T> InstantiateAsync<T>(string key,
 		CancellationToken ct)
 		where T : Component
 	{
-		return await InstantiateAsync<T>(path, null, ct);
+		return await InstantiateAsync<T>(key, null, ct);
 	}
 
-	public async UniTask<T> InstantiateAsync<T>(string path,
+	public async UniTask<T> InstantiateAsync<T>(string key,
 		Transform parent,
 		CancellationToken ct)
 		where T : Component
 	{
-		var gameObject = await InstantiateAsync(path, parent, ct);
+		var gameObject = await InstantiateAsync(key, parent, ct);
 
 		if (gameObject.TryGetComponent(out T component) == false)
 		{
@@ -62,6 +61,21 @@ public sealed class AssetsManager :
 		}
 
 		return component;
+	}
+
+	public T LoadAsset<T>(string key)
+		where T : UnityEngine.Object
+	{
+		var operationHandle =  Addressables.LoadAssetAsync<T>(key);
+		var asset = operationHandle.WaitForCompletion();
+
+		return asset;
+	}
+
+	public void ReleaseAsset<T>(T asset)
+		where T : UnityEngine.Object
+	{
+		Addressables.Release(asset);
 	}
 
 	public bool ReleaseInstance(GameObject gameObject)
