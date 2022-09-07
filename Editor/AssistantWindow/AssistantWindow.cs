@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public abstract class AssistantWindowBase :
-	EditorWindow
+public abstract class AssistantWindowBase : EditorWindow
 {
 	private readonly List<AssistantWindowComponentGroupBox> _components = new();
 

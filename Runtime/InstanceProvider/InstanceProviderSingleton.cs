@@ -1,18 +1,17 @@
 ﻿namespace EM.Foundation
 {
 
-public sealed class InstanceProviderSingleton :
-	IInstanceProvider
+public sealed class InstanceProviderSingleton : IInstanceProvider
 {
-	private readonly IInstanceProvider instanceProvider;
+	private readonly IInstanceProvider _instanceProvider;
 
-	private object instance;
+	private object _instance;
 
 	#region IInstanceProvider
 
 	public object GetInstance()
 	{
-		return instance ??= instanceProvider.GetInstance();
+		return _instance ??= _instanceProvider.GetInstance();
 	}
 
 	#endregion
@@ -23,7 +22,7 @@ public sealed class InstanceProviderSingleton :
 	{
 		Requires.NotNull(instanceProvider, nameof(instanceProvider));
 
-		this.instanceProvider = instanceProvider;
+		_instanceProvider = instanceProvider;
 	}
 
 	#endregion

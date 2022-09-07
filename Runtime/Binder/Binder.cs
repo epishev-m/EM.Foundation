@@ -6,10 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using BindingKey = System.ValueTuple<object, object>;
 
-public class Binder :
-	IBinder
+public class Binder : IBinder
 {
-	protected readonly Dictionary<BindingKey, IBinding> bindings;
+	private readonly Dictionary<BindingKey, IBinding> _bindings;
 
 	#region IBinder
 
@@ -41,19 +40,19 @@ public class Binder :
 
 		var bindingKey = new BindingKey(key, name);
 
-		if (!bindings.ContainsKey(bindingKey))
+		if (!_bindings.ContainsKey(bindingKey))
 		{
 			return false;
 		}
 
-		bindings.Remove(bindingKey);
+		_bindings.Remove(bindingKey);
 
 		return true;
 	}
 
 	public void Unbind(Predicate<IBinding> match)
 	{
-		var resultList = bindings.Where(keyValue => match(keyValue.Value)).ToArray();
+		var resultList = _bindings.Where(keyValue => match(keyValue.Value)).ToArray();
 
 		foreach (var pair in resultList)
 		{
@@ -63,7 +62,7 @@ public class Binder :
 
 	public void UnbindAll()
 	{
-		bindings.Clear();
+		_bindings.Clear();
 	}
 
 	#endregion
@@ -72,7 +71,7 @@ public class Binder :
 
 	public Binder()
 	{
-		bindings = new Dictionary<BindingKey, IBinding>(128);
+		_bindings = new Dictionary<BindingKey, IBinding>(128);
 	}
 
 	protected IBinding GetBinding(object key,
@@ -83,9 +82,9 @@ public class Binder :
 		IBinding result = default;
 		var bindingKey = new BindingKey(key, name);
 
-		if (bindings.ContainsKey(bindingKey))
+		if (_bindings.ContainsKey(bindingKey))
 		{
-			result = bindings[bindingKey];
+			result = _bindings[bindingKey];
 		}
 
 		return result;
@@ -103,17 +102,17 @@ public class Binder :
 		{
 			var bindingKey = new BindingKey(binding.Key, null);
 
-			if (bindings.ContainsKey(bindingKey))
+			if (_bindings.ContainsKey(bindingKey))
 			{
-				bindings.Remove(bindingKey);
+				_bindings.Remove(bindingKey);
 			}
 		}
 
 		var actualBindingKey = new BindingKey(binding.Key, binding.Name);
 
-		if (!bindings.ContainsKey(actualBindingKey))
+		if (!_bindings.ContainsKey(actualBindingKey))
 		{
-			bindings.Add(actualBindingKey, binding);
+			_bindings.Add(actualBindingKey, binding);
 		}
 	}
 

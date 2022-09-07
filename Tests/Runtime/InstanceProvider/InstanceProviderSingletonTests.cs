@@ -51,26 +51,24 @@ internal sealed class InstanceProviderSingletonTests
 	{
 	}
 
-	private sealed class TestProvider :
-		IInstanceProvider
+	private sealed class TestProvider : IInstanceProvider
 	{
-		private readonly Test test;
+		private readonly Test _test;
 
 		#region IProvider
 
 		public object GetInstance()
 		{
-			return test;
+			return _test;
 		}
 
 		#endregion
 
 		#region TestProvider
 
-		public TestProvider(
-			Test test)
+		public TestProvider(Test test)
 		{
-			this.test = test ?? throw new ArgumentNullException(nameof(test));
+			_test = test ?? throw new ArgumentNullException(nameof(test));
 		}
 
 		#endregion

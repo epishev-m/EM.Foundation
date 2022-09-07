@@ -3,8 +3,7 @@
 
 using UnityEngine;
 
-public abstract class FactoryAsset :
-	ScriptableObject,
+public abstract class FactoryAsset : ScriptableObject,
 	IFactory
 {
 	#region IFactory

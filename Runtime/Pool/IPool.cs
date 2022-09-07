@@ -11,8 +11,7 @@ public interface IPool<T>
 
 	T GetObject();
 
-	void PutObject(
-		T item);
+	void PutObject(T item);
 }
 
 }

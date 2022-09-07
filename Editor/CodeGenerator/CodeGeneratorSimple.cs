@@ -6,29 +6,28 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-public sealed class CodeGeneratorSimple :
-	ICodeGenerator
+public sealed class CodeGeneratorSimple : ICodeGenerator
 {
-	private readonly string name;
+	private readonly string _name;
 
-	private readonly string path;
+	private readonly string _path;
 
-	private readonly ICodeGenerator codeGenerator;
+	private readonly ICodeGenerator _codeGenerator;
 
 	#region ICodeGenerator
 
 	public string Create()
 	{
-		if (!Directory.Exists(path))
+		if (!Directory.Exists(_path))
 		{
-			Directory.CreateDirectory(path);
+			Directory.CreateDirectory(_path);
 		}
 
-		var code = codeGenerator?.Create() ?? string.Empty;
+		var code = _codeGenerator?.Create() ?? string.Empty;
 
 		try
 		{
-			using var stream = File.Open(path + name, FileMode.Create, FileAccess.Write);
+			using var stream = File.Open(_path + _name, FileMode.Create, FileAccess.Write);
 			using var writer = new StreamWriter(stream);
 			writer.Write(code);
 		}
@@ -52,9 +51,9 @@ public sealed class CodeGeneratorSimple :
 		string path,
 		ICodeGenerator codeGenerator)
 	{
-		this.name = name;
-		this.path = path;
-		this.codeGenerator = codeGenerator;
+		_name = name;
+		_path = path;
+		_codeGenerator = codeGenerator;
 	}
 
 	#endregion

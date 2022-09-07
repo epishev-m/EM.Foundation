@@ -4,13 +4,13 @@
 public class InstanceProvider :
 	IInstanceProvider
 {
-	private readonly object instance;
+	private readonly object _instance;
 
 	#region IInstanceProvider
 
 	public object GetInstance()
 	{
-		return instance;
+		return _instance;
 	}
 
 	#endregion
@@ -21,7 +21,7 @@ public class InstanceProvider :
 	{
 		Requires.NotNull(instance, nameof(instance));
 
-		this.instance = instance;
+		_instance = instance;
 	}
 
 	#endregion

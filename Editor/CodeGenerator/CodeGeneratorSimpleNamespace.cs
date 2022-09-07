@@ -1,21 +1,20 @@
 ﻿namespace EM.Foundation.Editor
 {
 
-public sealed class CodeGeneratorSimpleNamespace :
-	ICodeGenerator
+public sealed class CodeGeneratorSimpleNamespace : ICodeGenerator
 {
-	private const string template = "\nnamespace {0}\n{{{1}}}\n";
+	private const string Template = "\nnamespace {0}\n{{{1}}}\n";
 
-	private readonly string name;
+	private readonly string _name;
 
-	private readonly ICodeGenerator codeGenerator;
+	private readonly ICodeGenerator _codeGenerator;
 
 	#region ICodeGenerator
 
 	public string Create()
 	{
-		var code = codeGenerator?.Create() ?? string.Empty;
-		code = string.Format(template, name, code);
+		var code = _codeGenerator?.Create() ?? string.Empty;
+		code = string.Format(Template, _name, code);
 
 		return code;
 	}
@@ -27,8 +26,8 @@ public sealed class CodeGeneratorSimpleNamespace :
 	public CodeGeneratorSimpleNamespace(string name,
 		ICodeGenerator codeGenerator)
 	{
-		this.name = name;
-		this.codeGenerator = codeGenerator;
+		_name = name;
+		_codeGenerator = codeGenerator;
 	}
 
 	#endregion

@@ -4,8 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-public sealed class Reflector :
-	IReflector
+public sealed class Reflector : IReflector
 {
 	private readonly Dictionary<Type, IReflectionInfo> _reflectionInfoCache = new();
 

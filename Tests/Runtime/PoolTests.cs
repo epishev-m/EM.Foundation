@@ -239,8 +239,7 @@ public sealed class PoolTests
 		}
 	}
 
-	private sealed class TestInstanceProvider :
-		IInstanceProvider
+	private sealed class TestInstanceProvider : IInstanceProvider
 	{
 		public object GetInstance()
 		{
@@ -248,8 +247,7 @@ public sealed class PoolTests
 		}
 	}
 
-	private sealed class FailInstanceProvider :
-		IInstanceProvider
+	private sealed class FailInstanceProvider : IInstanceProvider
 	{
 		public object GetInstance()
 		{

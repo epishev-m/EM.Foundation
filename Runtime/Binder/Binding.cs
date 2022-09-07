@@ -5,12 +5,11 @@ using System.Collections.Generic;
 
 public delegate void Resolver(IBinding binding);
 
-public class Binding :
-	IBinding
+public class Binding : IBinding
 {
-	private readonly LinkedList<object> values = new LinkedList<object>();
+	private readonly LinkedList<object> _values = new();
 
-	private readonly Resolver resolver;
+	private readonly Resolver _resolver;
 
 	#region IBinding
 
@@ -25,7 +24,7 @@ public class Binding :
 		private set;
 	}
 
-	public IEnumerable<object> Values => values.Count <= 0 ? null : values;
+	public IEnumerable<object> Values => _values.Count <= 0 ? null : _values;
 
 	public IBinding To<T>()
 	{
@@ -36,16 +35,16 @@ public class Binding :
 	{
 		Requires.NotNull(value, nameof(value));
 
-		values.AddLast(value);
-		resolver?.Invoke(this);
+		_values.AddLast(value);
+		_resolver?.Invoke(this);
 
 		return this;
 	}
 
 	public IBinding ToSelf()
 	{
-		values.AddLast(Key);
-		resolver?.Invoke(this);
+		_values.AddLast(Key);
+		_resolver?.Invoke(this);
 
 		return this;
 	}
@@ -55,34 +54,31 @@ public class Binding :
 		return ToName(typeof(T));
 	}
 
-	public IBinding ToName(
-		object name)
+	public IBinding ToName(object name)
 	{
 		Requires.NotNull(name, nameof(name));
 
 		Name = name;
-		resolver?.Invoke(this);
+		_resolver?.Invoke(this);
 
 		return this;
 	}
 
-	public bool RemoveValue(
-		object value)
+	public bool RemoveValue(object value)
 	{
-		return values.Remove(value);
+		return _values.Remove(value);
 	}
 
 	public void RemoveAllValues()
 	{
-		values.Clear();
+		_values.Clear();
 	}
 
 	#endregion
 
 	#region Binding
 
-	public Binding(
-		object key,
+	public Binding(object key,
 		object name,
 		Resolver resolver)
 	{
@@ -90,7 +86,7 @@ public class Binding :
 
 		Key = key;
 		Name = name;
-		this.resolver = resolver;
+		_resolver = resolver;
 	}
 
 	#endregion

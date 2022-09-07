@@ -3,22 +3,21 @@
 
 using System.Text;
 
-public class CodeGeneratorSimpleComment :
-	ICodeGenerator
+public class CodeGeneratorSimpleComment : ICodeGenerator
 {
-	private const string template = "/* {0} */\n";
+	private const string Template = "/* {0} */\n";
 
-	private readonly string comment;
+	private readonly string _comment;
 
-	private readonly ICodeGenerator codeGenerator;
+	private readonly ICodeGenerator _codeGenerator;
 
 	#region ICodeGenerator
 
 	public string Create()
 	{
 		var stringBuilder = new StringBuilder();
-		var code = codeGenerator?.Create() ?? string.Empty;
-		stringBuilder.AppendFormat(template, comment);
+		var code = _codeGenerator?.Create() ?? string.Empty;
+		stringBuilder.AppendFormat(Template, _comment);
 		stringBuilder.Append(code);
 		code = stringBuilder.ToString();
 
@@ -32,8 +31,8 @@ public class CodeGeneratorSimpleComment :
 	public CodeGeneratorSimpleComment(string comment,
 		ICodeGenerator codeGenerator)
 	{
-		this.comment = comment;
-		this.codeGenerator = codeGenerator;
+		_comment = comment;
+		_codeGenerator = codeGenerator;
 	}
 
 	#endregion

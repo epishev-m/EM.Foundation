@@ -5,8 +5,7 @@ using UnityEditor;
 using UnityEditor.AnimatedValues;
 using UnityEngine.Events;
 
-public sealed class AssistantWindowComponentGroupBox :
-	IAssistantWindowComponent
+public sealed class AssistantWindowComponentGroupBox : IAssistantWindowComponent
 {
 	private readonly IAssistantWindowComponent _component;
 

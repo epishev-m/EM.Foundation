@@ -22,8 +22,7 @@ public abstract class ConfigLink
 }
 
 [Serializable]
-public sealed class ConfigLink<T> :
-	ConfigLink
+public sealed class ConfigLink<T> : ConfigLink
 {
 	public ConfigLink(string name)
 		: base(typeof(T), name)

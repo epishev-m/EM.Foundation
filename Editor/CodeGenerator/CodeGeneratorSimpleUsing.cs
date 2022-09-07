@@ -4,25 +4,24 @@
 using System.Collections.Generic;
 using System.Text;
 
-public sealed class CodeGeneratorSimpleUsing :
-	ICodeGenerator
+public sealed class CodeGeneratorSimpleUsing : ICodeGenerator
 {
-	private const string template = "\nusing {0};";
+	private const string Template = "\nusing {0};";
 
-	private readonly IEnumerable<string> names;
+	private readonly IEnumerable<string> _names;
 
-	private readonly ICodeGenerator codeGenerator;
+	private readonly ICodeGenerator _codeGenerator;
 
 	#region ICodeGenerator
 
 	public string Create()
 	{
-		var code = codeGenerator?.Create() ?? string.Empty;
+		var code = _codeGenerator?.Create() ?? string.Empty;
 		var builder = new StringBuilder();
 
-		foreach (var name in names)
+		foreach (var name in _names)
 		{
-			builder.AppendFormat(template, name);
+			builder.AppendFormat(Template, name);
 		}
 
 		builder.AppendLine();
@@ -38,8 +37,8 @@ public sealed class CodeGeneratorSimpleUsing :
 	public CodeGeneratorSimpleUsing(IEnumerable<string> names,
 		ICodeGenerator codeGenerator)
 	{
-		this.names = names;
-		this.codeGenerator = codeGenerator;
+		_names = names;
+		_codeGenerator = codeGenerator;
 	}
 
 	#endregion
