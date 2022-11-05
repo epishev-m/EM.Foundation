@@ -15,7 +15,7 @@ public sealed class RequiresTests
 		// Act
 		try
 		{
-			Requires.ValidOperation(false, instance, string.Empty);
+			Requires.ValidOperation(false, instance);
 		}
 		catch (InvalidOperationException)
 		{

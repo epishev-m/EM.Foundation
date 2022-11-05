@@ -9,9 +9,9 @@ public interface IPool<T>
 		get;
 	}
 
-	T GetObject();
+	Result<T> GetObject();
 
-	void PutObject(T item);
+	Result PutObject(T item);
 }
 
 }

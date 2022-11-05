@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-internal interface IErrorResult
+public interface IErrorResult
 {
 	string Message
 	{

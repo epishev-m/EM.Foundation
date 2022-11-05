@@ -27,7 +27,7 @@ public abstract class Result<T> : Result
 	{
 		get
 		{
-			Requires.ValidOperation(Success, this, nameof(Data));
+			Requires.ValidOperation(Success, this);
 
 			return _data;
 		}

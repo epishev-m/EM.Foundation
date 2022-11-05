@@ -10,12 +10,12 @@ public static class Requires
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void ValidOperation(bool condition,
 		object instance,
-		string methodName)
+		[CallerMemberName] string memberName = "")
 	{
 		if (condition == false)
 		{
 			ThrowInvalidOperationException(
-				StringResources.MethodCallInvalidForObjectCurrentState(instance.GetType(), methodName));
+				StringResources.MethodCallInvalidForObjectCurrentState(instance.GetType(), memberName));
 		}
 	}
 

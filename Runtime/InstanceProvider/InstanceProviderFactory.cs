@@ -12,14 +12,14 @@ public sealed class InstanceProviderFactory : IInstanceProvider
 		var instance = _instanceProvider.GetInstance();
 		var factory = instance as IFactory;
 
-		Requires.ValidOperation(factory != null, this, nameof(GetInstance));
+		Requires.ValidOperation(factory != null, this);
 
 		if (factory != null && factory.TryCreate(out var result))
 		{
 			return result;
 		}
 
-		Requires.ValidOperation(false, this, nameof(GetInstance));
+		Requires.ValidOperation(false, this);
 
 		return null;
 	}

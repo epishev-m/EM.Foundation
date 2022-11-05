@@ -7,18 +7,40 @@ public sealed class PoolTests
 	#region Pool
 
 	[Test]
-	public void Pool_GetObject_Null()
+	public void Pool_GetObject_PoolIsEmptyResult()
 	{
 		// Act
 		var pool = new Pool<TestObject>();
 		var actual = pool.GetObject();
 
 		// Assert
-		Assert.IsNull(actual);
+		Assert.IsInstanceOf<PoolIsEmptyResult<TestObject>>(actual);
 	}
 
 	[Test]
-	public void Pool_GetObject_NotNull()
+	public void Pool_GetObject_PoolIsEmptyResult_Exception()
+	{
+		// Arrange
+		var actual = false;
+		var pool = new Pool<TestObject>();
+		var result = pool.GetObject();
+
+		// Act
+		try
+		{
+			var unused = result.Data;
+		}
+		catch (InvalidOperationException)
+		{
+			actual = true;
+		}
+
+		// Assert
+		Assert.IsTrue(actual);
+	}
+
+	[Test]
+	public void Pool_GetObject_SuccessResult()
 	{
 		// Arrange
 		var expected = new TestObject();
@@ -29,14 +51,32 @@ public sealed class PoolTests
 		var actual = pool.GetObject();
 
 		//Assert
+		Assert.IsInstanceOf<SuccessResult<TestObject>>(actual);
+	}
+
+	[Test]
+	public void Pool_GetObject_Pool_GetObject_SuccessResult_NotNull()
+	{
+		// Arrange
+		var expected = new TestObject();
+
+		// Act
+		var pool = new Pool<TestObject>();
+		pool.PutObject(expected);
+		var result = pool.GetObject();
+		var actual = result.Data;
+
+		//Assert
 		Assert.AreEqual(expected, actual);
 	}
 
 	[Test]
 	public void Pool_Count_NumberZero()
 	{
-		// Act
+		// Arrange
 		var pool = new Pool<TestObject>();
+
+		// Act
 		var actual = pool.Count;
 
 		//Assert
@@ -75,22 +115,29 @@ public sealed class PoolTests
 	}
 
 	[Test]
-	public void Pool_PutObject_Exception()
+	public void Pool_PutObject_SuccessResult()
 	{
 		// Arrange
-		var actual = false;
-
-		// Act
+		var obj = new TestObject();
 		var pool = new Pool<TestObject>();
 
-		try
-		{
-			pool.PutObject(null);
-		}
-		catch (ArgumentNullException)
-		{
-			actual = true;
-		}
+		// Act
+		var result = pool.PutObject(obj);
+		var actual = result.Success;
+
+		//Assert
+		Assert.IsTrue(actual);
+	}
+
+	[Test]
+	public void Pool_PutObject_ErrorResult()
+	{
+		// Arrange
+		var pool = new Pool<TestObject>();
+
+		// Act
+		var result = pool.PutObject(null);
+		var actual = result.Failure;
 
 		//Assert
 		Assert.IsTrue(actual);
@@ -105,9 +152,16 @@ public sealed class PoolTests
 		// Act
 		var pool = new Pool<TestObject>();
 		pool.PutObject(testObject);
-		var tempObject = pool.GetObject();
-		tempObject.Use();
-		var obj = (IPoolable) tempObject;
+		var result = pool.GetObject();
+
+		if (result.Failure)
+		{
+			Assert.Fail();
+		}
+
+		var data = result.Data;
+		data.Use();
+		var obj = (IPoolable) data;
 		var actual = obj.IsRestored;
 
 		//Assert
@@ -123,14 +177,21 @@ public sealed class PoolTests
 		// Act
 		var pool = new Pool<TestObject>();
 		pool.PutObject(testObject);
-		var tempObject = pool.GetObject();
-		tempObject.Use();
-		var obj = (IPoolable) tempObject;
+		var result = pool.GetObject();
+
+		if (result.Failure)
+		{
+			Assert.Fail();
+		}
+
+		var data = result.Data;
+		data.Use();
+		var obj = (IPoolable) data;
 		var actual = obj.IsRestored;
 
 		Assert.IsFalse(actual);
 
-		pool.PutObject(tempObject);
+		pool.PutObject(data);
 		obj = testObject;
 		actual = obj.IsRestored;
 
@@ -140,7 +201,7 @@ public sealed class PoolTests
 
 	#endregion
 
-	#region PoolAndInstanceProvider
+	/*#region PoolAndInstanceProvider
 
 	[Test]
 	public void PoolAndInstanceProvider_GetObject_NotNull()
@@ -217,7 +278,7 @@ public sealed class PoolTests
 		Assert.IsTrue(actual);
 	}
 
-	#endregion
+	#endregion*/
 
 	#region Nested
 
@@ -239,11 +300,11 @@ public sealed class PoolTests
 		}
 	}
 
-	private sealed class TestInstanceProvider : IInstanceProvider
+	/*private sealed class TestInstanceProvider : IInstanceProvider<TestObject>
 	{
-		public object GetInstance()
+		public TestObject GetInstance()
 		{
-			return Activator.CreateInstance(typeof(TestObject));
+			return Activator.CreateInstance(typeof(TestObject)) as TestObject;
 		}
 	}
 
@@ -253,7 +314,7 @@ public sealed class PoolTests
 		{
 			return Activator.CreateInstance(typeof(string));
 		}
-	}
+	}*/
 
 	#endregion
 }
