@@ -4,8 +4,6 @@ using System;
 
 public sealed class PoolTests
 {
-	#region Pool
-
 	[Test]
 	public void Pool_GetObject_PoolIsEmptyResult()
 	{
@@ -55,7 +53,7 @@ public sealed class PoolTests
 	}
 
 	[Test]
-	public void Pool_GetObject_Pool_GetObject_SuccessResult_NotNull()
+	public void Pool_GetObject_SuccessResult_NotNull()
 	{
 		// Arrange
 		var expected = new TestObject();
@@ -198,8 +196,6 @@ public sealed class PoolTests
 		//Assert
 		Assert.IsTrue(actual);
 	}
-
-	#endregion
 
 	/*#region PoolAndInstanceProvider
 
