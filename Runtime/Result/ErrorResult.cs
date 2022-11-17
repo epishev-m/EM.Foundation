@@ -1,9 +1,6 @@
 ﻿namespace EM.Foundation
 {
 
-using System;
-using System.Collections.Generic;
-
 public class ErrorResult : Result,
 	IErrorResult
 {
@@ -14,21 +11,14 @@ public class ErrorResult : Result,
 		get;
 	}
 
-	public IReadOnlyCollection<Error> Errors
-	{
-		get;
-	}
-
 	#endregion
 
 	#region ErrorResult
 
-	public ErrorResult(string message,
-		IReadOnlyCollection<Error> errors)
+	public ErrorResult(string message)
 	{
 		Message = message;
 		Success = false;
-		Errors = errors ?? Array.Empty<Error>();
 	}
 
 	#endregion
@@ -44,22 +34,15 @@ public class ErrorResult<T> : Result<T>,
 		get;
 	}
 
-	public IReadOnlyCollection<Error> Errors
-	{
-		get;
-	}
-
 	#endregion
 
 	#region ErrorResult
 
-	public ErrorResult(string message,
-		IReadOnlyCollection<Error> errors)
+	public ErrorResult(string message)
 		: base(default)
 	{
 		Message = message;
 		Success = false;
-		Errors = errors ?? Array.Empty<Error>();
 	}
 
 	#endregion

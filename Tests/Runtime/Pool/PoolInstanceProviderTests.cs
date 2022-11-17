@@ -35,7 +35,7 @@ public sealed class PoolInstanceProviderTests
 		var actual = pool.GetObject();
 
 		// Assert
-		Assert.IsInstanceOf<PoolErrorResult<TestObject>>(actual);
+		Assert.IsInstanceOf<ErrorResult<TestObject>>(actual);
 	}
 
 	[Test]
@@ -298,7 +298,7 @@ public sealed class PoolInstanceProviderTests
 		{
 			if (!_isCreated)
 			{
-				return new ErrorResult<TestObject>(default, default);
+				return new ErrorResult<TestObject>(string.Empty);
 			}
 
 			var obj = Activator.CreateInstance(typeof(TestObject)) as TestObject;

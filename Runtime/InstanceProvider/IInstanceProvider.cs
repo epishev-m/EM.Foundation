@@ -3,7 +3,7 @@
 
 public interface IInstanceProvider
 {
-	object GetInstance();
+	Result<object> GetInstance();
 }
 
 public interface IInstanceProvider<T>

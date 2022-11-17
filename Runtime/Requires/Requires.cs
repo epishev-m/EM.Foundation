@@ -15,7 +15,7 @@ public static class Requires
 		if (condition == false)
 		{
 			ThrowInvalidOperationException(
-				StringResources.MethodCallInvalidForObjectCurrentState(instance.GetType(), memberName));
+				RequiresStringResources.MethodCallInvalidForObjectCurrentState(instance.GetType(), memberName));
 		}
 	}
 
@@ -88,7 +88,7 @@ public static class Requires
 		if (!typeInfo.IsClass && !typeInfo.IsInterface)
 		{
 			ThrowArgumentException(paramName,
-				StringResources.SuppliedTypeIsNotAReferenceType(type));
+				RequiresStringResources.SuppliedTypeIsNotAReferenceType(type));
 		}
 	}
 
@@ -99,7 +99,7 @@ public static class Requires
 		if (instance is T == false)
 		{
 			ThrowArgumentException(paramName,
-				StringResources.SuppliedTypeIsNotAGivenType(instance.GetType(), typeof(T)));
+				RequiresStringResources.SuppliedTypeIsNotAGivenType(instance.GetType(), typeof(T)));
 		}
 	}
 
@@ -110,7 +110,7 @@ public static class Requires
 		if (instance is T == false)
 		{
 			ThrowArgumentException(paramName,
-				StringResources.SuppliedTypeIsNotAGivenType(instance.GetType(), typeof(T)));
+				RequiresStringResources.SuppliedTypeIsNotAGivenType(instance.GetType(), typeof(T)));
 		}
 	}
 

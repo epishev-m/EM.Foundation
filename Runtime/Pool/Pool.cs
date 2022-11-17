@@ -19,14 +19,14 @@ public class Pool<T> : IPool<T>
 			return new SuccessResult<T>(item);
 		}
 
-		return new PoolIsEmptyResult<T>();
+		return new ErrorResult<T>(PoolStringResources.PoolIsEmpty(this));
 	}
 
 	public Result PutObject(T obj)
 	{
 		if (obj == null)
 		{
-			return new ErrorResult(default, default);
+			return new ErrorResult(PoolStringResources.PutNullObject(this));
 		}
 
 		if (obj is IPoolable {IsRestored: false} poolItem)

@@ -21,24 +21,29 @@ public abstract class StateMachine<TState> : IStateMachine<TState>
 		return _currentStateType == typeof(T);
 	}
 
-	public async UniTask EnterAsync<T>(CancellationToken ct = default)
+	public async UniTask<Result> EnterAsync<T>(CancellationToken ct = default)
 		where T : class, TState, IEnterState
 	{
 		await UniTask.DelayFrame(1, PlayerLoopTiming.Update, ct);
-		await EnterInternalAsync<T>(CallEnterAsync, ct);
+		var result = await EnterInternalAsync<T>(CallEnterAsync, ct);
+
+		return result;
 	}
 
-	public async UniTask EnterAsync<T, TPayload>(TPayload payload,
+	public async UniTask<Result> EnterAsync<T, TPayload>(TPayload payload,
 		CancellationToken ct = default)
 		where T : class, TState, IPayloadEnterState<TPayload>
 	{
 		await UniTask.DelayFrame(1, PlayerLoopTiming.Update, ct);
+		var result = await EnterInternalAsync<T>(ExecuteAsync, ct);
+
+		return result;
 
 		UniTask ExecuteAsync(TState state,
-			CancellationToken ctt) =>
-			CallEnterAsync(state, typeof(TPayload), payload, ctt);
-
-		await EnterInternalAsync<T>(ExecuteAsync, ct);
+			CancellationToken ctt)
+		{
+			return CallEnterAsync(state, typeof(TPayload), payload, ctt);
+		}
 	}
 
 	#endregion
@@ -47,29 +52,43 @@ public abstract class StateMachine<TState> : IStateMachine<TState>
 
 	protected StateMachine(IStateFactory<TState> stateFactory)
 	{
+
+		Requires.NotNull(stateFactory, nameof(stateFactory));
+
 		_stateFactory = stateFactory;
 	}
 
-	private async UniTask EnterInternalAsync<T>(Func<TState, CancellationToken, UniTask> callEnter,
-		CancellationToken ct)
+	private async UniTask<Result> EnterInternalAsync<T>(Func<TState, CancellationToken, UniTask> callEnter,
+			CancellationToken ct) 
 		where T : class, TState
 	{
 		if (IsActive<T>())
 		{
-			return;
+			return new ErrorResult(StateMachineStringResources.StateIsAlreadyActive(this));
 		}
 
-		var oldState = GetStateInstance(_currentStateType);
-		var newState = GetStateInstance(typeof(T));
-
-		if (oldState is IExitState exitState)
+		if (_currentStateType != null)
 		{
-			await exitState.OnExitAsync(ct);
+			var currentStateResult = GetStateInstance(_currentStateType);
+
+			if (currentStateResult.Data is IExitState exitState)
+			{
+				await exitState.OnExitAsync(ct);
+			}
 		}
 
-		_currentState = newState;
-		_currentStateType = newState.GetType();
+		var stateResult = GetStateInstance(typeof(T));
+
+		if (stateResult.Failure)
+		{
+			return new ErrorResult(StateMachineStringResources.CannotFindState(this));
+		}
+
+		_currentState = stateResult.Data;
+		_currentStateType = _currentState.GetType();
 		await callEnter(_currentState, ct);
+
+		return new SuccessResult();
 	}
 
 	private static async UniTask CallEnterAsync(TState state,
@@ -90,33 +109,33 @@ public abstract class StateMachine<TState> : IStateMachine<TState>
 
 		if (!stateGenericType.IsInstanceOfType(state))
 		{
-			throw new StateException(
-				$"State {state.GetType().FullName} mut be instance of IPayloadedState<{payloadType.Name}>!");
+			throw new StateException(StateMachineStringResources.StateInstanceOf(
+				state.GetType().FullName, payloadType.Name));
 		}
 
 		var enterMethod = stateGenericType.GetMethod("OnEnterAsync");
 
 		if (enterMethod == null)
 		{
-			throw new StateException($"State {state.GetType().FullName}: cannot find OnEnter method!");
+			throw new StateException(StateMachineStringResources.CannotFindOnEnterMethod(state.GetType().FullName));
 		}
 
-		var task = (UniTask) enterMethod.Invoke(state, new[] {payload, ct});
+		var task = (UniTask<Result>) enterMethod.Invoke(state, new[] {payload, ct});
 		await task;
 	}
 
-	private TState GetStateInstance(Type stateType)
+	private Result<TState> GetStateInstance(Type stateType)
 	{
 		if (stateType == null)
 		{
-			return default;
+			return new ErrorResult<TState>(StateMachineStringResources.PassedTypeIsNull(this));
 		}
 
 		var result = _stateFactory.Create(stateType);
 
-		if (result == null)
+		if (result.Failure)
 		{
-			throw new StateException($"Cannot find game state {stateType.FullName}!");
+			return new ErrorResult<TState>(StateMachineStringResources.CannotFindState(this));
 		}
 
 		return result;

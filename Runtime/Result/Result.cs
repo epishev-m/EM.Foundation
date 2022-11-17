@@ -31,7 +31,7 @@ public abstract class Result<T> : Result
 
 			return _data;
 		}
-		set => _data = value;
+		private set => _data = value;
 	}
 
 	#endregion

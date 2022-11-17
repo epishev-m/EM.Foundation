@@ -8,7 +8,7 @@ public abstract class FactoryAsset : ScriptableObject,
 {
 	#region IFactory
 
-	public abstract bool TryCreate(out object instance);
+	public abstract Result<object> Create();
 
 	#endregion IFactory
 }

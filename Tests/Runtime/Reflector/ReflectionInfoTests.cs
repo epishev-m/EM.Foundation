@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using EM.Foundation;
 
 internal sealed class ReflectionInfoTests
@@ -27,35 +28,33 @@ internal sealed class ReflectionInfoTests
 	}
 
 	[Test]
-	public void ReflectionInfo_ConstructorInfo_ExceptionManyConstructors()
+	public void ReflectionInfo_GetConstructorInfo_ManyConstructors()
 	{
 		// Arrange
-		var actual = false;
 		var type = typeof(TestManyConstructors);
+		var reflectionInfo = new ReflectionInfo(type);
 
 		// Act
-		try
-		{
-			var reflectionInfo = new ReflectionInfo(type);
-			var unused = reflectionInfo.ConstructorInfo;
-		}
-		catch (InvalidOperationException)
-		{
-			actual = true;
-		}
+		var resultResult = reflectionInfo.GetConstructorInfo();
+		var actual = resultResult.Failure;
 
 		// Assert
 		Assert.IsTrue(actual);
 	}
 
 	[Test]
-	public void ReflectionInfo_ConstructorInfo()
+	public void ReflectionInfo_GetConstructorInfo()
 	{
-		// Act
+		// Arrange
 		var reflectionInfo = new ReflectionInfo(typeof(Test));
-		var actual = reflectionInfo.ConstructorInfo;
+
+		// Act
+		var result = reflectionInfo.GetConstructorInfo();
+		var actualSuccess = result.Success;
+		var actual = result.Data;
 
 		// Assert
+		Assert.IsTrue(actualSuccess);
 		Assert.NotNull(actual);
 	}
 
@@ -64,21 +63,23 @@ internal sealed class ReflectionInfoTests
 	{
 		// Arrange
 		var type = typeof(Test);
+		var reflectionInfo = new ReflectionInfo(type);
 
 		// Act
-		var reflectionInfo = new ReflectionInfo(type);
-		var actual = reflectionInfo.ConstructorParametersTypes.Count();
+		var result = reflectionInfo.GetConstructorParamTypes();
+		var actual = result.Data.Count();
 
 		// Assert
 		Assert.AreEqual(2, actual);
 	}
 
 	[Test]
-	public void ReflectionInfo_Attributes_Empty()
+	public void ReflectionInfo_GetAttributes_Empty()
 	{
 		// Act
 		var reflectionInfo = new ReflectionInfo(typeof(TestNotAttr));
-		var actual = reflectionInfo.Attributes.Any();
+		var result = reflectionInfo.GetAttributes();
+		var actual = result.Data.Any();
 
 		// Assert
 		Assert.False(actual);
@@ -89,7 +90,8 @@ internal sealed class ReflectionInfoTests
 	{
 		// Act
 		var reflectionInfo = new ReflectionInfo(typeof(Test));
-		var actual = reflectionInfo.Attributes;
+		var result = reflectionInfo.GetAttributes();
+		var actual = result.Data;
 
 		// Assert
 		Assert.NotNull(actual);

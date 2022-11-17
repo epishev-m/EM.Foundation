@@ -34,7 +34,8 @@ internal sealed class InstanceProviderTests
 
 		// Act
 		var provider = new InstanceProvider(expected);
-		var actual = provider.GetInstance();
+		var result = provider.GetInstance();
+		var actual = result.Data;
 
 		//Assert
 		Assert.AreEqual(expected, actual);

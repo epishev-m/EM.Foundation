@@ -7,20 +7,11 @@ using System.Reflection;
 
 public interface IReflectionInfo
 {
-	ConstructorInfo ConstructorInfo
-	{
-		get;
-	}
+	Result<ConstructorInfo> GetConstructorInfo();
 
-	IEnumerable<Type> ConstructorParametersTypes
-	{
-		get;
-	}
+	Result<IEnumerable<Type>> GetConstructorParamTypes();
 
-	IEnumerable<Attribute> Attributes
-	{
-		get;
-	}
+	Result<IEnumerable<Attribute>> GetAttributes();
 }
 
 }

@@ -8,11 +8,11 @@ public interface IStateMachine<in TState>
 {
 	bool IsActive<T>()
 		where T : class, TState;
-	
-	UniTask EnterAsync<T>(CancellationToken ct = default)
+
+	UniTask<Result> EnterAsync<T>(CancellationToken ct = default)
 		where T : class, TState, IEnterState;
-	
-	UniTask EnterAsync<T, TPayload>(TPayload payload,
+
+	UniTask<Result> EnterAsync<T, TPayload>(TPayload payload,
 		CancellationToken ct = default)
 		where T : class, TState, IPayloadEnterState<TPayload>;
 }

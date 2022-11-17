@@ -9,20 +9,19 @@ public abstract class AddressableAssetFactory<T> : IFactory
 {
 	#region IFactory
 
-	public bool TryCreate(out object instance)
+	public Result<object> Create()
 	{
 		var operationHandle = Addressables.LoadAssetAsync<T>(Path);
 		var config = operationHandle.WaitForCompletion();
-		instance = config;
 
 		if (config == null)
 		{
-			return false;
+			return new ErrorResult<object>(FactoryStringResources.AddressablesLoadAsset(this));
 		}
 
 		Addressables.Release(config);
 
-		return true;
+		return new SuccessResult<object>(config);
 	}
 
 	#endregion

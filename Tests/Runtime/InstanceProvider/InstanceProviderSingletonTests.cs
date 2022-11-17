@@ -30,17 +30,17 @@ internal sealed class InstanceProviderSingletonTests
 	public void InstanceProviderSingleton_GetInstance()
 	{
 		// Arrange
-		var expected = new Test();
-		var testProvider = new TestProvider(expected);
+		var testProvider = new TestProvider();
 
 		// Act
 		var provider = new InstanceProviderSingleton(testProvider);
-		var actual1 = provider.GetInstance();
-		var actual2 = provider.GetInstance();
+		var result1 = provider.GetInstance();
+		var actual1 = result1.Data;
+		var result2 = provider.GetInstance();
+		var actual2 = result2.Data;
 
 		//Assert
-		Assert.AreEqual(expected, actual1);
-		Assert.AreEqual(expected, actual2);
+		Assert.AreEqual(actual1, actual2);
 	}
 
 	#endregion
@@ -53,22 +53,11 @@ internal sealed class InstanceProviderSingletonTests
 
 	private sealed class TestProvider : IInstanceProvider
 	{
-		private readonly Test _test;
-
 		#region IProvider
 
-		public object GetInstance()
+		public Result<object> GetInstance()
 		{
-			return _test;
-		}
-
-		#endregion
-
-		#region TestProvider
-
-		public TestProvider(Test test)
-		{
-			_test = test ?? throw new ArgumentNullException(nameof(test));
+			return new SuccessResult<object>(new Test());
 		}
 
 		#endregion

@@ -12,7 +12,7 @@ public sealed class PoolTests
 		var actual = pool.GetObject();
 
 		// Assert
-		Assert.IsInstanceOf<PoolIsEmptyResult<TestObject>>(actual);
+		Assert.IsInstanceOf<ErrorResult<TestObject>>(actual);
 	}
 
 	[Test]

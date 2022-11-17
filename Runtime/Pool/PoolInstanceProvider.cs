@@ -25,8 +25,7 @@ public class PoolInstanceProvider<T> : IPool<T>
 
 		if (result.Failure)
 		{
-			return new PoolErrorResult<T>(PoolStringResources.NoObjectsAvailable(),
-				PoolStringResources.NoObjectsAvailable());
+			return new ErrorResult<T>(PoolStringResources.InstanceProviderReturnedNull(this));
 		}
 
 		return result;
@@ -36,7 +35,7 @@ public class PoolInstanceProvider<T> : IPool<T>
 	{
 		if (obj == null)
 		{
-			return new ErrorResult(default, default);
+			return new ErrorResult(PoolStringResources.PutNullObject(this));
 		}
 
 		if (obj is IPoolable {IsRestored: false} poolItem)

@@ -2,7 +2,6 @@
 {
 
 using Cysharp.Threading.Tasks;
-using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -12,13 +11,13 @@ public sealed class AssetsManager : IAssetsManager
 {
 	#region IAssetsManager
 
-	public async UniTask<GameObject> InstantiateAsync(string key,
+	public async UniTask<Result<GameObject>> InstantiateAsync(string key,
 		CancellationToken ct)
 	{
 		return await InstantiateAsync(key, null, ct);
 	}
 
-	public async UniTask<GameObject> InstantiateAsync(string key,
+	public async UniTask<Result<GameObject>> InstantiateAsync(string key,
 		Transform parent,
 		CancellationToken ct)
 	{
@@ -32,60 +31,77 @@ public sealed class AssetsManager : IAssetsManager
 
 		if (handler.Status != AsyncOperationStatus.Succeeded)
 		{
-			return default;
+			return new ErrorResult<GameObject>(AssetsManagerStringResources.FailedLoaded(this));
 		}
 
 		gameObject.name = key;
 
-		return gameObject;
+		return new SuccessResult<GameObject>(gameObject);
 	}
 
-	public async UniTask<T> InstantiateAsync<T>(string key,
+	public async UniTask<Result<T>> InstantiateAsync<T>(string key,
 		CancellationToken ct)
 		where T : Component
 	{
 		return await InstantiateAsync<T>(key, null, ct);
 	}
 
-	public async UniTask<T> InstantiateAsync<T>(string key,
+	public async UniTask<Result<T>> InstantiateAsync<T>(string key,
 		Transform parent,
 		CancellationToken ct)
 		where T : Component
 	{
-		var gameObject = await InstantiateAsync(key, parent, ct);
+		var result = await InstantiateAsync(key, parent, ct);
 
-		if (gameObject.TryGetComponent(out T component) == false)
+		if (result.Failure)
 		{
-			throw new NullReferenceException(
-				$"Object of type {typeof(T)} is null on attempt to load it from addressables");
+			return new ErrorResult<T>(AssetsManagerStringResources.FailedLoaded(this));
 		}
 
-		return component;
+		if (result.Data.TryGetComponent(out T component) == false)
+		{
+			return new ErrorResult<T>(AssetsManagerStringResources.FailedLoaded(this));
+		}
+
+		return new SuccessResult<T>(component);
 	}
 
-	public T LoadAsset<T>(string key)
-		where T : UnityEngine.Object
+	public Result<T> LoadAsset<T>(string key)
+		where T : Object
 	{
 		var operationHandle =  Addressables.LoadAssetAsync<T>(key);
 		var asset = operationHandle.WaitForCompletion();
 
-		return asset;
+		if (operationHandle.Status == AsyncOperationStatus.Failed)
+		{
+			return new ErrorResult<T>(AssetsManagerStringResources.FailedLoaded(this));
+		}
+		
+		return new SuccessResult<T>(asset);
 	}
 
 	public void ReleaseAsset<T>(T asset)
-		where T : UnityEngine.Object
+		where T : Object
 	{
 		Addressables.Release(asset);
 	}
 
-	public bool ReleaseInstance(GameObject gameObject)
+	public Result ReleaseInstance(GameObject gameObject)
 	{
-		Requires.NotNull(gameObject, nameof(gameObject));
+		if (gameObject == null)
+		{
+			return new ErrorResult(AssetsManagerStringResources.GameObjectNull(this));
+		}
 
 		gameObject.SetActive(false);
 		var result = Addressables.ReleaseInstance(gameObject);
 
-		return result;
+		if (result)
+		{
+			return new SuccessResult();
+		}
+
+		return new ErrorResult(AssetsManagerStringResources.FailedLoaded(this));
 	}
 
 	#endregion

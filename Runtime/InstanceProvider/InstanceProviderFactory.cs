@@ -7,21 +7,24 @@ public sealed class InstanceProviderFactory : IInstanceProvider
 
 	#region IInstanceProvider
 
-	public object GetInstance()
+	public Result<object> GetInstance()
 	{
-		var instance = _instanceProvider.GetInstance();
-		var factory = instance as IFactory;
+		var resultFactory = _instanceProvider.GetInstance();
 
-		Requires.ValidOperation(factory != null, this);
-
-		if (factory != null && factory.TryCreate(out var result))
+		if (resultFactory.Failure)
 		{
-			return result;
+			return new ErrorResult<object>(InstanceProviderStringResources.FailedToGetFactory(this));
 		}
 
-		Requires.ValidOperation(false, this);
+		var factory = (IFactory) resultFactory.Data;
+		var instanceResult = factory.Create();
 
-		return null;
+		if (instanceResult.Success)
+		{
+			return new SuccessResult<object>(instanceResult.Data);
+		}
+
+		return new ErrorResult<object>(InstanceProviderStringResources.FailedToCreateInstance(this));
 	}
 
 	#endregion

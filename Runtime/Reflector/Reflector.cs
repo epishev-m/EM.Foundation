@@ -10,13 +10,18 @@ public sealed class Reflector : IReflector
 
 	#region IReflector
 
-	public IReflectionInfo GetReflectionInfo<T>()
+	public Result<IReflectionInfo> GetReflectionInfo<T>()
 	{
 		return GetReflectionInfo(typeof(T));
 	}
 
-	public IReflectionInfo GetReflectionInfo(Type type)
+	public Result<IReflectionInfo> GetReflectionInfo(Type type)
 	{
+		if (type == null)
+		{
+			return new ErrorResult<IReflectionInfo>(ReflectorStringResources.TypeNull(this));
+		}
+
 		IReflectionInfo reflectionInfo;
 
 		if (_reflectionInfoCache.TryGetValue(type, out var value))
@@ -29,7 +34,7 @@ public sealed class Reflector : IReflector
 			_reflectionInfoCache.Add(type, reflectionInfo);
 		}
 
-		return reflectionInfo;
+		return new SuccessResult<IReflectionInfo>(reflectionInfo);
 	}
 
 	#endregion

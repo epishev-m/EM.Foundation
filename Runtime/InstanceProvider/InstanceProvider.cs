@@ -8,9 +8,9 @@ public class InstanceProvider :
 
 	#region IInstanceProvider
 
-	public object GetInstance()
+	public Result<object> GetInstance()
 	{
-		return _instance;
+		return new SuccessResult<object>(_instance);
 	}
 
 	#endregion

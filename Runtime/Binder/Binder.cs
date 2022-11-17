@@ -8,7 +8,7 @@ using BindingKey = System.ValueTuple<object, object>;
 
 public class Binder : IBinder
 {
-	private readonly Dictionary<BindingKey, IBinding> _bindings;
+	private readonly Dictionary<BindingKey, IBinding> _bindings = new(128);
 
 	#region IBinder
 
@@ -69,11 +69,6 @@ public class Binder : IBinder
 
 	#region Binder
 
-	public Binder()
-	{
-		_bindings = new Dictionary<BindingKey, IBinding>(128);
-	}
-
 	protected IBinding GetBinding(object key,
 		object name = null)
 	{
@@ -96,7 +91,7 @@ public class Binder : IBinder
 		return new Binding(key, name, BindingResolver);
 	}
 
-	protected virtual void BindingResolver(IBinding binding)
+	protected void BindingResolver(IBinding binding)
 	{
 		if (binding.Name != null)
 		{

@@ -3,7 +3,7 @@
 
 public interface IFactory
 {
-	bool TryCreate(out object instance);
+	Result<object> Create();
 }
 
 }

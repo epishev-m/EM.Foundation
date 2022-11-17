@@ -18,11 +18,49 @@ public sealed class ReflectionInfo : IReflectionInfo
 
 	#region IReflectionInfo
 
-	public ConstructorInfo ConstructorInfo => _constructorInfo ??= GetConstructorInfo();
+	public Result<ConstructorInfo> GetConstructorInfo()
+	{
+		if (_constructorInfo != null)
+		{
+			return new SuccessResult<ConstructorInfo>(_constructorInfo);
+		}
 
-	public IEnumerable<Type> ConstructorParametersTypes => _constructorParamTypes ??= GetConstructorParamTypes();
+		var constructors = _type.GetConstructors(BindingFlags.FlattenHierarchy |
+												BindingFlags.Public |
+												BindingFlags.Instance |
+												BindingFlags.InvokeMethod);
 
-	public IEnumerable<Attribute> Attributes => _attributes ??= GetAttributes();
+		Result<ConstructorInfo> result = constructors.Length switch
+		{
+			0 => new SuccessResult<ConstructorInfo>(default),
+			> 1 => new ErrorResult<ConstructorInfo>(ReflectorStringResources.MultipleConstructors(this)),
+			_ => new SuccessResult<ConstructorInfo>(constructors[0])
+		};
+
+		return result;
+	}
+
+	public Result<IEnumerable<Type>> GetConstructorParamTypes()
+	{
+		var constructorInfo = GetConstructorInfo();
+
+		if (constructorInfo.Failure)
+		{
+			return new ErrorResult<IEnumerable<Type>>(ReflectorStringResources.MultipleConstructors(this));
+		}
+
+		var constructorParameters = constructorInfo.Data.GetParameters();
+		var constructorParametersTypes = constructorParameters.Select(param => param.ParameterType);
+
+		return new SuccessResult<IEnumerable<Type>>(constructorParametersTypes);
+	}
+
+	public Result<IEnumerable<Attribute>> GetAttributes()
+	{
+		var attributes = _type.GetCustomAttributes(false).Select(a => (Attribute) a);
+
+		return new SuccessResult<IEnumerable<Attribute>>(attributes);
+	}
 
 	#endregion
 
@@ -33,39 +71,6 @@ public sealed class ReflectionInfo : IReflectionInfo
 		Requires.NotNull(type, nameof(type));
 
 		_type = type;
-	}
-
-	private ConstructorInfo GetConstructorInfo()
-	{
-		var constructors = _type.GetConstructors(BindingFlags.FlattenHierarchy |
-												BindingFlags.Public |
-												BindingFlags.Instance |
-												BindingFlags.InvokeMethod);
-
-		var result = constructors.Length switch
-		{
-			0 => default,
-			> 1 => throw new InvalidOperationException($"Type {_type} has several constructors."),
-			_ => constructors[0]
-		};
-
-		return result;
-	}
-
-	private IEnumerable<Type> GetConstructorParamTypes()
-	{
-		var constructorInfo = GetConstructorInfo();
-		var constructorParameters = constructorInfo.GetParameters();
-		var constructorParametersTypes = constructorParameters.Select(param => param.ParameterType);
-
-		return constructorParametersTypes;
-	}
-
-	private IEnumerable<Attribute> GetAttributes()
-	{
-		var attributes = _type.GetCustomAttributes(false).Select(a => (Attribute) a);
-
-		return attributes;
 	}
 
 	#endregion

@@ -9,9 +9,21 @@ public sealed class InstanceProviderSingleton : IInstanceProvider
 
 	#region IInstanceProvider
 
-	public object GetInstance()
+	public Result<object> GetInstance()
 	{
-		return _instance ??= _instanceProvider.GetInstance();
+		if (_instance != null)
+		{
+			return new SuccessResult<object>(_instance);
+		}
+
+		var result = _instanceProvider.GetInstance();
+
+		if (result.Success)
+		{
+			_instance = result.Data;
+		}
+
+		return result;
 	}
 
 	#endregion

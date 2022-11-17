@@ -12,30 +12,38 @@ public abstract class BaseConfigsFactory : IFactory
 
 	#region IFactory
 
-	public bool TryCreate(out object instance)
+	public Result<object> Create()
 	{
-		var textAsset =  _assetsManager.LoadAsset<TextAsset>(Key);
+		var loadAssetResult = _assetsManager.LoadAsset<TextAsset>(Key);
+
+		if (loadAssetResult.Failure)
+		{
+			return new ErrorResult<object>(ConfigsFactoryStringResources.FailedToLoad(this));
+		}
+
+		var textAsset = loadAssetResult.Data;
 		var bytes = textAsset.bytes;
 		using var memoryStream = new MemoryStream();
 		memoryStream.Write(bytes, 0, bytes.Length);
 		memoryStream.Seek(0, SeekOrigin.Begin);
+		Result<object> result;
 
 		try
 		{
 			var formatter = new BinaryFormatter();
-			instance = formatter.Deserialize(memoryStream);
+			var instance = formatter.Deserialize(memoryStream);
+			result = new SuccessResult<object>(instance);
 		}
-		catch (SerializationException e)
+		catch (SerializationException)
 		{
-			Debug.LogException(e);
-			instance = null;
+			result = new ErrorResult<object>(ConfigsFactoryStringResources.ErrorDeserialization(this));
 		}
 		finally
 		{
 			_assetsManager.ReleaseAsset(textAsset);
 		}
 
-		return instance != null;
+		return result;
 	}
 
 	#endregion

@@ -4,7 +4,7 @@
 using System;
 using System.Globalization;
 
-internal static class StringResources
+internal static class RequiresStringResources
 {
 	internal static string SuppliedTypeIsNotAReferenceType(Type type)
 	{

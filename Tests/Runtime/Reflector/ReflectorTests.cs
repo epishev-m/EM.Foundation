@@ -34,10 +34,12 @@ internal sealed class ReflectorTests
 	{
 		// Arrange
 		var reflector = new Reflector();
-		var expected = reflector.GetReflectionInfo(typeof(Test));
+		var result = reflector.GetReflectionInfo(typeof(Test));
+		var expected = result.Data;
 
 		// Act
-		var actual = reflector.GetReflectionInfo(typeof(Test));
+		result = reflector.GetReflectionInfo(typeof(Test));
+		var actual = result.Data;
 
 		//Assert
 		Assert.AreEqual(expected, actual);
@@ -48,10 +50,12 @@ internal sealed class ReflectorTests
 	{
 		// Arrange
 		var reflector = new Reflector();
-		var expected = reflector.GetReflectionInfo<Test>();
+		var result = reflector.GetReflectionInfo<Test>();
+		var expected = result.Data;
 
 		// Act
-		var actual = reflector.GetReflectionInfo<Test>();
+		result = reflector.GetReflectionInfo<Test>();
+		var actual = result.Data;
 
 		//Assert
 		Assert.AreEqual(expected, actual);

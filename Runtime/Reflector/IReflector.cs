@@ -5,9 +5,9 @@ using System;
 
 public interface IReflector
 {
-	IReflectionInfo GetReflectionInfo<T>();
+	Result<IReflectionInfo> GetReflectionInfo<T>();
 
-	IReflectionInfo GetReflectionInfo(Type type);
+	Result<IReflectionInfo> GetReflectionInfo(Type type);
 }
 
 }

@@ -3,9 +3,9 @@ namespace EM.Foundation
 
 using System;
 
-public interface IStateFactory<out TState>
+public interface IStateFactory<TState>
 {
-	TState Create(Type stateType);
+	Result<TState> Create(Type stateType);
 }
 
 }

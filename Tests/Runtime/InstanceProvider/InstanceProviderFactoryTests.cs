@@ -25,69 +25,18 @@ public sealed class InstanceProviderFactoryTests
 	}
 
 	[Test]
-	public void InstanceProviderFactory_GetInstance_InvalidOperationException()
+	public void InstanceProviderFactory_GetInstance_InstanceProviderErrorResult()
 	{
 		// Arrange
-		var actual = false;
 		var instanceProvider = new TestNullInstanceProvider();
+		var instanceProviderFactory = new InstanceProviderFactory(instanceProvider);
 
 		// Act
-		try
-		{
-			var factory = new InstanceProviderFactory(instanceProvider);
-			var unused = factory.GetInstance();
-		}
-		catch (InvalidOperationException)
-		{
-			actual = true;
-		}
+		var actual = instanceProviderFactory.GetInstance();
 
 		// Assert
-		Assert.IsTrue(actual);
-	}
-
-	[Test]
-	public void InstanceProviderFactory_GetInstance_InvalidOperationException2()
-	{
-		// Arrange
-		var actual = false;
-		var instanceProvider = new TestInstanceProviderNotFactory();
-
-		// Act
-		try
-		{
-			var factory = new InstanceProviderFactory(instanceProvider);
-			var unused = factory.GetInstance();
-		}
-		catch (InvalidOperationException)
-		{
-			actual = true;
-		}
-
-		// Assert
-		Assert.IsTrue(actual);
-	}
-
-	[Test]
-	public void InstanceProviderFactory_GetInstance_InvalidOperationException3()
-	{
-		// Arrange
-		var actual = false;
-		var instanceProvider = new TestInstanceProviderFactoryNullInstance();
-
-		// Act
-		try
-		{
-			var factory = new InstanceProviderFactory(instanceProvider);
-			var unused = factory.GetInstance();
-		}
-		catch (InvalidOperationException)
-		{
-			actual = true;
-		}
-
-		// Assert
-		Assert.IsTrue(actual);
+		Assert.IsAssignableFrom<ErrorResult<object>>(actual);
+		Assert.IsNotNull(actual);
 	}
 
 	[Test]
@@ -98,7 +47,8 @@ public sealed class InstanceProviderFactoryTests
 
 		// Act
 		var factory = new InstanceProviderFactory(instanceProvider);
-		var actual = factory.GetInstance();
+		var result = factory.GetInstance();
+		var actual = result.Data;
 
 		// Assert
 		Assert.NotNull(actual);
@@ -108,43 +58,27 @@ public sealed class InstanceProviderFactoryTests
 
 	private sealed class TestNullInstanceProvider : IInstanceProvider
 	{
-		public object GetInstance()
+		public Result<object> GetInstance()
 		{
-			return null;
-		}
-	}
-
-	private sealed class TestInstanceProviderNotFactory : IInstanceProvider
-	{
-		public object GetInstance()
-		{
-			return new Test();
-		}
-	}
-
-	private sealed class TestInstanceProviderFactoryNullInstance : IInstanceProvider
-	{
-		public object GetInstance()
-		{
-			return null;
+			return new ErrorResult<object>(string.Empty);
 		}
 	}
 
 	private sealed class TestInstanceProviderFactoryNotNullInstance : IInstanceProvider
 	{
-		public object GetInstance()
+		public Result<object> GetInstance()
 		{
-			return new TestFactory();
+			var factory = new TestFactory();
+
+			return new SuccessResult<object>(factory);
 		}
 	}
 
 	private sealed class TestFactory : IFactory
 	{
-		public bool TryCreate(out object instance)
+		public Result<object> Create()
 		{
-			instance = new Test();
-
-			return true;
+			return new SuccessResult<object>(new Test());
 		}
 	}
 
