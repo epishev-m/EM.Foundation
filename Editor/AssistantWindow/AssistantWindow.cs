@@ -2,12 +2,17 @@
 {
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 public abstract class AssistantWindowBase : EditorWindow
 {
 	private readonly List<AssistantWindowComponentGroupBox> _components = new();
+
+	private Vector2 _scrollPos;
+
+	private string _filter = string.Empty;
 
 	#region EditorWindow
 
@@ -29,8 +34,8 @@ public abstract class AssistantWindowBase : EditorWindow
 
 	private void OnGUI()
 	{
-		OnGUIButtons();
-		_components.ForEach(c => c.OnGUI());
+		OnGuiTopPanel();
+		OnGuiComponents();
 	}
 
 	#endregion
@@ -51,23 +56,49 @@ public abstract class AssistantWindowBase : EditorWindow
 		}
 	}
 
-	private void OnGUIButtons()
+	private void OnGuiTopPanel()
 	{
-		EditorGUILayout.BeginHorizontal("GroupBox");
+		EditorGUILayout.BeginVertical("GroupBox");
 
+		OnGuiButtons();
+		EditorGUILayout.Space();
+		OnGuiSearch();
+
+		EditorGUILayout.EndVertical();
+	}
+
+	private void OnGuiButtons()
+	{
+		EditorGUILayout.BeginHorizontal();
+
+		if (GUILayout.Button("Show All"))
 		{
-			if (GUILayout.Button("Show All"))
-			{
-				_components.ForEach(c => c.Show());
-			}
+			_components.ForEach(c => c.Show());
+		}
 
-			if (GUILayout.Button("Hide All"))
-			{
-				_components.ForEach(c => c.Hide());
-			}
+		if (GUILayout.Button("Hide All"))
+		{
+			_components.ForEach(c => c.Hide());
 		}
 
 		EditorGUILayout.EndHorizontal();
+	}
+
+	private void OnGuiSearch()
+	{
+		_filter = EditorGUILayout.TextField(_filter, EditorStyles.toolbarSearchField);
+	}
+
+	private void OnGuiComponents()
+	{
+		_scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
+
+		foreach (var component in _components.Where(component => component.Name.Contains(_filter)))
+		{
+			component.OnGUI();
+		}
+
+		EditorGUILayout.EndScrollView();
 	}
 
 	#endregion
