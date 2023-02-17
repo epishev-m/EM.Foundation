@@ -19,18 +19,20 @@ public sealed class AssistantWindowComponentGroupBox : IAssistantWindowComponent
 
 	public void OnGUI()
 	{
-		EditorGUILayout.BeginVertical("GroupBox");
-		_showExtraFields.target = EditorGUILayout.Foldout(_showExtraFields.target, Name, true);
-
-		if (EditorGUILayout.BeginFadeGroup(_showExtraFields.faded))
+		using (new EditorVerticalGroup("GroupBox"))
 		{
-			EditorGUI.indentLevel++;
-			_component.OnGUI();
-			EditorGUI.indentLevel--;
-		}
+			using (var fadeGroup = new EditorFadeGroup(Name, _showExtraFields))
+			{
+				if (!fadeGroup.IsVisible)
+				{
+					return;
+				}
 
-		EditorGUILayout.EndFadeGroup();
-		EditorGUILayout.EndVertical();
+				EditorGUI.indentLevel++;
+				_component.OnGUI();
+				EditorGUI.indentLevel--;
+			}
+		}
 	}
 
 	#endregion

@@ -41,6 +41,11 @@ public sealed class RxProperty<T>
 		OnChanged -= handler;
 	}
 
+	public void UnSubscribeAll()
+	{
+		OnChanged = null;
+	}
+
 	#endregion
 }
 

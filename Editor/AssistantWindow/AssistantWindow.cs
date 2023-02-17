@@ -58,47 +58,44 @@ public abstract class AssistantWindowBase : EditorWindow
 
 	private void OnGuiTopPanel()
 	{
-		EditorGUILayout.BeginVertical("GroupBox");
-
-		OnGuiButtons();
-		EditorGUILayout.Space();
-		OnGuiSearch();
-
-		EditorGUILayout.EndVertical();
+		using (new EditorVerticalGroup("GroupBox"))
+		{
+			OnGuiButtons();
+			EditorGUILayout.Space();
+			OnGuiSearch();
+		}
 	}
 
 	private void OnGuiButtons()
 	{
-		EditorGUILayout.BeginHorizontal();
-
-		if (GUILayout.Button("Show All"))
+		using (new EditorHorizontalGroup())
 		{
-			_components.ForEach(c => c.Show());
-		}
+			if (GUILayout.Button("Show All"))
+			{
+				_components.ForEach(c => c.Show());
+			}
 
-		if (GUILayout.Button("Hide All"))
-		{
-			_components.ForEach(c => c.Hide());
+			if (GUILayout.Button("Hide All"))
+			{
+				_components.ForEach(c => c.Hide());
+			}
 		}
-
-		EditorGUILayout.EndHorizontal();
 	}
 
 	private void OnGuiSearch()
 	{
-		_filter = EditorGUILayout.TextField(_filter, EditorStyles.toolbarSearchField);
+		EditorLayoutUtility.ToolbarSearch(ref _filter);
 	}
 
 	private void OnGuiComponents()
 	{
-		_scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
-
-		foreach (var component in _components.Where(component => component.Name.Contains(_filter)))
+		using (new EditorScrollView(ref _scrollPos))
 		{
-			component.OnGUI();
+			foreach (var component in _components.Where(component => component.Name.Contains(_filter)))
+			{
+				component.OnGUI();
+			}
 		}
-
-		EditorGUILayout.EndScrollView();
 	}
 
 	#endregion

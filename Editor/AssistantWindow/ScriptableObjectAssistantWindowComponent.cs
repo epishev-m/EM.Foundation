@@ -57,21 +57,20 @@ public abstract class ScriptableObjectAssistantWindowComponent<T> : IAssistantWi
 
 	private void OnGUIButtons()
 	{
-		EditorGUILayout.BeginHorizontal();
-
-		if (GUILayout.Button("Create"))
+		using (new EditorHorizontalGroup())
 		{
-			CreateConfig();
-			SetAddressableFlag();
-		}
+			if (GUILayout.Button("Create"))
+			{
+				CreateConfig();
+				SetAddressableFlag();
+			}
 
-		if (GUILayout.Button("Select"))
-		{
-			SelectConfig();
-			SetAddressableFlag();
+			if (GUILayout.Button("Select"))
+			{
+				SelectConfig();
+				SetAddressableFlag();
+			}
 		}
-
-		EditorGUILayout.EndHorizontal();
 	}
 
 	private void CreateConfig()
@@ -86,7 +85,7 @@ public abstract class ScriptableObjectAssistantWindowComponent<T> : IAssistantWi
 		Config = ScriptableObject.CreateInstance<T>();
 		AssetDatabase.CreateAsset(Config, path);
 		AssetDatabase.SaveAssets();
-		EditorUtility.FocusProjectWindow();
+		UnityEditor.EditorUtility.FocusProjectWindow();
 		Selection.activeObject = Config;
 	}
 
