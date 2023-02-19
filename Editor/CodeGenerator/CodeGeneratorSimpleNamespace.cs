@@ -3,7 +3,7 @@
 
 public sealed class CodeGeneratorSimpleNamespace : ICodeGenerator
 {
-	private const string Template = "\nnamespace {0}\n{{{1}}}\n";
+	private const string Template = "namespace {0}\n{{\n{1}}}\n";
 
 	private readonly string _name;
 

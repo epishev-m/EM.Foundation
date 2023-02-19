@@ -10,7 +10,7 @@ public abstract class ScriptableObjectAssistantWindowComponent<T> : IAssistantWi
 {
 	protected string ConfigPath;
 
-	protected T Config;
+	protected T Settings;
 
 	#region IAssistantWindowComponent
 
@@ -25,13 +25,13 @@ public abstract class ScriptableObjectAssistantWindowComponent<T> : IAssistantWi
 
 		if (!string.IsNullOrWhiteSpace(ConfigPath))
 		{
-			Config = AssetDatabase.LoadAssetAtPath(ConfigPath, typeof(T)) as T;
+			Settings = AssetDatabase.LoadAssetAtPath(ConfigPath, typeof(T)) as T;
 		}
 	}
 
 	public void OnGUI()
 	{
-		if (Config == null)
+		if (Settings == null)
 		{
 			OnGUIButtons();
 		}
@@ -82,11 +82,11 @@ public abstract class ScriptableObjectAssistantWindowComponent<T> : IAssistantWi
 			return;
 		}
 
-		Config = ScriptableObject.CreateInstance<T>();
-		AssetDatabase.CreateAsset(Config, path);
+		Settings = ScriptableObject.CreateInstance<T>();
+		AssetDatabase.CreateAsset(Settings, path);
 		AssetDatabase.SaveAssets();
 		UnityEditor.EditorUtility.FocusProjectWindow();
-		Selection.activeObject = Config;
+		Selection.activeObject = Settings;
 	}
 
 	private void SelectConfig()
@@ -99,26 +99,26 @@ public abstract class ScriptableObjectAssistantWindowComponent<T> : IAssistantWi
 		}
 
 		path = "Assets" + path.Remove(0, Application.dataPath.Length);
-		Config = AssetDatabase.LoadAssetAtPath<T>(path);
+		Settings = AssetDatabase.LoadAssetAtPath<T>(path);
 	}
 
 	private void SetAddressableFlag()
 	{
-		var path = AssetDatabase.GetAssetPath(Config);
+		var path = AssetDatabase.GetAssetPath(Settings);
 		var guiID = AssetDatabase.AssetPathToGUID(path);
 		var settings = AddressableAssetSettingsDefaultObject.Settings;
 		var assetEntry = settings.CreateOrMoveEntry(guiID, settings.DefaultGroup);
-		assetEntry.address = Config.name;
+		assetEntry.address = Settings.name;
 	}
 
 	private void CheckPath()
 	{
-		if (Config == null)
+		if (Settings == null)
 		{
 			return;
 		}
 
-		var path = AssetDatabase.GetAssetPath(Config);
+		var path = AssetDatabase.GetAssetPath(Settings);
 
 		if (path == ConfigPath)
 		{
@@ -132,7 +132,7 @@ public abstract class ScriptableObjectAssistantWindowComponent<T> : IAssistantWi
 	private void OnGUIConfigField()
 	{
 		GUI.enabled = false;
-		EditorGUILayout.ObjectField(Config, typeof(T), false);
+		EditorGUILayout.ObjectField(Settings, typeof(T), false);
 		GUI.enabled = true;
 		EditorGUILayout.Space();
 	}

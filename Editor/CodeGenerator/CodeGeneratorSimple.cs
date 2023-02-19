@@ -27,7 +27,7 @@ public sealed class CodeGeneratorSimple : ICodeGenerator
 
 		try
 		{
-			using var stream = File.Open(_path + _name, FileMode.Create, FileAccess.Write);
+			using var stream = File.Open(_path + "/" + _name, FileMode.Create, FileAccess.Write);
 			using var writer = new StreamWriter(stream);
 			writer.Write(code);
 		}
