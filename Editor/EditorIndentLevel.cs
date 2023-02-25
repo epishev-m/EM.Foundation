@@ -1,29 +1,31 @@
 namespace EM.Foundation.Editor
 {
-    using System;
-    using UnityEditor;
-    
-    public sealed class EditorIndentLevel : IDisposable
-    {
-        private readonly int _level;
 
-        #region IDisposable
+using System;
+using UnityEditor;
 
-        public void Dispose()
-        {
-            EditorGUI.indentLevel -= _level;
-        }
+public sealed class EditorIndentLevel : IDisposable
+{
+	private readonly int _level;
 
-        #endregion
+	#region IDisposable
 
-        #region EditorGUIIndentLevel
+	public void Dispose()
+	{
+		EditorGUI.indentLevel -= _level;
+	}
 
-        public EditorIndentLevel(int level = 1)
-        {
-            _level = level;
-            EditorGUI.indentLevel += _level;
-        }
+	#endregion
 
-        #endregion
-    }
+	#region EditorGUIIndentLevel
+
+	public EditorIndentLevel(int level = 1)
+	{
+		_level = level;
+		EditorGUI.indentLevel += _level;
+	}
+
+	#endregion
+}
+
 }

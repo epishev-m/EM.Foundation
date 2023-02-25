@@ -38,8 +38,6 @@ public sealed class CodeGeneratorSimple : ICodeGenerator
 			throw;
 		}
 
-		AssetDatabase.Refresh();
-
 		return code;
 	}
 

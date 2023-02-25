@@ -1,32 +1,35 @@
 namespace EM.Foundation.Editor
 {
-    using System;
-    using UnityEngine;
-    using UnityEditor;
-    
-    public sealed class EditorHorizontalGroup : IDisposable
-    {
-        #region IDisposable
 
-        public void Dispose()
-        {
-            EditorGUILayout.EndHorizontal();
-        }
+using System;
+using UnityEngine;
+using UnityEditor;
 
-        #endregion
+public sealed class EditorHorizontalGroup : IDisposable
+{
+	#region IDisposable
 
-        #region EditorHorizontalGroup
+	public void Dispose()
+	{
+		EditorGUILayout.EndHorizontal();
+	}
 
-        public EditorHorizontalGroup()
-        {
-            EditorGUILayout.BeginHorizontal();
-        }
+	#endregion
 
-        public EditorHorizontalGroup(string style, params GUILayoutOption[] options)
-        {
-            EditorGUILayout.BeginHorizontal(style, options);
-        }
+	#region EditorHorizontalGroup
 
-        #endregion
-    }
+	public EditorHorizontalGroup()
+	{
+		EditorGUILayout.BeginHorizontal();
+	}
+
+	public EditorHorizontalGroup(string style,
+		params GUILayoutOption[] options)
+	{
+		EditorGUILayout.BeginHorizontal(style, options);
+	}
+
+	#endregion
+}
+
 }

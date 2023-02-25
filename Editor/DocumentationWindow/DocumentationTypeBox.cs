@@ -8,7 +8,6 @@ using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.Events;
 
-
 public sealed class DocumentationTypeBox
 {
 	private readonly DocumentationType _docType;

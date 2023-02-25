@@ -1,26 +1,28 @@
 namespace EM.Foundation.Editor
 {
-    using System;
-    using UnityEditor;
-    
-    public sealed class EditorScrollView : IDisposable
-    {
-        #region IDisposable
 
-        public void Dispose()
-        {
-            EditorGUILayout.EndScrollView();
-        }
+using System;
+using UnityEditor;
 
-        #endregion
+public sealed class EditorScrollView : IDisposable
+{
+	#region IDisposable
 
-        #region EditorScrollView
+	public void Dispose()
+	{
+		EditorGUILayout.EndScrollView();
+	}
 
-        public EditorScrollView(ref UnityEngine.Vector2 scrollPos)
-        {
-            scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
-        }
+	#endregion
 
-        #endregion
-    }
+	#region EditorScrollView
+
+	public EditorScrollView(ref UnityEngine.Vector2 scrollPos)
+	{
+		scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+	}
+
+	#endregion
+}
+
 }

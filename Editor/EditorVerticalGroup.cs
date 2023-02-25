@@ -1,32 +1,35 @@
 namespace EM.Foundation.Editor
 {
-    using System;
-    using UnityEditor;
-    using UnityEngine;
 
-    public sealed class EditorVerticalGroup : IDisposable
-    {
-        #region IDisposable
+using System;
+using UnityEditor;
+using UnityEngine;
 
-        public void Dispose()
-        {
-            EditorGUILayout.EndVertical();
-        }
+public sealed class EditorVerticalGroup : IDisposable
+{
+	#region IDisposable
 
-        #endregion
+	public void Dispose()
+	{
+		EditorGUILayout.EndVertical();
+	}
 
-        #region EditorVerticalGroup
+	#endregion
 
-        public EditorVerticalGroup()
-        {
-            EditorGUILayout.BeginVertical();
-        }
+	#region EditorVerticalGroup
 
-        public EditorVerticalGroup(string style, params GUILayoutOption[] options)
-        {
-            EditorGUILayout.BeginVertical(style, options);
-        }
+	public EditorVerticalGroup()
+	{
+		EditorGUILayout.BeginVertical();
+	}
 
-        #endregion
-    }
+	public EditorVerticalGroup(string style,
+		params GUILayoutOption[] options)
+	{
+		EditorGUILayout.BeginVertical(style, options);
+	}
+
+	#endregion
+}
+
 }
