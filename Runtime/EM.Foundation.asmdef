@@ -2,10 +2,10 @@
     "name": "EM.Foundation",
     "rootNamespace": "",
     "references": [
-        "Unity.Nuget.NewtonsoftJson.EditorTests",
-        "Unity.Addressables",
+        "UniTask.Addressables",
         "Unity.ResourceManager",
-        "UniTask"
+        "UniTask",
+        "Unity.Addressables"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
