@@ -54,7 +54,7 @@ public class PoolInstanceProvider<T> : IPool<T>
 
 	public PoolInstanceProvider(IInstanceProvider<T> instanceProvider)
 	{
-		Requires.NotNull(instanceProvider, nameof(instanceProvider));
+		Requires.NotNullParam(instanceProvider, nameof(instanceProvider));
 
 		_instanceProvider = instanceProvider;
 	}

@@ -19,7 +19,7 @@ public class InstanceProvider :
 
 	public InstanceProvider(object instance)
 	{
-		Requires.NotNull(instance, nameof(instance));
+		Requires.NotNullParam(instance, nameof(instance));
 
 		_instance = instance;
 	}

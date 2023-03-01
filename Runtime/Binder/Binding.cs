@@ -33,7 +33,7 @@ public class Binding : IBinding
 
 	public IBinding To(object value)
 	{
-		Requires.NotNull(value, nameof(value));
+		Requires.NotNullParam(value, nameof(value));
 
 		_values.AddLast(value);
 		_resolver?.Invoke(this);
@@ -56,7 +56,7 @@ public class Binding : IBinding
 
 	public IBinding ToName(object name)
 	{
-		Requires.NotNull(name, nameof(name));
+		Requires.NotNullParam(name, nameof(name));
 
 		Name = name;
 		_resolver?.Invoke(this);
@@ -82,7 +82,7 @@ public class Binding : IBinding
 		object name,
 		Resolver resolver)
 	{
-		Requires.NotNull(key, nameof(key));
+		Requires.NotNullParam(key, nameof(key));
 
 		Key = key;
 		Name = name;

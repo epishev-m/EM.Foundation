@@ -75,7 +75,7 @@ public sealed class RequiresTests
 		// Act
 		try
 		{
-			Requires.NotNull(default(object), string.Empty);
+			Requires.NotNullParam(default(object), string.Empty);
 		}
 		catch (ArgumentNullException)
 		{
@@ -95,7 +95,7 @@ public sealed class RequiresTests
 		// Act
 		try
 		{
-			Requires.NotNull(default, string.Empty);
+			Requires.NotNullParam(default, string.Empty);
 		}
 		catch (ArgumentNullException)
 		{
@@ -116,7 +116,7 @@ public sealed class RequiresTests
 		// Act
 		try
 		{
-			Requires.Null(instance, string.Empty);
+			Requires.NullParam(instance, string.Empty);
 		}
 		catch (ArgumentException)
 		{
@@ -137,7 +137,7 @@ public sealed class RequiresTests
 		// Act
 		try
 		{
-			Requires.Null(instance, string.Empty);
+			Requires.NullParam(instance, string.Empty);
 		}
 		catch (ArgumentException)
 		{

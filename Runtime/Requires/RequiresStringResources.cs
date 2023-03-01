@@ -6,6 +6,13 @@ using System.Globalization;
 
 internal static class RequiresStringResources
 {
+	internal static string SuppliedObjectCannotBeNull(string objectName)
+	{
+		return string.Format(CultureInfo.InvariantCulture,
+			"The supplied object {0} cannot be null.",
+			objectName);
+	}
+	
 	internal static string SuppliedTypeIsNotAReferenceType(Type type)
 	{
 		return string.Format(CultureInfo.InvariantCulture,

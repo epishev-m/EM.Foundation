@@ -41,7 +41,7 @@ public sealed class AssistantWindowComponentGroupBox : IAssistantWindowComponent
 
 	public AssistantWindowComponentGroupBox(IAssistantWindowComponent component)
 	{
-		Requires.NotNull(component, nameof(component));
+		Requires.NotNullParam(component, nameof(component));
 
 		_component = component;
 	}

@@ -53,7 +53,7 @@ public abstract class StateMachine<TState> : IStateMachine<TState>
 	protected StateMachine(IStateFactory<TState> stateFactory)
 	{
 
-		Requires.NotNull(stateFactory, nameof(stateFactory));
+		Requires.NotNullParam(stateFactory, nameof(stateFactory));
 
 		_stateFactory = stateFactory;
 	}

@@ -32,7 +32,7 @@ public sealed class InstanceProviderSingleton : IInstanceProvider
 
 	public InstanceProviderSingleton(IInstanceProvider instanceProvider)
 	{
-		Requires.NotNull(instanceProvider, nameof(instanceProvider));
+		Requires.NotNullParam(instanceProvider, nameof(instanceProvider));
 
 		_instanceProvider = instanceProvider;
 	}

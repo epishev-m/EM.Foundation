@@ -3,11 +3,11 @@
 
 using System;
 
-public sealed class RxProperty<T>
+public sealed class RxProperty<T> : IRxProperty<T>
 {
 	private T _value;
 
-	private event Action OnChanged;
+	public event Action<T> OnChanged;
 
 	#region RxProperty
 
@@ -22,21 +22,21 @@ public sealed class RxProperty<T>
 			}
 
 			_value = value;
-			OnChanged?.Invoke();
+			OnChanged?.Invoke(_value);
 		}
 	}
 
-	public void Subscribe(Action handler)
+	public void Subscribe(Action<T> handler)
 	{
-		Requires.NotNull(handler, nameof(handler));
+		Requires.NotNullParam(handler, nameof(handler));
 
 		OnChanged += handler;
-		OnChanged?.Invoke();
+		handler?.Invoke(_value);
 	}
 
-	public void UnSubscribe(Action handler)
+	public void UnSubscribe(Action<T> handler)
 	{
-		Requires.NotNull(handler, nameof(handler));
+		Requires.NotNullParam(handler, nameof(handler));
 
 		OnChanged -= handler;
 	}

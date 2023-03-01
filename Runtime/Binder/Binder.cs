@@ -20,7 +20,7 @@ public class Binder : IBinder
 	public IBinding Bind(object key,
 		object name = null)
 	{
-		Requires.NotNull(key, nameof(key));
+		Requires.NotNullParam(key, nameof(key));
 
 		var binding = GetBinding(key, name) ??
 					GetRawBinding(key, name);
@@ -36,7 +36,7 @@ public class Binder : IBinder
 	public bool Unbind(object key,
 		object name = null)
 	{
-		Requires.NotNull(key, nameof(key));
+		Requires.NotNullParam(key, nameof(key));
 
 		var bindingKey = new BindingKey(key, name);
 
@@ -72,7 +72,7 @@ public class Binder : IBinder
 	protected IBinding GetBinding(object key,
 		object name = null)
 	{
-		Requires.NotNull(key, nameof(key));
+		Requires.NotNullParam(key, nameof(key));
 
 		IBinding result = default;
 		var bindingKey = new BindingKey(key, name);

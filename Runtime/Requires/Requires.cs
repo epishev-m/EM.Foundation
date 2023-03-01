@@ -40,42 +40,62 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void NotNull(object instance,
+	public static void NotNullParam(object instance,
 		string paramName)
 	{
 		if (instance == null)
 		{
 			ThrowArgumentNullException(paramName);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void NotNullParam(UnityEngine.Object instance,
+		string paramName)
+	{
+		if (instance == null)
+		{
+			ThrowArgumentNullException(paramName);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void NullParam(object instance,
+		string paramName)
+	{
+		if (instance != null)
+		{
+			ThrowArgumentException(paramName);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void NullParam(UnityEngine.Object instance,
+		string paramName)
+	{
+		if (instance != null)
+		{
+			ThrowArgumentException(paramName);
+		}
+	}
+	
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void NotNull(object instance,
+		string objectName)
+	{
+		if (instance == null)
+		{
+			ThrowNullReferenceException(RequiresStringResources.SuppliedObjectCannotBeNull(objectName));
 		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void NotNull(UnityEngine.Object instance,
-		string paramName)
+		string objectName)
 	{
 		if (instance == null)
 		{
-			ThrowArgumentNullException(paramName);
-		}
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Null(object instance,
-		string paramName)
-	{
-		if (instance != null)
-		{
-			ThrowArgumentException(paramName);
-		}
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void Null(UnityEngine.Object instance,
-		string paramName)
-	{
-		if (instance != null)
-		{
-			ThrowArgumentException(paramName);
+			ThrowNullReferenceException(RequiresStringResources.SuppliedObjectCannotBeNull(objectName));
 		}
 	}
 
@@ -112,6 +132,11 @@ public static class Requires
 			ThrowArgumentException(paramName,
 				RequiresStringResources.SuppliedTypeIsNotAGivenType(instance.GetType(), typeof(T)));
 		}
+	}
+
+	private static void ThrowNullReferenceException(string message)
+	{
+		throw new NullReferenceException(message);
 	}
 
 	private static void ThrowArgumentNullException(string paramName)

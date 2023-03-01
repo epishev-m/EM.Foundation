@@ -68,7 +68,7 @@ public sealed class ReflectionInfo : IReflectionInfo
 
 	public ReflectionInfo(Type type)
 	{
-		Requires.NotNull(type, nameof(type));
+		Requires.NotNullParam(type, nameof(type));
 
 		_type = type;
 	}

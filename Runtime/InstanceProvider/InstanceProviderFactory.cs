@@ -33,7 +33,7 @@ public sealed class InstanceProviderFactory : IInstanceProvider
 
 	public InstanceProviderFactory(IInstanceProvider instanceProvider)
 	{
-		Requires.NotNull(instanceProvider, nameof(instanceProvider));
+		Requires.NotNullParam(instanceProvider, nameof(instanceProvider));
 
 		_instanceProvider = instanceProvider;
 	}
