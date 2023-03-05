@@ -7,9 +7,9 @@ public sealed class RxProperty<T> : IRxProperty<T>
 {
 	private T _value;
 
-	public event Action<T> OnChanged;
-
 	#region RxProperty
+
+	public event Action OnChanged;
 
 	public T Value
 	{
@@ -22,28 +22,8 @@ public sealed class RxProperty<T> : IRxProperty<T>
 			}
 
 			_value = value;
-			OnChanged?.Invoke(_value);
+			OnChanged?.Invoke();
 		}
-	}
-
-	public void Subscribe(Action<T> handler)
-	{
-		Requires.NotNullParam(handler, nameof(handler));
-
-		OnChanged += handler;
-		handler?.Invoke(_value);
-	}
-
-	public void UnSubscribe(Action<T> handler)
-	{
-		Requires.NotNullParam(handler, nameof(handler));
-
-		OnChanged -= handler;
-	}
-
-	public void UnSubscribeAll()
-	{
-		OnChanged = null;
 	}
 
 	#endregion

@@ -33,13 +33,13 @@ public sealed class RxPropertyTests
 			Value = 1
 		};
 
-		rxProperty.Subscribe(i =>
+		rxProperty.OnChanged += ()=>
 		{
-			actual = i;
-		});
+			actual = rxProperty.Value;
+		};
 
 		//Assert
-		Assert.AreEqual(1, actual);
+		Assert.AreEqual(0, actual);
 	}
 
 	[Test]
@@ -50,7 +50,7 @@ public sealed class RxPropertyTests
 
 		// Act
 		var rxProperty = new RxProperty<int>();
-		rxProperty.Subscribe(i =>actual = i);
+		rxProperty.OnChanged += () => actual = rxProperty.Value;
 		rxProperty.Value = 1;
 
 		//Assert
@@ -70,11 +70,7 @@ public sealed class RxPropertyTests
 			Value = 0
 		};
 
-		rxProperty.Subscribe(i =>
-		{
-			actual = i;
-		});
-
+		rxProperty.OnChanged += ()=> actual = rxProperty.Value;
 		rxProperty.Value = value;
 
 		//Assert
@@ -88,13 +84,13 @@ public sealed class RxPropertyTests
 		const int value = 1;
 		var actual = 0;
 
-		void Test(int i) => actual = i;
-
 		// Act
 		var rxProperty = new RxProperty<int>();
-		rxProperty.Subscribe(Test);
-		rxProperty.UnSubscribe(Test);
+		rxProperty.OnChanged += Test;
+		rxProperty.OnChanged -= Test;
 		rxProperty.Value = value;
+
+		void Test() => actual = rxProperty.Value;
 
 		//Assert
 		Assert.AreEqual(0, actual);
