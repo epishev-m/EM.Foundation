@@ -8,7 +8,7 @@ using BindingKey = System.ValueTuple<object, object>;
 
 public class Binder : IBinder
 {
-	private readonly Dictionary<BindingKey, IBinding> _bindings = new(128);
+	protected readonly Dictionary<BindingKey, IBinding> Bindings = new(128);
 
 	#region IBinder
 
@@ -40,19 +40,19 @@ public class Binder : IBinder
 
 		var bindingKey = new BindingKey(key, name);
 
-		if (!_bindings.ContainsKey(bindingKey))
+		if (!Bindings.ContainsKey(bindingKey))
 		{
 			return false;
 		}
 
-		_bindings.Remove(bindingKey);
+		Bindings.Remove(bindingKey);
 
 		return true;
 	}
 
 	public void Unbind(Predicate<IBinding> match)
 	{
-		var resultList = _bindings.Where(keyValue => match(keyValue.Value)).ToArray();
+		var resultList = Bindings.Where(keyValue => match(keyValue.Value)).ToArray();
 
 		foreach (var pair in resultList)
 		{
@@ -62,7 +62,7 @@ public class Binder : IBinder
 
 	public void UnbindAll()
 	{
-		_bindings.Clear();
+		Bindings.Clear();
 	}
 
 	#endregion
@@ -77,9 +77,9 @@ public class Binder : IBinder
 		IBinding result = default;
 		var bindingKey = new BindingKey(key, name);
 
-		if (_bindings.ContainsKey(bindingKey))
+		if (Bindings.ContainsKey(bindingKey))
 		{
-			result = _bindings[bindingKey];
+			result = Bindings[bindingKey];
 		}
 
 		return result;
@@ -97,17 +97,17 @@ public class Binder : IBinder
 		{
 			var bindingKey = new BindingKey(binding.Key, null);
 
-			if (_bindings.ContainsKey(bindingKey))
+			if (Bindings.ContainsKey(bindingKey))
 			{
-				_bindings.Remove(bindingKey);
+				Bindings.Remove(bindingKey);
 			}
 		}
 
 		var actualBindingKey = new BindingKey(binding.Key, binding.Name);
 
-		if (!_bindings.ContainsKey(actualBindingKey))
+		if (!Bindings.ContainsKey(actualBindingKey))
 		{
-			_bindings.Add(actualBindingKey, binding);
+			Bindings.Add(actualBindingKey, binding);
 		}
 	}
 

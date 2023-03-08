@@ -100,6 +100,26 @@ public static class Requires
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Null(object instance,
+		string paramName)
+	{
+		if (instance != null)
+		{
+			ThrowArgumentException(paramName);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Null(UnityEngine.Object instance,
+		string paramName)
+	{
+		if (instance != null)
+		{
+			ThrowArgumentException(paramName);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void ReferenceType(Type type,
 		string paramName)
 	{
