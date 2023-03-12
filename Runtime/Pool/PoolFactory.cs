@@ -3,25 +3,25 @@
 
 using System.Collections.Concurrent;
 
-public class PoolInstanceProvider<T> : IPool<T>
+public class PoolFactory<T> : IPool<T>
 	where T : class
 {
 	private readonly ConcurrentBag<T> _instances = new();
 
-	private readonly IInstanceProvider<T> _instanceProvider;
+	private readonly IFactory<T> _factory;
 
 	#region IPool
 
 	public int Count => _instances.Count;
 
-	public Result<T> GetObject()
+	public virtual Result<T> GetObject()
 	{
 		if (_instances.TryTake(out var item))
 		{
 			return new SuccessResult<T>(item);
 		}
 
-		var result = _instanceProvider.GetInstance();
+		var result = _factory.Create();
 
 		if (result.Failure)
 		{
@@ -31,7 +31,7 @@ public class PoolInstanceProvider<T> : IPool<T>
 		return result;
 	}
 
-	public Result PutObject(T obj)
+	public virtual Result PutObject(T obj)
 	{
 		if (obj == null)
 		{
@@ -50,13 +50,13 @@ public class PoolInstanceProvider<T> : IPool<T>
 
 	#endregion
 
-	#region PoolInstanceProvider
+	#region PoolFactory
 
-	public PoolInstanceProvider(IInstanceProvider<T> instanceProvider)
+	public PoolFactory(IFactory<T> factory)
 	{
-		Requires.NotNullParam(instanceProvider, nameof(instanceProvider));
+		Requires.NotNullParam(factory, nameof(factory));
 
-		_instanceProvider = instanceProvider;
+		_factory = factory;
 	}
 
 	#endregion

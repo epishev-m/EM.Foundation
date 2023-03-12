@@ -2,7 +2,7 @@
 using EM.Foundation;
 using NUnit.Framework;
 
-public sealed class PoolInstanceProviderTests
+public sealed class PoolFactoryTests
 {
 	[Test]
 	public void PoolInstanceProvider_Constructor_Exception()
@@ -13,7 +13,7 @@ public sealed class PoolInstanceProviderTests
 		// Act
 		try
 		{
-			var unused = new PoolInstanceProvider<TestObject>(default);
+			var unused = new PoolFactory<TestObject>(default);
 		}
 		catch (ArgumentNullException)
 		{
@@ -28,10 +28,10 @@ public sealed class PoolInstanceProviderTests
 	public void PoolInstanceProvider_GetObject_PoolIsEmptyResult()
 	{
 		// Arrange
-		var instanceProvider = new TestInstanceProvider(false);
+		var instanceProvider = new TestFactory(false);
 
 		// Act
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 		var actual = pool.GetObject();
 
 		// Assert
@@ -43,8 +43,8 @@ public sealed class PoolInstanceProviderTests
 	{
 		// Arrange
 		var actual = false;
-		var instanceProvider = new TestInstanceProvider(default);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(default);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 		var result = pool.GetObject();
 
 		// Act
@@ -65,8 +65,8 @@ public sealed class PoolInstanceProviderTests
 	public void PoolInstanceProvider_GetObject_SuccessResult()
 	{
 		// Arrange
-		var instanceProvider = new TestInstanceProvider(true);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(true);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		var actual = pool.GetObject();
@@ -80,8 +80,8 @@ public sealed class PoolInstanceProviderTests
 	{
 		// Arrange
 		var expected = new TestObject();
-		var instanceProvider = new TestInstanceProvider(false);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(false);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		pool.PutObject(expected);
@@ -96,8 +96,8 @@ public sealed class PoolInstanceProviderTests
 	public void PoolAndInstanceProvider_GetObject_NotNull()
 	{
 		// Arrange
-		var instanceProvider = new TestInstanceProvider(false);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(false);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		var actual = pool.GetObject();
@@ -111,8 +111,8 @@ public sealed class PoolInstanceProviderTests
 	{
 		// Arrange
 		var expected = new TestObject();
-		var instanceProvider = new TestInstanceProvider(true);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(true);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		pool.PutObject(expected);
@@ -131,8 +131,8 @@ public sealed class PoolInstanceProviderTests
 	public void PoolInstanceProvider_Count_NumberZero()
 	{
 		// Arrange
-		var instanceProvider = new TestInstanceProvider(default);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(default);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		var actual = pool.Count;
@@ -146,8 +146,8 @@ public sealed class PoolInstanceProviderTests
 	{
 		// Arrange
 		var testObject = new TestObject();
-		var instanceProvider = new TestInstanceProvider(false);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(false);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		pool.PutObject(testObject);
@@ -162,8 +162,8 @@ public sealed class PoolInstanceProviderTests
 	{
 		// Arrange
 		var testObject = new TestObject();
-		var instanceProvider = new TestInstanceProvider(false);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(false);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		pool.PutObject(testObject);
@@ -179,8 +179,8 @@ public sealed class PoolInstanceProviderTests
 	{
 		// Arrange
 		var testObject = new TestObject();
-		var instanceProvider = new TestInstanceProvider(false);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(false);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		var result = pool.PutObject(testObject);
@@ -194,8 +194,8 @@ public sealed class PoolInstanceProviderTests
 	public void PoolInstanceProvider_PutObject_ErrorResult()
 	{
 		// Arrange
-		var instanceProvider = new TestInstanceProvider(false);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(false);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		var result = pool.PutObject(null);
@@ -210,8 +210,8 @@ public sealed class PoolInstanceProviderTests
 	{
 		// Arrange
 		var testObject = new TestObject();
-		var instanceProvider = new TestInstanceProvider(default);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(default);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		pool.PutObject(testObject);
@@ -236,8 +236,8 @@ public sealed class PoolInstanceProviderTests
 	{
 		// Arrange
 		var testObject = new TestObject();
-		var instanceProvider = new TestInstanceProvider(default);
-		var pool = new PoolInstanceProvider<TestObject>(instanceProvider);
+		var instanceProvider = new TestFactory(default);
+		var pool = new PoolFactory<TestObject>(instanceProvider);
 
 		// Act
 		pool.PutObject(testObject);
@@ -283,18 +283,18 @@ public sealed class PoolInstanceProviderTests
 		}
 	}
 
-	private sealed class TestInstanceProvider : IInstanceProvider<TestObject>
+	private sealed class TestFactory : IFactory<TestObject>
 	{
 		private readonly bool _isCreated;
 
 		#region TestInstanceProvider
 
-		public TestInstanceProvider(bool isCreated)
+		public TestFactory(bool isCreated)
 		{
 			_isCreated = isCreated;
 		}
 
-		public Result<TestObject> GetInstance()
+		public Result<TestObject> Create()
 		{
 			if (!_isCreated)
 			{
