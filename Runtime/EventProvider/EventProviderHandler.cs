@@ -3,15 +3,21 @@ namespace EM.Foundation
 
 using System;
 
-public sealed class PropertyHandler : IDisposable
+public sealed class EventProviderHandler : IDisposable
 {
 	private IEventProvider _eventProvider;
+
 	private Action _handler;
 
 	#region IDisposable
 
 	public void Dispose()
 	{
+		if (_eventProvider is IDisposable disposable)
+		{
+			disposable.Dispose();
+		}
+
 		_eventProvider.OnChanged -= InvokeHandler;
 		_eventProvider = null;
 		_handler = null;
@@ -25,7 +31,6 @@ public sealed class PropertyHandler : IDisposable
 		Action handler)
 	{
 		Requires.NotNullParam(eventProvider, nameof(eventProvider));
-		Requires.NotNullParam(handler, nameof(handler));
 
 		_eventProvider = eventProvider;
 		_handler = handler;

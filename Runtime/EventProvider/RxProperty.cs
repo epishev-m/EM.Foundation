@@ -7,9 +7,9 @@ public sealed class RxProperty<T> : IRxProperty<T>
 {
 	private T _value;
 
-	#region RxProperty
-
 	public event Action OnChanged;
+
+	#region IRxProperty
 
 	public T Value
 	{
@@ -24,6 +24,15 @@ public sealed class RxProperty<T> : IRxProperty<T>
 			_value = value;
 			OnChanged?.Invoke();
 		}
+	}
+
+	#endregion
+
+	#region RxProperty
+
+	public void SetValueWithoutNotify(T value)
+	{
+		_value = value;
 	}
 
 	#endregion
