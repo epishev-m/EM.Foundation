@@ -11,9 +11,10 @@ public static class EditorLayoutUtility
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 	}
 
-	public static void ToolbarSearch(ref string filter)
+	public static void ToolbarSearch(ref string filter,
+		float space = 0f)
 	{
-		using (new EditorHorizontalGroup())
+		using (new EditorHorizontalGroup(space))
 		{
 			filter = GUILayout.TextField(filter, GUI.skin.FindStyle("ToolbarSeachTextField"));
 

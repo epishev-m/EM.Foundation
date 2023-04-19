@@ -18,9 +18,14 @@ public sealed class EditorHorizontalGroup : IDisposable
 
 	#region EditorHorizontalGroup
 
-	public EditorHorizontalGroup()
+	public EditorHorizontalGroup(float space = 0)
 	{
 		EditorGUILayout.BeginHorizontal();
+
+		if (space != 0)
+		{
+			GUILayout.Space(space);
+		}
 	}
 
 	public EditorHorizontalGroup(string style,
