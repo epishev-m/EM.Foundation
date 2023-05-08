@@ -8,6 +8,11 @@ using UnityEngine;
 
 public interface IAssetsManager
 {
+	Result<GameObject> Instantiate(string key);
+
+	Result<GameObject> Instantiate(string key,
+		Transform parent);
+
 	UniTask<Result<GameObject>> InstantiateAsync(string key,
 		CancellationToken ct);
 
@@ -15,6 +20,13 @@ public interface IAssetsManager
 		Transform parent,
 		CancellationToken ct);
 
+	Result<T> Instantiate<T>(string key)
+		where T : Component;
+
+	Result<T> Instantiate<T>(string key,
+		Transform parent)
+		where T : Component;
+	
 	UniTask<Result<T>> InstantiateAsync<T>(string key,
 		CancellationToken ct)
 		where T : Component;
