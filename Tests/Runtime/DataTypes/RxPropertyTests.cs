@@ -33,10 +33,7 @@ public sealed class RxPropertyTests
 			Value = 1
 		};
 
-		rxProperty.OnChanged += ()=>
-		{
-			actual = rxProperty.Value;
-		};
+		rxProperty.OnChanged += value => actual = value;
 
 		//Assert
 		Assert.AreEqual(0, actual);
@@ -50,7 +47,7 @@ public sealed class RxPropertyTests
 
 		// Act
 		var rxProperty = new RxProperty<int>();
-		rxProperty.OnChanged += () => actual = rxProperty.Value;
+		rxProperty.OnChanged += value => actual = value;
 		rxProperty.Value = 1;
 
 		//Assert
@@ -70,7 +67,7 @@ public sealed class RxPropertyTests
 			Value = 0
 		};
 
-		rxProperty.OnChanged += ()=> actual = rxProperty.Value;
+		rxProperty.OnChanged += v => actual = v;
 		rxProperty.Value = value;
 
 		//Assert
@@ -90,7 +87,7 @@ public sealed class RxPropertyTests
 		rxProperty.OnChanged -= Test;
 		rxProperty.Value = value;
 
-		void Test() => actual = rxProperty.Value;
+		void Test(int v) => actual = v;
 
 		//Assert
 		Assert.AreEqual(0, actual);

@@ -7,9 +7,9 @@ public sealed class RxProperty<T> : IRxProperty<T>
 {
 	private T _value;
 
-	public event Action OnChanged;
-
 	#region IRxProperty
+
+	public event Action<T> OnChanged;
 
 	public T Value
 	{
@@ -22,7 +22,7 @@ public sealed class RxProperty<T> : IRxProperty<T>
 			}
 
 			_value = value;
-			OnChanged?.Invoke();
+			OnChanged?.Invoke(_value);
 		}
 	}
 
