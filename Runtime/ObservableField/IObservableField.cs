@@ -3,7 +3,7 @@ namespace EM.Foundation
 
 using System;
 
-public interface IRxProperty<out T>
+public interface IObservableField<out T>
 {
 	event Action<T> OnChanged;
 

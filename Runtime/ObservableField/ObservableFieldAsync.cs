@@ -1,14 +1,13 @@
-using System.Threading.Tasks;
-
 namespace EM.Foundation
 {
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
-public sealed class AsyncRxProperty<T> : IAsyncRxProperty<T>
+public sealed class ObservableFieldAsync<T> : IObservableFieldAsync<T>
 {
 	private T _value;
 
@@ -25,6 +24,11 @@ public sealed class AsyncRxProperty<T> : IAsyncRxProperty<T>
 	public UniTask SetValueAsync(T value,
 		CancellationToken ct)
 	{
+		if (EqualityComparer<T>.Default.Equals(_value, value))
+		{
+			return UniTask.CompletedTask;
+		}
+
 		_value = value;
 
 		if (OnChanged == null)

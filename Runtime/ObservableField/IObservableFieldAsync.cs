@@ -5,7 +5,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
-public interface IAsyncRxProperty<out T>
+public interface IObservableFieldAsync<out T>
 {
 	event Func<T, CancellationToken, UniTask> OnChanged;
 
