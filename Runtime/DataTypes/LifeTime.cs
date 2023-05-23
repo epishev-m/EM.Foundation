@@ -3,7 +3,7 @@
 
 public enum LifeTime
 {
-	External,
+	None,
 	Global,
 	Local
 }

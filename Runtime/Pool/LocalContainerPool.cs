@@ -39,11 +39,6 @@ public class LocalContainerPool<T> : IPool<T>
 			poolItem.Restore();
 		}
 
-		if (obj is IDisposable disposable)
-		{
-			disposable.Dispose();
-		}
-
 		obj.gameObject.SetActive(false);
 		_instances.Add(obj);
 

@@ -1,8 +1,7 @@
-﻿using Cysharp.Threading.Tasks;
-
-namespace EM.Foundation
+﻿namespace EM.Foundation
 {
 
+using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
 
@@ -26,7 +25,7 @@ public interface IAssetsManager
 	Result<T> Instantiate<T>(string key,
 		Transform parent)
 		where T : Component;
-	
+
 	UniTask<Result<T>> InstantiateAsync<T>(string key,
 		CancellationToken ct)
 		where T : Component;
