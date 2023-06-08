@@ -1,9 +1,7 @@
-﻿namespace EM.Game
+﻿namespace EM.Foundation
 {
 
-using System;
 using System.Collections.Concurrent;
-using Foundation;
 using UnityEngine;
 
 public class LocalContainerPool<T> : IPool<T>
