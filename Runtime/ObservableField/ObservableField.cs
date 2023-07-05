@@ -8,6 +8,8 @@ public sealed class ObservableField<T> : IObservableField<T>
 {
 	private T _value;
 
+	private bool _wasSettingValue;
+
 	#region IObservableField
 
 	public event Action<T> OnChanged;
@@ -20,11 +22,12 @@ public sealed class ObservableField<T> : IObservableField<T>
 
 	public void SetValue(T value)
 	{
-		if (EqualityComparer<T>.Default.Equals(_value, value))
+		if (_wasSettingValue && EqualityComparer<T>.Default.Equals(_value, value))
 		{
 			return;
 		}
 
+		_wasSettingValue = true;
 		_value = value;
 		OnChanged?.Invoke(_value);
 	}
