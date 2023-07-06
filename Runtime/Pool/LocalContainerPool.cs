@@ -50,10 +50,14 @@ public class LocalContainerPool<T> : IPool<T>
 	public LocalContainerPool(Component container)
 	{
 		var objects = container.GetComponentsInChildren<T>(true);
+		var containerObj = container.GetComponent<T>();
 
 		foreach (var obj in objects)
 		{
-			PutObject(obj);
+			if (containerObj != obj)
+			{
+				PutObject(obj);
+			}
 		}
 	}
 
