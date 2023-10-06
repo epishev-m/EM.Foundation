@@ -52,18 +52,6 @@
       <Compile Include="..\UPM\Runtime\InstanceProvider\InstanceProviderStringResources.cs">
         <Link>InstanceProvider\InstanceProviderStringResources.cs</Link>
       </Compile>
-      <Compile Include="..\UPM\Runtime\ObservableField\IObservableField.cs">
-        <Link>ObservableField\IObservableField.cs</Link>
-      </Compile>
-      <Compile Include="..\UPM\Runtime\ObservableField\IObservableFieldAsync.cs">
-        <Link>ObservableField\IObservableFieldAsync.cs</Link>
-      </Compile>
-      <Compile Include="..\UPM\Runtime\ObservableField\ObservableField.cs">
-        <Link>ObservableField\ObservableField.cs</Link>
-      </Compile>
-      <Compile Include="..\UPM\Runtime\ObservableField\ObservableFieldAsync.cs">
-        <Link>ObservableField\ObservableFieldAsync.cs</Link>
-      </Compile>
       <Compile Include="..\UPM\Runtime\Pool\IPool.cs">
         <Link>Pool\IPool.cs</Link>
       </Compile>
