@@ -1,0 +1,123 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <PackageId>EM.Foundation</PackageId>
+        <Authors>epishev-m</Authors>
+        <Version>0.0.3</Version>
+        <Title>EM.Foundation</Title>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/epishev-m/EM.Foundation</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Copyright>Copyright (c) 2023 Maxim Epishev (epishev.m@mail.ru)</Copyright>
+        <RootNamespace>EM.Foundation</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\UPM\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="..\UPM\Runtime\Binder\Binder.cs">
+        <Link>Binder\Binder.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Binder\Binding.cs">
+        <Link>Binder\Binding.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Binder\IBinder.cs">
+        <Link>Binder\IBinder.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Binder\IBinding.cs">
+        <Link>Binder\IBinding.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\DataTypes\IFactory.cs">
+        <Link>DataTypes\IFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\DataTypes\LifeTime.cs">
+        <Link>DataTypes\LifeTime.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\InstanceProvider\IInstanceProvider.cs">
+        <Link>InstanceProvider\IInstanceProvider.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\InstanceProvider\InstanceProvider.cs">
+        <Link>InstanceProvider\InstanceProvider.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\InstanceProvider\InstanceProviderFactory.cs">
+        <Link>InstanceProvider\InstanceProviderFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\InstanceProvider\InstanceProviderSingleton.cs">
+        <Link>InstanceProvider\InstanceProviderSingleton.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\InstanceProvider\InstanceProviderStringResources.cs">
+        <Link>InstanceProvider\InstanceProviderStringResources.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\ObservableField\IObservableField.cs">
+        <Link>ObservableField\IObservableField.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\ObservableField\IObservableFieldAsync.cs">
+        <Link>ObservableField\IObservableFieldAsync.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\ObservableField\ObservableField.cs">
+        <Link>ObservableField\ObservableField.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\ObservableField\ObservableFieldAsync.cs">
+        <Link>ObservableField\ObservableFieldAsync.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Pool\IPool.cs">
+        <Link>Pool\IPool.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Pool\IPoolable.cs">
+        <Link>Pool\IPoolable.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Pool\Pool.cs">
+        <Link>Pool\Pool.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Pool\PoolFactory.cs">
+        <Link>Pool\PoolFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Pool\PoolStringResources.cs">
+        <Link>Pool\PoolStringResources.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Reflector\IReflectionInfo.cs">
+        <Link>Reflector\IReflectionInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Reflector\IReflector.cs">
+        <Link>Reflector\IReflector.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Reflector\ReflectionInfo.cs">
+        <Link>Reflector\ReflectionInfo.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Reflector\Reflector.cs">
+        <Link>Reflector\Reflector.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Reflector\ReflectorStringResources.cs">
+        <Link>Reflector\ReflectorStringResources.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Requires\Requires.cs">
+        <Link>Requires\Requires.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Requires\RequiresStringResources.cs">
+        <Link>Requires\RequiresStringResources.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Result\ErrorResult.cs">
+        <Link>Result\ErrorResult.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Result\IErrorResult.cs">
+        <Link>Result\IErrorResult.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Result\NotFoundErrorResult.cs">
+        <Link>Result\NotFoundErrorResult.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Result\Result.cs">
+        <Link>Result\Result.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Result\SuccessResult.cs">
+        <Link>Result\SuccessResult.cs</Link>
+      </Compile>
+      <Compile Include="..\UPM\Runtime\Result\ValidationErrorResult.cs">
+        <Link>Result\ValidationErrorResult.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+</Project>
