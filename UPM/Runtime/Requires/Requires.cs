@@ -101,6 +101,59 @@ public static partial class Requires
 				RequiresStringResources.SuppliedTypeIsNotAGivenType(instance.GetType(), typeof(T)));
 		}
 	}
+
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void NotNullParam(UnityEngine.Object instance,
+		string paramName)
+	{
+		if (instance == null)
+		{
+			throw new ArgumentNullException(paramName);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void NullParam(UnityEngine.Object instance,
+		string paramName)
+	{
+		if (instance != null)
+		{
+			throw new ArgumentException(paramName);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void NotNull(UnityEngine.Object instance,
+		string objectName)
+	{
+		if (instance == null)
+		{
+			throw new NullReferenceException(RequiresStringResources.SuppliedObjectCannotBeNull(objectName));
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Null(UnityEngine.Object instance,
+		string paramName)
+	{
+		if (instance != null)
+		{
+			throw new ArgumentException(paramName);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void Type<T>(UnityEngine.Object instance,
+		string paramName)
+	{
+		if (instance is T == false)
+		{
+			throw new ArgumentException(paramName,
+				RequiresStringResources.SuppliedTypeIsNotAGivenType(instance.GetType(), typeof(T)));
+		}
+	}
+#endif
 }
 
 }
