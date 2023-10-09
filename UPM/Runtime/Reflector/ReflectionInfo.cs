@@ -37,11 +37,21 @@ public sealed class ReflectionInfo : IReflectionInfo
 			_ => new SuccessResult<ConstructorInfo>(constructors[0])
 		};
 
+		if (result.Success)
+		{
+			_constructorInfo = result.Data;
+		}
+
 		return result;
 	}
 
 	public Result<IEnumerable<Type>> GetConstructorParamTypes()
 	{
+		if (_constructorParamTypes != null)
+		{
+			return new SuccessResult<IEnumerable<Type>>(_constructorParamTypes);
+		}
+
 		var constructorInfo = GetConstructorInfo();
 
 		if (constructorInfo.Failure)
@@ -50,16 +60,16 @@ public sealed class ReflectionInfo : IReflectionInfo
 		}
 
 		var constructorParameters = constructorInfo.Data.GetParameters();
-		var constructorParametersTypes = constructorParameters.Select(param => param.ParameterType);
+		_constructorParamTypes = constructorParameters.Select(param => param.ParameterType);
 
-		return new SuccessResult<IEnumerable<Type>>(constructorParametersTypes);
+		return new SuccessResult<IEnumerable<Type>>(_constructorParamTypes);
 	}
 
 	public Result<IEnumerable<Attribute>> GetAttributes()
 	{
-		var attributes = _type.GetCustomAttributes(false).Select(a => (Attribute) a);
+		_attributes ??= _type.GetCustomAttributes(false).Select(a => (Attribute) a);
 
-		return new SuccessResult<IEnumerable<Attribute>>(attributes);
+		return new SuccessResult<IEnumerable<Attribute>>(_attributes);
 	}
 
 	#endregion
