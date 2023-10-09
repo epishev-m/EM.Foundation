@@ -1,9 +1,13 @@
 {
   "name": "com.em.foundation",
   "displayName": "EM.Foundation",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": {
     "name": "Maxim Epishev",
     "email": "epishev.m@mail.ru"
+  },
+  "dependencies": {
+    "com.cysharp.unitask": "2.4.1",
+    "com.unity.addressables": "1.21.18"
   }
 }

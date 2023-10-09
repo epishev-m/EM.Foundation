@@ -37,6 +37,9 @@
       <Compile Include="..\UPM\Runtime\DataTypes\LifeTime.cs">
         <Link>DataTypes\LifeTime.cs</Link>
       </Compile>
+      <Compile Include="..\UPM\Runtime\Factory\IFactory.cs">
+        <Link>IFactory.cs</Link>
+      </Compile>
       <Compile Include="..\UPM\Runtime\InstanceProvider\IInstanceProvider.cs">
         <Link>InstanceProvider\IInstanceProvider.cs</Link>
       </Compile>
